@@ -2,7 +2,8 @@
 namespace Controller;
 
 use \W\Controller\Controller;
-use \Model\RechercheModel;
+use \Model\MatiereModel;
+use \Model\ScolariteModel;
 
 class RechercheController extends Controller
 {
@@ -12,25 +13,30 @@ class RechercheController extends Controller
 	*/
 	public function recherche() {
 
-		$RechercheModel = new RechercheModel();
-		$RecherchesM = $RechercheModel->findAllMatieres();
+		$matieremodel = new MatiereModel();
+		$scolaritemodel = new ScolariteModel();
+		$recherchesm = $matieremodel->findAllNames();
+		$recherchess = $scolaritemodel ->findAllNames();
+
 		/* 
 		RecherchesM = array(
-			array('nom'=>'Maths'),
+			array('nom'=>'Maths'),	
 			array('nom' => 'Anglais')
 			...
 		)
 		*/
-		$RecherchesFormat = array();
+		$recherchesmformat = array();
 
-		foreach ($RecherchesM as $Recherche){
+
+		foreach ($recherchesm as $recherche){
 			/*
 			$RecherchesFormat = array(
 				'Maths'
 			)
 			*/
-			$RecherchesFormat[]=$Recherche['nom'];
+			$recherchesmformat[]=$recherche['nom'];
 		}
+
 		/*
 			Ici, recherche RecherchesFormat = array(
 				"Maths",
@@ -38,7 +44,7 @@ class RechercheController extends Controller
 				....
 			)
 		*/
-		$RecherchesJson = json_encode($RecherchesFormat);
+		$matieresjson = json_encode($recherchesmformat);
 
 		/*
 			$RecherchesJson = "[
@@ -48,15 +54,58 @@ class RechercheController extends Controller
 			]"
 		*/
 
-		$this->show('recherche/recherche', ['matieres' => $RecherchesJson]);	
+		/* 
+		RecherchesM = array(
+			array('nom'=>'Maths'),	
+			array('nom' => 'Anglais')
+			...
+		)
+		*/
+		$recherchessformat = array();
+
+
+		foreach ($recherchess as $recherche){
+			/*
+			$RecherchesFormat = array(
+				'Maths'
+			)
+			*/
+			$recherchessformat[]=$recherche['nom'];
+		}
+
+		/*
+			Ici, recherche RecherchesFormat = array(
+				"Maths",
+				"Anglais",
+				....
+			)
+		*/
+		$scolaritesjson = json_encode($recherchessformat);
+
+		/*
+			$RecherchesJson = "[
+				'Maths',
+				'Anglais',
+				...
+			]"
+		*/
+		$this->show('recherche/recherche', ['matieres' => $matieresjson, 'scolarites' => $scolaritesjson]);	
+
+
 		
 
 	}
+	public function result() {
+		debug($_POST);
+		$matieremodel = new MatiereModel();
+		$tabmat = array('nom' => $_POST['matiere']);
+		$resultm = $matieremodel->findByName($tabmat);
+		var_dump($resultm[0]['id_m']);
 
-	public function showMatiere() {
 
 
-		$this->show('recherche/recherche');
 	}
+
+
 }
 ?>
