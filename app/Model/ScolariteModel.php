@@ -7,7 +7,7 @@ class ScolariteModel extends Model
 
 	public function findAllScolarite()
 	{	
-		$scolarite = Model::findAll($orderBy = 'name', $orderDir = 'ASC', $limit = null, $offset = null);
+		$scolarite = Model::findAll($orderBy = 'nom', $orderDir = 'ASC', $limit = null, $offset = null);
 		return $scolarite;
 	}
 }

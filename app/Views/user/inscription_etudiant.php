@@ -19,10 +19,39 @@
   	</fieldset>
 
   	<fieldset id="part2">
-  		<input type="text" name="matiere" id="matiere" placeholder = "Matière"><br>
-  		<input type="text" name="classe_debut" id="classe_debut" placeholder = "Classe de début"><br>
-  		<input type="text" name="classe_fin" id="classe_fin" placeholder = "Classe de fin"><br>
+      <select name="matiere">
+        <option selected disabled >Matière</option>
+        <?php 
+            // var_dump($matiere);
+          foreach ($matiere as $indice) {
+           
+              echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
+          }
+        ?>
+      </select><br>
+  		
+      <select name="matiere">
+        <option selected disabled >Classe de début</option>
+        <?php 
+             foreach ($scolarite as $indice) {
+           
+             echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
+          }
+        ?>
+      </select><br>
 
+      <select name="matiere">
+        <option selected disabled >Classe de fin</option>
+        <?php 
+             foreach ($scolarite as $indice) {
+           
+             echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
+          }
+        ?>
+      </select><br>
+
+
+  	
   		<textarea name="parcours" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"></textarea><br>
 
 		<input type="radio" name="tyr_rdv" value="face_a_face" > Face à face<br>

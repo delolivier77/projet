@@ -4,8 +4,8 @@ namespace Controller;
 use \W\Controller\Controller;
 
 use \W\Model\UsersModel;
-use \Model\MatiereModel.php;
-use \Model\ScolariteModel.php;
+use \Model\MatiereModel;
+use \Model\ScolariteModel;
 use \W\Security\AuthentificationModel;
 
 
@@ -14,8 +14,12 @@ class UserController extends Controller
 
 
 	public function inscriptionEtudiant(){
-		
-		$this->show('user/inscription_etudiant');
+
+		$matiereModel = new MatiereModel();
+		$matiere = $matiereModel->findAllMatiere();
+		$scolariteModel = new ScolariteModel();
+		$scolarite = $scolariteModel->findAllScolarite();
+		$this->show('user/inscription_etudiant', ['matiere' => $matiere, 'scolarite' => $scolarite]);
 	}
 
 	public function addUser(){
@@ -35,8 +39,6 @@ class UserController extends Controller
 			$this->redirectToRoute('movie_index');
 		}
 	}
-
-
 }
 
 
