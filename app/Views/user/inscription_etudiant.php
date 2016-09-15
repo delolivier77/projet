@@ -1,5 +1,7 @@
 
-<form action="" method="post">
+
+
+<form action="<?= $this->url('user_add_user_etudiant')?>" method="post">
 	
 	<fieldset id="part1">
    		<input type="file" name="photo"><br>
@@ -14,7 +16,16 @@
   		<input type="text" name="adresse" id="adresse" placeholder = "Adresse"><br>
   		<input type="text" name="cp" id="cp" placeholder = "CP"><br>
   		<input type="text" name="ville" id="ville" placeholder = "Ville"><br>
-  		<input type="text" name="niveau_etude" id="niveau_etude" placeholder = "Niveau d'étude"><br>
+  		
+      <select name="niveau_etude">
+        <option selected disabled >Niveau d'étude</option>
+        <option value="BAC_1">Bac +1</option>
+        <option value="BAC_2">Bac +2</option>
+        <option value="BAC_3">Bac +3</option>
+        <option value="BAC_4">Bac +4</option>
+        <option value="BAC_5">Bac +5 ou plus</option>
+      </select><br>
+
   		<input type="text" name="carte_etudiant" id="carte_etudiant" placeholder = "N° de carte étudiant"><br>
   	</fieldset>
 
@@ -30,28 +41,27 @@
         ?>
       </select><br>
   		
-      <select name="matiere">
+      <select name="classe_debut">
         <option selected disabled >Classe de début</option>
         <?php 
              foreach ($scolarite as $indice) {
            
-             echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
+             echo '<option value="'. $indice['id_s'] . '">' .  $indice['nom']. '</option>';
           }
         ?>
       </select><br>
 
-      <select name="matiere">
+      <select name="classe_fin">
         <option selected disabled >Classe de fin</option>
         <?php 
              foreach ($scolarite as $indice) {
            
-             echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
+             echo '<option value="'. $indice['id_s'] . '">' .  $indice['nom']. '</option>';
           }
         ?>
       </select><br>
 
 
-  	
   		<textarea name="parcours" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"></textarea><br>
 
 		<input type="radio" name="tyr_rdv" value="face_a_face" > Face à face<br>
@@ -65,5 +75,8 @@
 	</fieldset>
 
   <input type="submit" name="enregister" value="Inscription">
+
+
+  <?php  debug($_POST); ?>
 
 </form>
