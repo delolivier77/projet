@@ -1,7 +1,6 @@
-	
-<form action="">
-	
 
+<form action="" method="post">
+	
 	<fieldset id="part1">
    		<input type="file" name="photo"><br>
 		<input type="radio" name="civilite" value="h" checked> M.
@@ -35,5 +34,7 @@
 		<textarea name="dispo" placeholder = "Vos disponibilités (ex: disponible le lundi de 18h à 20h"></textarea><br>
 		<input type="text" name="tarif" id="tarif" placeholder = "Tarif (ex: 15€)"><br>
 	</fieldset>
+
+  <input type="submit" name="enregister" value="Inscription">
 
 </form>
