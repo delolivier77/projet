@@ -15,4 +15,13 @@ class DefaultController extends Controller
 		$this->show('default/home');
 	}
 
+
+	/**
+	 * Page hello
+	 */
+	public function hello()
+	{
+		$this->show('default/hello', ['username' => 'Bruce Willis']);
+	}
+
 }

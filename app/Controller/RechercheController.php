@@ -4,6 +4,7 @@ namespace Controller;
 use \W\Controller\Controller;
 use \Model\MatiereModel;
 use \Model\ScolariteModel;
+use \Model\RechercheModel;
 
 class RechercheController extends Controller
 {
@@ -96,14 +97,19 @@ class RechercheController extends Controller
 
 	}
 	public function result() {
-		debug($_POST);
+		/*debug($_POST);*/
 		$matieremodel = new MatiereModel();
 		$tabmat = array('nom' => $_POST['matiere']);
 		$resultm = $matieremodel->findByName($tabmat);
-		var_dump($resultm[0]['id_m']);
-
-
-
+		/*var_dump($resultm[0]['id_m']);*/
+		$scolaritemodel = new ScolariteModel();
+		$tabsco = array('nom' => $_POST['scolarite']);
+		$results = $scolaritemodel->findByName($tabsco);
+		/*var_dump($results[0]['id_s']);*/
+		$recherchemodel = new RechercheModel();
+		$finalresult = $recherchemodel-> searchResult($_POST['ville'], $resultm[0]['id_m'], $results[0]['id_s']);
+		/*debug($finalresult);*/
+		$this->show('searchresult/searchresult');
 	}
 
 

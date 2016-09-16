@@ -20,7 +20,7 @@
 </style>
 <form method="POST" action="<?=$this->url('recherche_result') ?>">  
     <input placeholder="Matière" type="text" id="matiere" name="matiere">
-    <input placeholder="Niveau" type="text" id="niveau" name="niveau">
+    <input placeholder="Scolarité" type="text" id="niveau" name="scolarite">
     <input placeholder="Ville" type="text" id="searchTextField" name="ville">
     <input type="submit" value="Rechercher">
 </form>

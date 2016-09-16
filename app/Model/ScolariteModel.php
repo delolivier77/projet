@@ -13,5 +13,10 @@ class ScolariteModel extends Model
 		$recherches = Model::findAll($orderBy = 'id', $orderDir = 'ASC', $limit = null, $offset = null);*/
 		return $result;
 	}
+	public function findByName($name)
+	{
+		$scolarite = Model::search($name);
+		return $scolarite;
+	}
 }
 ?> 
