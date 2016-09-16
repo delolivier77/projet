@@ -5,28 +5,28 @@
 	
 	<fieldset id="part1">
    		<input type="file" name="photo"><br>
-		<input type="radio" name="civilite" value="h" checked> M.
-  		<input type="radio" name="civilite" value="m"> Mme<br>
+		  <input type="radio" name="civilite" value="M." checked>M.
+  		<input type="radio" name="civilite" value="Mme">Mme<br>
   		<input type="text" name="nom" id="nom" placeholder = "Nom"><br>
   		<input type="text" name="prenom" id="prenom" placeholder = "Prénom"><br>
   		<input type="text" name="email" id="email" placeholder = "Email"><br>
   		<input type="text" name="mdp" id="mdp" placeholder = "Mot de passe"><br>
   		<input type="text" name="date_naissance" id="date_naissance" placeholder = "Date de Naissance"><br>
-  		<input type="text" name="telephone" id="telephone" placeholder = "N° de téléphone"><br>
+  		<input type="text" name="tel" id="tel" placeholder = "N° de téléphone"><br>
   		<input type="text" name="adresse" id="adresse" placeholder = "Adresse"><br>
   		<input type="text" name="cp" id="cp" placeholder = "CP"><br>
   		<input type="text" name="ville" id="ville" placeholder = "Ville"><br>
   		
       <select name="niveau_etude">
         <option selected disabled >Niveau d'étude</option>
-        <option value="BAC_1">Bac +1</option>
-        <option value="BAC_2">Bac +2</option>
-        <option value="BAC_3">Bac +3</option>
-        <option value="BAC_4">Bac +4</option>
-        <option value="BAC_5">Bac +5 ou plus</option>
+        <option value="BAC +1">Bac +1</option>
+        <option value="BAC +2">Bac +2</option>
+        <option value="BAC +3">Bac +3</option>
+        <option value="BAC +4">Bac +4</option>
+        <option value="BAC +5 ou plus">Bac +5 ou plus</option>
       </select><br>
 
-  		<input type="text" name="carte_etudiant" id="carte_etudiant" placeholder = "N° de carte étudiant"><br>
+  		<input type="text" name="num_etudiant" id="num_etudiant" placeholder = "N° de carte étudiant"><br>
   	</fieldset>
 
   	<fieldset id="part2">
@@ -62,15 +62,15 @@
       </select><br>
 
 
-  		<textarea name="parcours" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"></textarea><br>
+  		<textarea name="description" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"></textarea><br>
 
-		<input type="radio" name="tyr_rdv" value="face_a_face" > Face à face<br>
-  		<input type="radio" name="tyr_rdv" value="webcam"> Webcam<br>
-  		<input type="radio" name="tyr_rdv" value="les_deux"> Les deux<br>
+		<input type="radio" name="type_rdv" value="faceface" > Face à face<br>
+  		<input type="radio" name="type_rdv" value="webcam"> Webcam<br>
+  		<input type="radio" name="type_rdv" value="both"> Les deux<br>
   	</fieldset>
 
 	<fieldset id="part3">
-		<textarea name="dispo" placeholder = "Vos disponibilités (ex: disponible le lundi de 18h à 20h"></textarea><br>
+		<textarea name="detail_dispo" placeholder = "Vos disponibilités (ex: disponible le lundi de 18h à 20h"></textarea><br>
 		<input type="text" name="tarif" id="tarif" placeholder = "Tarif (ex: 15€)"><br>
 	</fieldset>
 
