@@ -23,7 +23,7 @@
         <option value="BAC +2">Bac +2</option>
         <option value="BAC +3">Bac +3</option>
         <option value="BAC +4">Bac +4</option>
-        <option value="BAC +5 ou plus">Bac +5 ou plus</option>
+        <option value="BAC +5 ou plus">Bac +5 (ou +)</option>
       </select><br>
 
   		<input type="text" name="num_etudiant" id="num_etudiant" placeholder = "N° de carte étudiant"><br>
