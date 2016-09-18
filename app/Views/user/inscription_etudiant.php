@@ -33,8 +33,7 @@
       <select name="matiere">
         <option selected disabled >Matière</option>
         <?php 
-            // var_dump($matiere);
-          foreach ($matiere as $indice) {
+              foreach ($matiere as $indice) {
            
               echo '<option value="'. $indice['id_m'] . '">' .  $indice['nom']. '</option>';
           }
@@ -77,6 +76,6 @@
   <input type="submit" name="enregister" value="Inscription">
 
 
-  <?php  debug($_POST); ?>
+  
 
 </form>
