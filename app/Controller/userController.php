@@ -19,7 +19,7 @@ class UserController extends Controller
 		$matiere = $matiereModel->findAllMatiere();
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
-		$this->show('user/inscription_etudiant', ['matiere' => $matiere, 'scolarite' => $scolarite]);
+		$this->show('user/inscription_etudiant', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite]);
 	}
 
 
@@ -43,7 +43,6 @@ class UserController extends Controller
 		if(empty($_POST['photo']) || empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['date_naissance']) || empty($_POST['tel']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['niveau_etude']) || empty($_POST['num_etudiant']) || empty($_POST['matiere']) || empty($_POST['classe_debut']) || empty($_POST['classe_fin']) || empty($_POST['description']) || empty($_POST['description']) || empty($_POST['type_rdv']) || empty($_POST['tarif']))
 		{
 			$message .= "Tous les champs sont obligatoires <br>";
-			// $this->show('user/inscription_etudiant', ['matiere' => $matiere, 'scolarite' => $scolarite]);
 		}
 
 
@@ -72,15 +71,19 @@ class UserController extends Controller
 			$message .= "La date de naissance est incorrect !<br>";
 		}	
 
+		if (!empty($_POST['tarif']) && !preg_match("#^[0-9]+[,]?[0-9]*$#", $_POST['tarif']))
+		{
+			$message .= "Le tarif est incorrect !<br>";
+		}	
 
-		debug ($message);
-
+		
 		if (empty($message))
 		{
 
 			$email = htmlentities($_POST['email']);
 			$mdp = $auth->hashPassword($_POST['mdp']);
 			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
+			$tarif = str_replace(",", ".", $_POST['tarif']);
 
 			$newEtudiant = array('civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'photo' => $_POST['photo'], 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $_POST['tarif'], 'type_rdv' => $_POST['type_rdv']);
 	
@@ -96,7 +99,11 @@ class UserController extends Controller
 			debug($newUser);
 			$userTable->setPrimaryKey('id_u');
 			$userTable->insert($newUser);
-
+			$this->redirectToRoute('user_inscription_etudiant');
+		}
+		else
+		{
+			$this->show('user/inscription_etudiant', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message]);
 		}
 
 	
