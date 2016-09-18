@@ -64,7 +64,7 @@
   		<input type="text" name="prenom" id="prenom" placeholder = "Prénom" value="<?= $prenom?>"><br>
   		<input type="text" name="email" id="email" placeholder = "Email" value="<?= $email?>"><br>
   		<input type="text" name="mdp" id="mdp" placeholder = "Mot de passe" value="<?= $mdp?>"><br>
-  		<input type="text" name="date_naissance" id="date_naissance (00/00/0000)" placeholder = "Date de Naissance" value="<?= $date_naissance?>"><br>
+  		<input type="text" name="date_naissance" id="date_naissance" placeholder = "Date de Naissance (00/00/0000)" value="<?= $date_naissance?>"><br>
   		<input type="text" name="tel" id="tel" placeholder = "N° de téléphone (0000000000)" value="<?= $tel?>"><br>
   		<input type="text" name="adresse" id="adresse" placeholder = "Adresse" value="<?= $adresse?>"><br>
   		<input type="text" name="cp" id="cp" placeholder = "CP (00000)" value="<?= $cp?>"><br>
@@ -83,43 +83,43 @@
   	</fieldset>
 
   	<fieldset id="part2">
-      <select name="matiere">
-        <option selected disabled >Matière</option>
-        <?php 
-           foreach ($matiere_list as $indice)
-           {
-              $m_selected = (isset($matiere) && $indice['id_m'] == $matiere) ? "selected" : "";
-              echo '<option value="'. $indice['id_m'] . '"'. $m_selected .'>' .  $indice['nom']. '</option>';
-           }
-        ?>
-      </select><br>
-  		
-      <select name="classe_debut">
-        <option selected disabled >Classe de début</option>
-        <?php 
-             foreach ($scolarite_list as $indice)
+        <select name="matiere">
+          <option selected disabled >Matière</option>
+          <?php 
+             foreach ($matiere_list as $indice)
              {
-               $cd_selected = (isset($classe_debut) && $indice['id_s'] == $classe_debut) ? "selected" : "";
-               echo '<option value="'. $indice['id_s'] . '"'. $cd_selected .'>' .  $indice['nom']. '</option>';
+                $m_selected = (isset($matiere) && $indice['id_m'] == $matiere) ? "selected" : "";
+                echo '<option value="'. $indice['id_m'] . '"'. $m_selected .'>' .  $indice['nom']. '</option>';
              }
-        ?>
-      </select><br>
+          ?>
+        </select><br>
+    		
+        <select name="classe_debut">
+          <option selected disabled >Classe de début</option>
+          <?php 
+               foreach ($scolarite_list as $indice)
+               {
+                 $cd_selected = (isset($classe_debut) && $indice['id_s'] == $classe_debut) ? "selected" : "";
+                 echo '<option value="'. $indice['id_s'] . '"'. $cd_selected .'>' .  $indice['nom']. '</option>';
+               }
+          ?>
+        </select><br>
 
-      <select name="classe_fin">
-        <option selected disabled >Classe de fin</option>
-        <?php 
-             foreach ($scolarite_list as $indice)
-             {
-               $cf_selected = (isset($classe_fin) && $indice['id_s'] == $classe_fin) ? "selected" : "";
-               echo '<option value="'. $indice['id_s'] . '"'. $cf_selected .'>' .  $indice['nom']. '</option>';
-            }
-        ?>
-      </select><br>
+        <select name="classe_fin">
+          <option selected disabled >Classe de fin</option>
+          <?php 
+               foreach ($scolarite_list as $indice)
+               {
+                 $cf_selected = (isset($classe_fin) && $indice['id_s'] == $classe_fin) ? "selected" : "";
+                 echo '<option value="'. $indice['id_s'] . '"'. $cf_selected .'>' .  $indice['nom']. '</option>';
+              }
+          ?>
+        </select><br>
 
 
-  		<textarea name="description" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"><?= $description?></textarea><br>
+  		  <textarea name="description" placeholder = "Décrivez votre parcours universitaire (ex: bac+2 en chimie)"><?= $description?></textarea><br>
 
-  		<input type="radio" name="type_rdv" value="faceface" <?= $rdv_ff?> > Face à face
+  		  <input type="radio" name="type_rdv" value="faceface" <?= $rdv_ff?> > Face à face
     		<input type="radio" name="type_rdv" value="webcam" <?= $rdv_w?> > Webcam
     		<input type="radio" name="type_rdv" value="both" <?= $rdv_2?> > Les deux<br>
     	</fieldset>
