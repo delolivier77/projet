@@ -51,12 +51,17 @@
   $detail_dispo = (isset($detail_dispo)) ? $detail_dispo : "";
   $tarif = (isset($tarif)) ? $tarif : "";
 
+ 
 
 ?>
 
-<form action="<?= $this->url('user_add_user_etudiant')?>" method="post">
+ 
+<form action="<?= $this->url('user_add_user_etudiant')?>" method="post" enctype="multipart/form-data">
 	
+ 
+
 	<fieldset id="part1">
+      <img src="<?= $this->assetUrl('img\visuels\user.png') ?>" alt="photo" width="120">
    		<input type="file" name="photo"><br>
 		  <input type="radio" name="civilite" value="M." <?= $civilite_h?>>M.
   		<input type="radio" name="civilite" value="Mme" <?= $civilite_f?>>Mme<br>

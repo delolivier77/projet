@@ -23,6 +23,8 @@
 
 <form action="<?= $this->url('user_add_user_particulier')?>" method="post">
 	
+      <img src="<?= $this->url('asset/img/visuel/user.png')?>" alt="">
+
    	  <input type="radio" name="civilite" value="M." <?= $civilite_h?>>M.
   		<input type="radio" name="civilite" value="Mme" <?= $civilite_f?>>Mme<br>
   		<input type="text" name="nom" id="nom" placeholder = "Nom" value="<?= $nom?>"><br>
