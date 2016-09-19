@@ -7,6 +7,7 @@ use \Model\MatiereModel;
 use \Model\ScolariteModel;
 use \Model\EtudiantModel;
 use \Model\ParticulierModel;
+use \Model\EnfantModel;
 use \W\Security\AuthentificationModel;
 
 
@@ -89,16 +90,14 @@ class UserController extends Controller
 			$newEtudiant = array('civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'photo' => $_POST['photo'], 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $tarif, 'type_rdv' => $_POST['type_rdv']);
 	
 			debug($newEtudiant);
-			$etudiantTable->setPrimaryKey('id_et');
-			$etudiantTable->insert($newEtudiant);
+			$id_etudiant = $etudiantTable->insert($newEtudiant);
 
-			$id_etudiant = $etudiantTable->lastInsertId();
-			debug($id_etudiant);
+			debug($id_etudiant['id_et']);
 
-			$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
+			$newUser = array('id_et' => $id_etudiant['id_et'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
 				
 			debug($newUser);
-			$userTable->setPrimaryKey('id_u');
+			// $userTable->setPrimaryKey('id_u');
 			$userTable->insert($newUser);
 			// $this->redirectToRoute('user_inscription_etudiant');
 			
@@ -119,9 +118,8 @@ class UserController extends Controller
 		$matiere = $matiereModel->findAllMatiere();
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
-		$this->show('user/inscription_particulier', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite]);
+		$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite]);
 	}
-
 
 
 	public function addUserParticulier()
@@ -133,13 +131,14 @@ class UserController extends Controller
 		$role = 'particulier';
 
 		$userTable = new UsersModel();
-		$etudiantTable = new EtudiantModel();
+		$particulierTable = new ParticulierModel();
+		$enfantTable = new EnfantModel();
 		$auth = new AuthentificationModel();
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
 		
 
-		if(empty($_POST['photo']) || empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['date_naissance']) || empty($_POST['tel']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['niveau_etude']) || empty($_POST['num_etudiant']) || empty($_POST['matiere']) || empty($_POST['classe_debut']) || empty($_POST['classe_fin']) || empty($_POST['description']) || empty($_POST['description']) || empty($_POST['type_rdv']) || empty($_POST['tarif']))
+		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['mdp']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']))
 		{
 			$message .= "Tous les champs sont obligatoires <br>";
 		}
@@ -170,47 +169,44 @@ class UserController extends Controller
 			$message .= "La date de naissance est incorrect !<br>";
 		}	
 
-		if (!empty($_POST['tarif']) && !preg_match("#^[0-9]+[,]?[0-9]*$#", $_POST['tarif']))
-		{
-			$message .= "Le tarif est incorrect !<br>";
-		}	
-
-		
+			
 		if (empty($message))
 		{
 			
 			$email = htmlentities($_POST['email']);
 			$mdp = $auth->hashPassword($_POST['mdp']);
 			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
-			$tarif = str_replace(",", ".", $_POST['tarif']);
-
-			$newEtudiant = array('civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'photo' => $_POST['photo'], 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $tarif, 'type_rdv' => $_POST['type_rdv']);
+			
+			$newParticulier = array('civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
 	
-			debug($newEtudiant);
-			$etudiantTable->setPrimaryKey('id_et');
-			$etudiantTable->insert($newEtudiant);
+			debug($newParticulier);
+			$id_particulier = $particulierTable->insert($newParticulier);
 
-			$id_etudiant = $etudiantTable->lastInsertId();
-			debug($id_etudiant);
+			debug($id_particulier['id_p']);
 
-			$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
+
+			$newEnfant = array('id_p' => $id_particulier['id_p'], 'id_s' => $_POST['classe'], 'prenom' => $_POST['prenom'], 'date_naissance' => $date_naissance);
+			debug($newEnfant);
+			$enfantTable->insert($newEnfant);
+
+
+			$newUser = array('id_p' => $id_particulier['id_p'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
 				
 			debug($newUser);
-			$userTable->setPrimaryKey('id_u');
+			// $userTable->setPrimaryKey('id_u');
 			$userTable->insert($newUser);
 			// $this->redirectToRoute('user_inscription_etudiant');
 			
 		}
 		else
 		{
-			$this->show('user/inscription_etudiant', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message]);
+			$this->show('user/inscription_particulier', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message]);
 		}
 		
 	}
 
 
-
-
+	
 }
 
 
