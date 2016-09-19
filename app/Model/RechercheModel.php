@@ -6,7 +6,7 @@ class RechercheModel extends Model
 {
 	public function searchResult($ville, $id_matiere, $id_scolarite)
 	{
-		$recherches = $this->dbh->prepare("SELECT u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, note
+		$recherches = $this->dbh->prepare("SELECT u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, note, avg(note) as moyenne
 
 			FROM user as u, matiere as m, connaissance as c, etudiant as e LEFT JOIN commentaire as co ON e.id_et = co.id_et
 			WHERE u.id_et = e.id_et
@@ -15,13 +15,15 @@ class RechercheModel extends Model
 			AND ville = :ville
 			AND c.id_m = :id_matiere
 			AND id_s_min <= :id_scolarite
-			AND id_s_max >= :id_scolarite");
+			AND id_s_max >= :id_scolarite
+			GROUP BY u.id_et");
 		
 		 	$recherches->execute(array('ville' => $ville, 'id_matiere' => $id_matiere, 'id_scolarite' => $id_scolarite));
 
 		 	$result = $recherches->fetchAll();
 		 	return $result;
 	}
+
 }
 
 

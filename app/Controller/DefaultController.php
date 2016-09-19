@@ -3,6 +3,7 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \Controller\RechercheController;
 
 class DefaultController extends Controller
 {
@@ -12,7 +13,9 @@ class DefaultController extends Controller
 	 */
 	public function home()
 	{
-		$this->show('default/home');
+		$rechercheController = new RechercheController();
+		$rechercheResults = $rechercheController->generateRechercheResults();
+		$this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]));
 	}
 
 

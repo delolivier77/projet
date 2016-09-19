@@ -6,7 +6,8 @@
 	<title>soutien-etudiant</title>
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/normalize.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/bootstrap.min.css'); ?>" type="text/css">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css">
 	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>">
@@ -40,19 +41,7 @@
 
 
 <!-- section	 -->
-		<section id="visuel">
-			<div class="row clearfix">
-
-				<h1>Un soutien scolaire pour votre enfant par des étudiants</h1>
-				<?= $this->section('main_content') ?>
-				<div class="col-lg-12"></div>
-
-				
-			</div>
-		</section>
-		<section>
-			<?= $this->section('search_result') ?>
-		</section>
+<?= $this->section('main_content') ?>
 <!-- footer -->
 
 	<footer class="container">

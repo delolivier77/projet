@@ -62,3 +62,10 @@
     border: 5px solid transparent;
 
 }
+.pac-icon{
+  display: none;
+  }
+  .pac-container:after {
+    background-image: none !important;
+    height: 0px;
+}

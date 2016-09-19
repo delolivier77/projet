@@ -14,6 +14,20 @@ class RechercheController extends Controller
 	*/
 	public function recherche() {
 
+		
+		$rechercheResults = $this->generateRechercheResults();
+		/*
+			$RecherchesJson = "[
+				'Maths',
+				'Anglais',
+				...
+			]"
+		*/
+		$this->show('recherche/recherche', ['matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);	
+
+	}
+
+	public function generateRechercheResults() {
 		$matieremodel = new MatiereModel();
 		$scolaritemodel = new ScolariteModel();
 		$recherchesm = $matieremodel->findAllNames();
@@ -83,19 +97,9 @@ class RechercheController extends Controller
 		*/
 		$scolaritesjson = json_encode($recherchessformat);
 
-		/*
-			$RecherchesJson = "[
-				'Maths',
-				'Anglais',
-				...
-			]"
-		*/
-		$this->show('recherche/recherche', ['matieres' => $matieresjson, 'scolarites' => $scolaritesjson]);	
-
-
-		
-
+		return array($matieresjson, $scolaritesjson);
 	}
+
 	public function result() {
 		/*debug($_POST);*/
 		$matieremodel = new MatiereModel();
@@ -108,10 +112,8 @@ class RechercheController extends Controller
 		/*var_dump($results[0]['id_s']);*/
 		$recherchemodel = new RechercheModel();
 		$finalresult = $recherchemodel-> searchResult($_POST['ville'], $resultm[0]['id_m'], $results[0]['id_s']);
-		/*debug($finalresult);*/
-		$this->show('searchresult/searchresult');
+				
+		$this->show('searchresult/searchresult', ['finalresultv' => $finalresult]);
 	}
-
-
 }
 ?>
