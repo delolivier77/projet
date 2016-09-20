@@ -8,6 +8,8 @@ use \Model\ScolariteModel;
 use \Model\EtudiantModel;
 use \Model\ParticulierModel;
 use \Model\EnfantModel;
+use \Model\ConnaissanceModel;
+use \Model\CommentaireModel;
 use \W\Security\AuthentificationModel;
 
 
@@ -256,7 +258,23 @@ class UserController extends Controller
 	
 			if (!empty($etudiant))
 			{
-				$this->show('user/profil_etudiant', ['etudiant' => $etudiant]);
+				$newConnaissance = new ConnaissanceModel();
+				$connaissance = $newConnaissance->find($_SESSION['user']['id_u']);
+
+				$newCommentaire = new CommentaireModel();
+				$commentaire = $newCommentaire->search(['id_et' =>$_SESSION['user']['id_u']]);
+
+				$newScolariteMin = new ScolariteModel();
+				$scolarite_min = $newScolariteMin->search(['id_s' => $connaissance['id_s_min']]);
+
+				$newScolariteMax = new ScolariteModel();
+				$scolarite_max = $newScolariteMax->search(['id_s' => $connaissance['id_s_max']]);
+
+				$newMatiere = new MatiereModel();
+				$matiere = $newMatiere->search(['id_m' => $connaissance['id_m']]);
+				
+				$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+				$this->show('user/profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max, 'matiere' => $matiere, 'commentaire' => $commentaire]);
 			}
 			else 
 			{
@@ -264,7 +282,17 @@ class UserController extends Controller
 				$particulier = $newParticulier->find($_SESSION['user']['id_u']);
 				if (!empty($particulier))
 				{
-					$this->show('user/profil_particulier', ['particulier' => $particulier]);	
+
+					$newCommentaire = new CommentaireModel();
+					$commentaire = $newCommentaire->search(['id_p' => $_SESSION['user']['id_u']]);
+
+					$newEnfant = new EnfantModel();
+					$enfant = $newEnfant->search(['id_p' => $_SESSION['user']['id_u']]);
+
+					$newScolarite = new ScolariteModel();
+					$scolarite = $newScolarite->find($enfant[0]['id_s']);
+
+					$this->show('user/profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite ,'commentaire' => $commentaire]);	
 				}
 			}
 
