@@ -5,25 +5,17 @@ use \W\Controller\Controller;
 use \Model\MatiereModel;
 use \Model\ScolariteModel;
 use \Model\RechercheModel;
+use \Model\FicheetudiantModel;
 
 class RechercheController extends Controller
 {
 
-	/**
-	 * Fonction qui affiche la Liste des films
-	*/
 	public function recherche() {
 
 		
 		$rechercheResults = $this->generateRechercheResults();
-		/*
-			$RecherchesJson = "[
-				'Maths',
-				'Anglais',
-				...
-			]"
-		*/
-		$this->show('recherche/recherche', ['matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);	
+		debug($rechercheResults);
+		$this->show('recherche/recherche', ['matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);
 
 	}
 
@@ -112,7 +104,7 @@ class RechercheController extends Controller
 		/*var_dump($results[0]['id_s']);*/
 		$recherchemodel = new RechercheModel();
 		$finalresult = $recherchemodel-> searchResult($_POST['ville'], $resultm[0]['id_m'], $results[0]['id_s']);
-				
+		/*debug($finalresult);*/
 		$this->show('searchresult/searchresult', ['finalresultv' => $finalresult]);
 	}
 }

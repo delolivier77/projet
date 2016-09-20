@@ -6,7 +6,7 @@ class RechercheModel extends Model
 {
 	public function searchResult($ville, $id_matiere, $id_scolarite)
 	{
-		$recherches = $this->dbh->prepare("SELECT u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, note, avg(note) as moyenne
+		$recherches = $this->dbh->prepare("SELECT u.id_et, u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, ROUND(AVG(note), 1) as moyenne, COUNT(note) AS nbrdevote
 
 			FROM user as u, matiere as m, connaissance as c, etudiant as e LEFT JOIN commentaire as co ON e.id_et = co.id_et
 			WHERE u.id_et = e.id_et
@@ -23,7 +23,7 @@ class RechercheModel extends Model
 		 	$result = $recherches->fetchAll();
 		 	return $result;
 	}
-
+/*SELECT id_et, COUNT(note) AS nbrdevote FROM commentaire GROUP BY id_et*/
 }
 
 
