@@ -23,7 +23,7 @@
 
 <form action="<?= $this->url('user_add_user_particulier')?>" method="post">
 	
-      <img src="<?= $this->url('asset/img/visuel/user.png')?>" alt="">
+   
 
    	  <input type="radio" name="civilite" value="M." <?= $civilite_h?>>M.
   		<input type="radio" name="civilite" value="Mme" <?= $civilite_f?>>Mme<br>
@@ -44,7 +44,7 @@
         <?php 
              foreach ($scolarite_list as $indice)
              {
-               $cd_selected = (isset($classe_debut) && $indice['id_s'] == $classe_debut) ? "selected" : "";
+               $cd_selected = (isset($classe) && $indice['id_s'] == $classe) ? "selected" : "";
                echo '<option value="'. $indice['id_s'] . '"'. $cd_selected .'>' .  $indice['nom']. '</option>';
              }
         ?>

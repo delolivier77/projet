@@ -31,8 +31,7 @@ class UserController extends Controller
 		
 		$message = "";
 		$actif = 'actif';
-		$role = 'etudiant';
-
+		
 		$userTable = new UsersModel();
 		$etudiantTable = new EtudiantModel();
 		$auth = new AuthentificationModel();
@@ -45,80 +44,16 @@ class UserController extends Controller
 
 
 
-
-
-		$civilite_h = (!isset($_POST['civilite']) || (isset($_POST['civilite'])) && $_POST['civilite'] == "M.") ? 'checked' : "";  
-		$civilite_f = (isset($_POST['civilite']) && $_POST['civilite'] == "Mme") ? 'checked' : "";  
-		$nom = (isset($_POST['nom'])) ? $_POST['nom'] : "";
-		$prenom = (isset($_POST['prenom'])) ? $_POST['prenom'] : "";
-		$email = (isset($_POST['email'])) ? $_POST['email'] : "";
-		$mdp = (isset($_POST['mdp'])) ? $_POST['mdp'] : "";
-		$date_naissance = (isset($_POST['date_naissance'])) ? $_POST['date_naissance'] : "";
-		$tel = (isset($_POST['tel'])) ? $_POST['tel'] : "";
-		$adresse = (isset($_POST['adresse'])) ? $_POST['adresse'] : "";
-		$cp = (isset($_POST['cp'])) ? $_POST['cp'] : "";
-		$ville = (isset($_POST['ville'])) ? $_POST['ville'] : "";
-
-
-		$b1 = ""; $b2 = "" ; $b3 = "" ; $b4 = "" ; $b5 = "";
-		if (isset($_POST['niveau_etude']))
+		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['date_naissance']) || empty($_POST['tel']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['niveau_etude']) || empty($_POST['num_etudiant']) || empty($_POST['matiere']) || empty($_POST['classe_debut']) || empty($_POST['classe_fin']) || empty($_POST['description']) || empty($_POST['description']) || empty($_POST['type_rdv']) || empty($_POST['tarif']))
 		{
-			switch ($_POST['niveau_etude'])
-		    {
-		      case 'Bac +1':
-		        $b1 = "selected";
-		        break;
-		      case 'Bac +2':
-		        $b2 = "selected";
-		        break;
-		      case 'Bac +3':
-		        $b3 = "selected";
-		        break;
-		      case 'Bac +4':
-		        $b4 = "selected";
-		        break;
-		      case 'Bac +5 (ou +)':
-		        $b5 = "selected";
-		        break;
-		    }
+			$message = "Tous les champs sont obligatoires <br>";
 		}
 
-		$num_etudiant = (isset($_POST['num_etudiant'])) ? $_POST['num_etudiant'] : "";
 
-		$rdv_ff = (!isset($_POST['type_rdv']) || (isset($_POST['type_rdv'])) && $_POST['type_rdv'] == "faceface") ? 'checked' : "";  
-		$rdv_w = (isset($_POST['type_rdv']) && $_POST['type_rdv'] == "webcam") ? 'checked' : "";
-		$rdv_2 = (isset($_POST['type_rdv']) && $_POST['type_rdv'] == "both") ? 'checked' : "";
-
-		$description = (isset($_POST['description'])) ? $_POST['description'] : "";
-		$detail_dispo = (isset($_POST['detail_dispo'])) ? $_POST['detail_dispo'] : "";
-		$tarif = (isset($_POST['tarif'])) ? $_POST['tarif'] : "";
-
-
-
-		$tab = array('civilite_h' => $civilite_h, 'civilite_f' => $civilite_f, 'nom' => $nom, 'prenom' => $prenom);
-
-		debug ($tab);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		if(empty($_POST['photo']) || empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['date_naissance']) || empty($_POST['tel']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['niveau_etude']) || empty($_POST['num_etudiant']) || empty($_POST['matiere']) || empty($_POST['classe_debut']) || empty($_POST['classe_fin']) || empty($_POST['description']) || empty($_POST['description']) || empty($_POST['type_rdv']) || empty($_POST['tarif']))
+		if (empty($_FILES['photo']['name']))
 		{
-			$message .= "Tous les champs sont obligatoires <br>";
-		}
+			$message .= "Une photo doit être inserée";
+		}	
 
 
 		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']))
@@ -160,24 +95,26 @@ class UserController extends Controller
 			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
 			$tarif = str_replace(",", ".", $_POST['tarif']);
 
-			$newEtudiant = array('civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'photo' => $_POST['photo'], 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $tarif, 'type_rdv' => $_POST['type_rdv']);
-	
-			debug($newEtudiant);
-			$id_etudiant = $etudiantTable->insert($newEtudiant);
 
-			debug($id_etudiant['id_et']);
-
-			$newUser = array('id_et' => $id_etudiant['id_et'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
+			$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'date_inscription' => date("Y-m-d H:i:s"));
 				
 			debug($newUser);
-			// $userTable->setPrimaryKey('id_u');
-			$userTable->insert($newUser);
+			$id_user = $userTable->insert($newUser);
+			debug($id_user['id_u']);
+
+			$newEtudiant = array('id_et' => $id_user['id_u'],'photo' => $_FILES['photo']['name'], 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $tarif, 'type_rdv' => $_POST['type_rdv']);
+	
+			debug($newEtudiant);
+			$etudiantTable->insert($newEtudiant);
+
+			
+
 			// $this->redirectToRoute('user_inscription_etudiant');
 			
 		}
 		else
 		{
-			$this->show('user/inscription_etudiant', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message, 'tab' => $tab]);
+			$this->show('user/inscription_etudiant', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message]);
 		}
 		
 	}
@@ -213,9 +150,8 @@ class UserController extends Controller
 
 		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['mdp']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']))
 		{
-			$message .= "Tous les champs sont obligatoires <br>";
+			$message = "Tous les champs sont obligatoires <br>";
 		}
-
 
 		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']))
 		{
@@ -250,37 +186,107 @@ class UserController extends Controller
 			$mdp = $auth->hashPassword($_POST['mdp']);
 			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
 			
-			$newParticulier = array('civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
-	
+
+
+
+
+			$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif , 'date_inscription' => date("Y-m-d H:i:s"));
+				
+			debug($newUser);
+			$id_user = $userTable->insert($newUser);
+			debug($id_user['id_u']);
+
+
+			$newParticulier = array('id_p' => $id_user['id_u'], 'civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
 			debug($newParticulier);
 			$id_particulier = $particulierTable->insert($newParticulier);
 
-			debug($id_particulier['id_p']);
-
-
-			$newEnfant = array('id_p' => $id_particulier['id_p'], 'id_s' => $_POST['classe'], 'prenom' => $_POST['prenom'], 'date_naissance' => $date_naissance);
+			
+			$newEnfant = array('id_p' => $id_user['id_u'], 'id_s' => $_POST['classe'], 'prenom' => $_POST['prenom'], 'date_naissance' => $date_naissance);
 			debug($newEnfant);
 			$enfantTable->insert($newEnfant);
 
 
-			$newUser = array('id_p' => $id_particulier['id_p'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'role' => $role, 'date_inscription' => date("Y-m-d H:i:s"));
-				
-			debug($newUser);
-			// $userTable->setPrimaryKey('id_u');
-			$userTable->insert($newUser);
+
+
 			// $this->redirectToRoute('user_inscription_etudiant');
 			
 		}
 		else
 		{
-			$this->show('user/inscription_particulier', ['matiere_list' => $matiere, 'scolarite_list' => $scolarite, 'message' => $message]);
+			$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite, 'message' => $message]);
 		}
 		
 	}
 
 
+
+
+
+
+
+
+
+
+
+
+
+	//--------------------------------------------------------------------------------------
+
+
+	public function loginForm(){
+		$this->show('user/login');
+	}
+
+
+	public function login(){
+
+		
+		$auth = new AuthentificationModel();
+			
+		if ($auth->isValidLoginInfo($_POST['email'], $_POST['mdp']))
+		{	
+			$user = new UsersModel();
+			$dataUser = $user->getUserByUsernameOrEmail($_POST['email']);
+			$auth->logUserIn($dataUser);
+					
+			$newEtudiant = new EtudiantModel();
+			$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+
 	
+			if (!empty($etudiant))
+			{
+				$this->show('user/profil_etudiant', ['etudiant' => $etudiant]);
+			}
+			else 
+			{
+				$newParticulier = new ParticulierModel();
+				$particulier = $newParticulier->find($_SESSION['user']['id_u']);
+				if (!empty($particulier))
+				{
+					$this->show('user/profil_particulier', ['particulier' => $particulier]);	
+				}
+			}
+
+
+		}else{
+			$this->redirectToRoute('user_login');
+		}
+
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
