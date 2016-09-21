@@ -3,16 +3,28 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \Model\StudentModel;
 
 class DefaultController extends Controller
 {
-
-	/**
-	 * Page d'accueil par défaut
-	 */
+	
 	public function home()
 	{
 		$this->show('default/accueil');
 	}
 
+	public function testhome()
+	{
+		$studentModel = new StudentModel();
+
+		$lastStudents = $studentModel->getLastStudents();
+
+		var_dump($lastStudents);
+
+		$this->show('default/testhome', array('lastStudentsForView'=>$lastStudents));
+	}
+
+
 }
+
+
