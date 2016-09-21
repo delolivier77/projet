@@ -9,6 +9,15 @@ class CommentaireModel extends Model
 		parent::__construct();
 	    $this->setPrimaryKey('id_co');
 	}
+
+	public function avgNoteEtudiant($id)
+	{
+		$sql = $this->dbh->prepare("SELECT AVG(note) as 'avg', COUNT(id_et) as 'count' FROM `commentaire` where id_et = :id");
+		$sql->execute(array('id' => $id));
+		$result= $sql-> fetchAll();
+
+		return ($result);
+	}
 	
 }
 ?>

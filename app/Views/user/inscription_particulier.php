@@ -1,8 +1,7 @@
 
 <?php
-  if (isset($message)){
-    debug ($message);
-  }
+ 
+   echo $fmsg->display(); 
 
   extract($_POST);
   $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  

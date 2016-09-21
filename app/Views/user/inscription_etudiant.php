@@ -1,8 +1,6 @@
 
 <?php
-  if (isset($message)){
-    debug ($message);
-  }
+ 
 
   if (isset($_POST)){
     debug ($_POST);
@@ -12,6 +10,7 @@
     debug ($_FILES);
   }
  
+    echo $fmsg->display(); 
 
     extract($_POST);
 
@@ -141,7 +140,7 @@
 
     	<fieldset id="part3">
     		<textarea name="detail_dispo" placeholder = "Vos disponibilités (ex: disponible le lundi de 18h à 20h"><?= $detail_dispo?></textarea><br>
-    		<input type="text" name="tarif" id="tarif" placeholder = "Tarif (0,0)" value="<?= $tarif?>"><br>
+    		<input type="text" name="tarif" id="tarif" placeholder = "Tarif (ex: 15€)" value="<?= $tarif?>"><br>
     	</fieldset>
 
       <input type="submit" name="enregister" value="Inscription">
