@@ -41,9 +41,9 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
   					</label>
 				</div>
 				<div class="radio">
-  				<label>
-    				<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Par webcam
-  				</label>
+  					<label>
+    					<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Par webcam
+  					</label>
 				</div>
 			</div>
 		</div>
@@ -104,11 +104,10 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 						<p><?= $valeur['tarif']?>€/h</p>
 					</div>
 				</div>
-		</div>
+			</div>
 		</div>
 
 	<?php endforeach; ?>
-	</div>
 	</div>
 	</div>
 </div>
