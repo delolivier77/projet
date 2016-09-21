@@ -1,7 +1,7 @@
 
 <?php
  
-   echo $fmsg->display(); 
+  echo $fmsg->display(); 
 
   extract($_POST);
   $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
@@ -21,8 +21,6 @@
 ?>
 
 <form action="<?= $this->url('user_add_user_particulier')?>" method="post">
-	
-   
 
    	  <input type="radio" name="civilite" value="M." <?= $civilite_h?>>M.
   		<input type="radio" name="civilite" value="Mme" <?= $civilite_f?>>Mme<br>
