@@ -11,16 +11,19 @@ var options = {
   componentRestrictions: {country: 'fr'}
 };
 
-autocomplete = new google.maps.places.Autocomplete(input, options);
+mapStack.push(function() {
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+});
 
 $(function() {
+	
 	var listeM = <?= $matieres ?>;
 	var listeN = <?= $scolarites ?>;
-$('#matiere').autocomplete({
-    source : listeM
+	$('#matiere').autocomplete({
+    	source : listeM
 	});
-$('#niveau').autocomplete({
-    source : listeN
+	$('#niveau').autocomplete({
+   	 	source : listeN
 	});
 });
 </script>

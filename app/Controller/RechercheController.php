@@ -5,7 +5,6 @@ use \W\Controller\Controller;
 use \Model\MatiereModel;
 use \Model\ScolariteModel;
 use \Model\RechercheModel;
-use \Model\FicheetudiantModel;
 
 class RechercheController extends Controller
 {
@@ -105,7 +104,9 @@ class RechercheController extends Controller
 		$recherchemodel = new RechercheModel();
 		$finalresult = $recherchemodel-> searchResult($_POST['ville'], $resultm[0]['id_m'], $results[0]['id_s']);
 		/*debug($finalresult);*/
-		$this->show('searchresult/searchresult', ['finalresultv' => $finalresult]);
+		$rechercheResults = $this->generateRechercheResults();
+		/*debug($rechercheResults);*/
+		$this->show('searchresult/searchresult', ['ville' => $_POST['ville'], 'finalresultv' => $finalresult, 'matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);
 	}
 }
 ?>

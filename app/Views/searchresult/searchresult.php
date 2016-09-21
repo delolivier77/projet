@@ -5,27 +5,32 @@
 ul{list-style: none;}
 p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 .top-content{height: 165px;}
-#map{height: 300px;border-radius: 5px;}
+#map{height: 300px;width: 100%;border-radius: 5px;}
 .mdi-star, .mdi-star-half, .mdi-star-outline{color: #F5CE28;}
-.search-result-picture {position: relative;}
+.search{padding-top: 3%; padding-bottom: 3%;border-radius: 5px;}
+.search-result-container{margin-top: 2%;overflow: hidden;}
+.search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
+/* .search-result-picutre img{display: block; width: 97%;} */
 .shadow{position: absolute;width: 100%;height: 100%;-webkit-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);-moz-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);bottom: 10%;z-index: -1;}
 .search-result-picture img{display: block; width: 100%;border-radius: 5px;}
 .search-result-picture p{display: inline; color: #fff;}
 .search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 15%;}
+/* .search-result-content{margin-left: 22px;} */
 .etudiant{
 	cursor: pointer;
 }
+.test{overflow: hidden;}
+.etudiants{background-color: #fff; border-radius: 5px;}
 </style>
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12"><p>Test</p>
-			<!-- <?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites)); ?> -->
+		<div class="col-lg-12 search"><?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites)); ?>
 		</div>
 	</div>
 	<div class="row">
 	<div class="col-lg-3">
 		<div class="row">
-			<div class="col-lg-12" id="map"></div>
+			<div class="col-lg-12 test" id="map"></div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
@@ -51,16 +56,16 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
   					</label>
 				</div>
 				<div class="radio">
-  				<label>
-    				<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Les moins chers
-  				</label>
+  					<label>
+    					<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Les moins chers
+  					</label>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-9">
+	<div class="col-lg-9 .col-md-offset-3">
 	<?php foreach($finalresultv as $valeur): ?>
-		<div class="row etudiant" onclick="location.href='<?= $valeur["id_et"]?>';">
+		<div class="row search-result-container" onclick="location.href='<?= $valeur["id_et"]?>';">
 			<div class="search-result-picture col-lg-3">
 				<img src="<?= $this->assetUrl("img/photos/" . $valeur['photo'] . "") ?>">
 				<div class="stars">
@@ -68,7 +73,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
     				for($x=1;$x<=$valeur['moyenne'];$x++) {
         				echo '<i class="mdi mdi-18px mdi-star" aria-hidden="true"></i>';
     				}
-    				if (strpos($valeur['moyenne'],'.' && '' > 0)) {
+    				if (strpos($valeur['moyenne'],'.') && intval($valeur['moyenne']) != $valeur['moyenne']) {
         				echo '<i class="mdi mdi-18px mdi-star-half" aria-hidden="true"></i>';
         				$x++;
     				}
@@ -81,7 +86,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 					<div class="shadow"></div>
 				</div>
 			</div>
-			<div class="search-result-content col-lg-9">
+			<div class="search-result-content col-lg-9 etudiants">
 				<div class="row top-content">
 					<p><strong><?= $valeur['prenom']?></strong>
 					<?php if($valeur['type_rdv'] == 'webcam' || $valeur['type_rdv'] == 'both'): ?>
@@ -97,32 +102,45 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 					<div class="col-lg-9"></div>
 					<div class="col-lg-3">
 						<p><?= $valeur['tarif']?>€/h</p>
-
-
 					</div>
 				</div>
 		</div>
 		</div>
+
 	<?php endforeach; ?>
+	</div>
 	</div>
 	</div>
 </div>
 <script type="text/javascript">
-
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 48.856614, lng: 2.3522219000000177},
-    disableDefaultUI: true,
-    zoom: 10
-  });
-  map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
-}
+	var resultVille;
+	var map;
+	$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=<?php echo strtolower($ville); ?>,france').done(function(datas) {
+			var localize = function() {
+				resultVille = datas;
+				if(resultVille.results.length < 1) {
+					// traitement de l'erreur
+					return ;
+				}
+				var positionVille = resultVille.results[0].geometry.location;
+				map = new google.maps.Map(document.getElementById('map'), {
+			    center: {lat: positionVille.lat, lng: positionVille.lng},
+			    disableDefaultUI: true,
+			    zoom: 10
+			  });
+			  map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
+			}
+			if(googleLoaded) {
+				localize();
+			} else {
+				mapStack.push(localize);
+			}
+			
+		});
+	
 
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPlW4LQDMOdSwwxD63oCeedmLRHb6yIjo&callback=initMap&region=FR"
-        async defer></script>
 <?php $this->stop('main_content') ?>
 
 

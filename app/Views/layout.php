@@ -13,9 +13,11 @@
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPlW4LQDMOdSwwxD63oCeedmLRHb6yIjo&libraries=places&region=FR"></script>
+	
+	
 </head>
 <body>
+	<script type="text/javascript">var mapStack = []; var googleLoaded = false;</script>
 <!-- navigation -->
 	<div class="container">
 		<nav class="navbar navbar-default">
@@ -47,7 +49,16 @@
 	<footer class="container">
     <p class="titre">soutien-etudiant.fr &copy; Copyright 2016<br> <a href="#">FAQ</a>-  <a href="#">Contact</a>-Conditions générales</p>
 	</footer>
-	
-		
+	<script>
+
+		function initMap() {
+			googleLoaded = true;
+			for(var i = 0; i<mapStack.length; i++) {
+				mapStack[i]();
+			}
+		}
+
+	</script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPlW4LQDMOdSwwxD63oCeedmLRHb6yIjo&libraries=places&callback=initMap&region=FR" async defer></script>	
 </body>
 </html>
