@@ -137,7 +137,8 @@ class UserController extends BaseController
 
 	public function addUserParticulier()
 	{
-				
+		
+		
 		$error = 0;
 		$actif = 'actif';
 		
@@ -148,6 +149,12 @@ class UserController extends BaseController
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
 		
+
+
+
+
+
+
 
 		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['mdp']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']))
 		{
@@ -185,6 +192,42 @@ class UserController extends BaseController
 			$this->getFlashMessenger() -> warning('La date de naissance est incorrect', null, true);
 		}	
 
+
+		  extract($_POST);
+		  $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
+		  $civilite_f = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
+		  $nom = (isset($nom)) ? $nom : "";
+		  $prenom = (isset($prenom)) ? $prenom : "";
+		  $email = (isset($email)) ? $email : "";
+		  $mdp = (isset($mdp)) ? $mdp : "";
+		  $adresse = (isset($adresse)) ? $adresse : "";
+		  $cp = (isset($cp)) ? $cp : "";
+		  $ville = (isset($ville)) ? $ville : "";
+		  $tel = (isset($tel)) ? $tel : "";
+
+		  $prenom_enfant = (isset($prenom_enfant)) ? $prenom_enfant : "";
+		  $date_naissance = (isset($date_naissance)) ? $date_naissance : "";
+
+		  $assignedDatas = array();
+
+		  foreach ($_POST as $key => $value) {
+		  	// si $key = 'nom' alors $$key sera $nom
+		  	
+		  	if ($key == 'civilite')
+		  	{
+		  		$assignedDatas['civilite_h'] = $civilite_h;
+		  		$assignedDatas['civilite_f'] = $civilite_f;
+		  	}
+		  	else
+		  	{
+		  		$assignedDatas[$key] = ${$key};	
+		  	}
+
+		  	
+		  }
+
+		  
+
 			
 		if ($error = 0)
 		{
@@ -215,7 +258,7 @@ class UserController extends BaseController
 		}
 		else
 		{
-			$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite]);
+			$this->show('user/inscription_particulier', ['assignedDatas'=> $assignedDatas, 'scolarite_list' => $scolarite]);
 		}
 		
 	}
