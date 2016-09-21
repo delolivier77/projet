@@ -19,8 +19,6 @@ class DefaultController extends Controller
 
 		$lastStudents = $studentModel->getLastStudents();
 
-		var_dump($lastStudents);
-
 		$this->show('default/testhome', array('lastStudentsForView'=>$lastStudents));
 	}
 
