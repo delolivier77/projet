@@ -5,9 +5,10 @@
 ul{list-style: none;}
 p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 .top-content{height: 165px;}
-#map{height: 300px;width: 100%;border-radius: 5px;}
+#map{height: 300px;width: 100%;border-radius: 5px;padding: 0;}
 .mdi-star, .mdi-star-half, .mdi-star-outline{color: #F5CE28;}
 .search{padding-top: 3%; padding-bottom: 3%;border-radius: 5px;}
+.search-result-map{margin-top: 6%;}
 .search-result-container{margin-top: 2%;overflow: hidden;}
 .search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
 /* .search-result-picutre img{display: block; width: 97%;} */
@@ -29,7 +30,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 	</div>
 	<div class="row">
 	<div class="col-lg-3">
-		<div class="row">
+		<div class="row search-result-map">
 			<div class="col-lg-12 test" id="map"></div>
 		</div>
 		<div class="row">
@@ -65,7 +66,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 	</div>
 	<div class="col-lg-9 .col-md-offset-3">
 	<?php foreach($finalresultv as $valeur): ?>
-		<div class="row search-result-container" onclick="location.href='<?= $valeur["id_et"]?>';">
+		<div class="row search-result-container" onclick="location.href='<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>';">
 			<div class="search-result-picture col-lg-3">
 				<img src="<?= $this->assetUrl("img/photos/" . $valeur['photo'] . "") ?>">
 				<div class="stars">

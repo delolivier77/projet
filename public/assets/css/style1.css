@@ -1,71 +1,147 @@
-*{
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    }
-
-    body{
-        background-color: #f7f7f7;
-        margin: 0 auto;
-        font-family: 'Open Sans', sans-serif;
-    }
+*{  
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ box-sizing: border-box;
+}
 
 
-    footer {
-      height: 98px;
-      background-color: #4988c6;
-      position: relative;
-      margin-top: 710px; 
-      padding-bottom: 30px;
-      padding-top: 20px;
-    }
+body{
+  margin: 0 auto;
+  font-family: 'Open Sans', sans-serif, Source Sans Pro ;
+  background: #F7F7F7;
 
-    footer > p {
-      padding: 0 125px;
-      text-align: center;
-      font-weight: bold;
-      color: black;
-      text-decoration: none;
-    }
+@media (max-width: 767px) {}
 
-    h1{
-        color: white;
-        text-align: center;
-    }
+/* Small Devices, .visible-sm-* */
+@media (min-width: 768px) and (max-width: 991px) {}
 
-    #visuel{
-        background-image: url(../img/visuels/fond-home.jpg);
-        height: 250px;
-        padding-top: 40px;
-        width: 100%;
-    }
-    .search{
-  background-color: #fff;background-image: url(../img/visuels/motif.jpg); background-image: repeat;
-    }
+/* Medium Devices, .visible-md-* */
+@media (min-width: 992px) and (max-width: 1199px) {}
 
-    .navbar-default {
-      background-color: white;
-      color: black;
-      padding-bottom: 10px;
+/* Large Devices, .visible-lg-* */
+@media (min-width: 1200px) {}
 
-    }
+ }
 
-    .navbar-brand{
-        text-align: center;
-        padding-left: 100px;
-        color: black;
-        font-weight: bold;
-    }
 
-    .navbar {
-    min-height: 50px;
-    margin-bottom: 20px;
-    border: 5px solid transparent;
+/*header*/
 
-    }
-    .pac-icon{
+.navbar-brand{
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  padding-left: 50px;
+  font-family: 'Kaushan Script', cursive;;
+
+ }
+
+.navbar-nav{
+  font-size: 20px;
+}
+
+.col-lg-12{
+  text-align: center;
+  height: 110px;
+  padding-top: 20px;
+}
+
+
+/*section*/
+
+.col-lg-3{
+ display: block;
+
+}
+
+.visuel{
+  background-image: url(../img/visuels/fond-home.jpg);
+  height: 250px;
+  padding-top: 50px;
+  width: 100%;
+}
+
+h1{
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;    
+}
+
+form{
+padding-left:130px;
+
+}
+
+/*aside 1*/ 
+
+h2{
+  color: black;
+  text-align: center;
+  font-size: 20px;
+}
+
+.col-lg-6{ 
+  line-height: 250px; 
+  background-color: #F7F7F7;
+}
+
+
+.line{
+  border-right: 1px solid #ccc;
+
+}
+
+/*aside 2*/
+
+
+h3{
+  color: black;
+  text-align: center;
+  padding-bottom: 20px;    
+}
+
+.test2{
+  background-color: #F0f0f0;
+  padding-bottom: 30px;
+ }
+
+.thumbnail{
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    width: 200px;
+    margin-left: 50px;
+  }
+
+
+.desc{
+  text-align: center;
+  padding-top: 5px;
+  color: red;
+  font-family:'Inconsolata', monospace;
+  font-size: 20px;
+}
+.pac-icon{
     display: none;
     }
-    .pac-container:after {
+.pac-container:after {
     background-image: none !important;
     height: 0px;
 }
+
+
+/*footer*/
+
+footer {
+  height: 110px;
+  background-color: #fff;
+  position: relative;
+}
+
+p{
+  padding: 0 125px;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+}
+
+

@@ -18,5 +18,14 @@ class ScolariteModel extends Model
 		$scolarite = Model::search($name);
 		return $scolarite;
 	}
+	 public function __construct()
+
+    {
+
+        parent::__construct();
+
+        $this->setPrimaryKey('id_s');
+
+    }
 }
 ?> 

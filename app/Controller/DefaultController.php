@@ -4,6 +4,7 @@ namespace Controller;
 
 use \W\Controller\Controller;
 use \Controller\RechercheController;
+use \Model\StudentModel;
 
 class DefaultController extends Controller
 {
@@ -15,8 +16,11 @@ class DefaultController extends Controller
 	{
 		$rechercheController = new RechercheController();
 		$rechercheResults = $rechercheController->generateRechercheResults();
-		$this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]));
+		$studentModel = new StudentModel();
+		$lastStudents = $studentModel->getLastStudents();
+		$this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1], 'lastStudentsForView'=>$lastStudents));
 	}
+
 
 
 	/**

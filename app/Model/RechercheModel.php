@@ -6,23 +6,50 @@ class RechercheModel extends Model
 {
 	public function searchResult($ville, $id_matiere, $id_scolarite)
 	{
-		$recherches = $this->dbh->prepare("SELECT u.id_et, u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, ROUND(AVG(note), 1) as moyenne, COUNT(note) as nbrdevote
+		$recherches = $this->dbh->prepare("SELECT u.id_u, u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, ROUND(AVG(note), 1) as moyenne, COUNT(note) as nbrdevote
 
 			FROM user as u, matiere as m, connaissance as c, etudiant as e LEFT JOIN commentaire as co ON e.id_et = co.id_et
-			WHERE u.id_et = e.id_et
+			WHERE u.id_u = e.id_et
 			AND e.id_et = c.id_et
 			AND c.id_m = m.id_m
 			AND ville = :ville
 			AND c.id_m = :id_matiere
 			AND id_s_min <= :id_scolarite
 			AND id_s_max >= :id_scolarite
-			GROUP BY u.id_et");
+			GROUP BY u.id_u");
 		
 		 	$recherches->execute(array('ville' => $ville, 'id_matiere' => $id_matiere, 'id_scolarite' => $id_scolarite));
 
 		 	$result = $recherches->fetchAll();
 		 	return $result;
 	}
+
+		public function searchResultById($id)
+	{
+		$recherches = $this->dbh->prepare("SELECT u.id_u, u.nom, u.prenom, ville, id_s_min, id_s_max, description, tarif, photo, type_rdv, tel, email, niveau_etude, detail_dispo, ROUND(AVG(note), 1) as moyenne, COUNT(note) as nbrdevote
+
+			FROM user as u, matiere as m, connaissance as c, scolarite as s, etudiant as e LEFT JOIN commentaire as co ON e.id_et = co.id_et
+			WHERE u.id_u = e.id_et
+			AND e.id_et = c.id_et
+			AND c.id_m = m.id_m
+			AND e.id_et = :id
+			GROUP BY u.id_u");
+		
+		 	$recherches->execute(array('id' => $id));
+
+		 	$result = $recherches->fetchAll();
+		 	return $result;
+	}
+
+
+
+
+
+
+
+
+
+
 /*SELECT id_et, COUNT(note) AS nbrdevote FROM commentaire GROUP BY id_et*/
 }
 
