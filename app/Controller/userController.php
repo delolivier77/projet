@@ -125,6 +125,10 @@ class UserController extends BaseController
 
 
 
+
+
+
+
 	public function inscriptionParticulier()
 	{
 		$matiereModel = new MatiereModel();
@@ -133,6 +137,9 @@ class UserController extends BaseController
 		$scolarite = $scolariteModel->findAllScolarite();
 		$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite]);
 	}
+
+
+
 
 
 	public function addUserParticulier()
@@ -149,12 +156,6 @@ class UserController extends BaseController
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
 		
-
-
-
-
-
-
 
 		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['mdp']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']))
 		{
@@ -193,56 +194,43 @@ class UserController extends BaseController
 		}	
 
 
-<<<<<<< HEAD
+				
 			extract($_POST);
-=======
-		  extract($_POST);
->>>>>>> dev_o
-		  $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
-		  $civilite_f = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
-		  $nom = (isset($nom)) ? $nom : "";
-		  $prenom = (isset($prenom)) ? $prenom : "";
-		  $email = (isset($email)) ? $email : "";
-		  $mdp = (isset($mdp)) ? $mdp : "";
-		  $adresse = (isset($adresse)) ? $adresse : "";
-		  $cp = (isset($cp)) ? $cp : "";
-		  $ville = (isset($ville)) ? $ville : "";
-		  $tel = (isset($tel)) ? $tel : "";
+			$assignedDatas = array();
 
-		  $prenom_enfant = (isset($prenom_enfant)) ? $prenom_enfant : "";
-		  $date_naissance = (isset($date_naissance)) ? $date_naissance : "";
+			$assignedDatas['civilite_h'] = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
+			$assignedDatas['civilite_f'] = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
+			$assignedDatas['nom'] = (isset($nom)) ? $nom : "";
+			$assignedDatas['prenom'] = (isset($prenom)) ? $prenom : "";
+			$assignedDatas['email'] = (isset($email)) ? $email : "";
+			$assignedDatas['mdp'] = (isset($mdp)) ? $mdp : "";
+			$assignedDatas['adresse'] = (isset($adresse)) ? $adresse : "";
+			$assignedDatas['cp'] = (isset($cp)) ? $cp : "";
+			$assignedDatas['ville'] = (isset($ville)) ? $ville : "";
+			$assignedDatas['tel'] = (isset($tel)) ? $tel : "";
 
-<<<<<<< HEAD
+			$assignedDatas['prenom_enfant'] = (isset($prenom_enfant)) ? $prenom_enfant : "";
+			$assignedDatas['date_naissance'] = (isset($date_naissance)) ? $date_naissance : "";
 
-=======
->>>>>>> dev_o
-		  $assignedDatas = array();
+			
+		
 
-		  foreach ($_POST as $key => $value) {
-		  	// si $key = 'nom' alors $$key sera $nom
-<<<<<<< HEAD
-		  	$assignedDatas[$key] = ${$key};
-		  }
 
-		  $assignedDatas['scolarite'] = $scolarite;
-=======
-		  	
-		  	if ($key == 'civilite')
-		  	{
-		  		$assignedDatas['civilite_h'] = $civilite_h;
-		  		$assignedDatas['civilite_f'] = $civilite_f;
-		  	}
-		  	else
-		  	{
-		  		$assignedDatas[$key] = ${$key};	
-		  	}
-
-		  	
-		  }
+		    foreach ($_POST as $key => $value)
+		    {
+		    	if ($key == 'civilite')
+			  	{
+			  		$assignedDatas['civilite_h'] = $civilite_h;
+			  		$assignedDatas['civilite_f'] = $civilite_f;
+			  	}
+			  	else
+			  	{
+			  		$assignedDatas[$key] = ${$key};	
+			  	}
+			}
+		
 
 		  
->>>>>>> dev_o
-
 			
 		if ($error = 0)
 		{
@@ -273,22 +261,54 @@ class UserController extends BaseController
 		}
 		else
 		{
-<<<<<<< HEAD
-			$this->show('user/inscription_particulier', $assignedDatas);
-=======
 			$this->show('user/inscription_particulier', ['assignedDatas'=> $assignedDatas, 'scolarite_list' => $scolarite]);
->>>>>>> dev_o
 		}
 		
 	}
 
 
 
+	public function formProfilParticulier()
+	{
+		$newParticulier = new ParticulierModel();
+		$particulier = $newParticulier->find($_SESSION['user']['id_u']);
+
+		$newEnfant = new EnfantModel();
+		$enfant = $newEnfant->search(['id_p' => $_SESSION['user']['id_u']]);
+
+		$newScolarite = new ScolariteModel();
+		$scolarite = $newScolarite->find($enfant[0]['id_s']);
+		$scolarite_list = $newScolarite->findAllScolarite();
+
+		$this->show('user/form_profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite , 'scolarite_list' => $scolarite_list]);
+	}
 
 
+	public function updateParticulier()
+	{
+		$userTable = new UsersModel();
+		$particulierTable = new ParticulierModel();
+		$enfantTable = new EnfantModel();
+	
 
+		$email = htmlentities($_POST['email']);
+		
+		$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
+			
+		$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email,  'statut' => $_POST['statut']);
+				
+		$id_user = $userTable->update($newUser, $_SESSION['user']['id_u']);
 
+		$newParticulier = array('civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
+		$id_particulier = $particulierTable->update($newParticulier, $_SESSION['user']['id_u']);
 
+			
+		$newEnfant = array('id_s' => $_POST['classe'], 'prenom' => $_POST['prenom'], 'date_naissance' => $date_naissance);
+		$enfantTable->insert($newEnfant);
+
+		$this->show('user_login');
+
+	}
 
 
 
@@ -297,7 +317,8 @@ class UserController extends BaseController
 	//--------------------------------------------------------------------------------------
 
 
-	public function loginForm(){
+	public function loginForm()
+	{
 		$this->show('user/login');
 	}
 
@@ -359,11 +380,11 @@ class UserController extends BaseController
 
 
 		}else{
+			$this->getFlashMessenger() -> warning('Mot de passe ou email incorrect', null, true);
 			$this->redirectToRoute('user_login');
 		}
 
 	}
-
 
 }
 

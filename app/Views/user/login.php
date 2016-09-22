@@ -1,4 +1,4 @@
-   
+ <?= $fmsg->display();   ?> 
 
    		<form class="login-form" method="POST" action="<?= $this->url('user_login')?>"> 
             <label for="login">Login</label> 

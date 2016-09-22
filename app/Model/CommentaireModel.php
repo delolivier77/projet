@@ -12,7 +12,7 @@ class CommentaireModel extends Model
 
 	public function avgNoteEtudiant($id)
 	{
-		$sql = $this->dbh->prepare("SELECT AVG(note) as 'avg', COUNT(id_et) as 'count' FROM `commentaire` where id_et = :id");
+		$sql = $this->dbh->prepare("SELECT ROUND(AVG(note),1) as 'avg', COUNT(id_et) as 'count' FROM `commentaire` where id_et = :id");
 		$sql->execute(array('id' => $id));
 		$result= $sql-> fetchAll();
 

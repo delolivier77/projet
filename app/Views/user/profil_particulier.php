@@ -19,7 +19,9 @@
 		foreach ($commentaire as $value) {
 			echo $value['note'].'<br>' . $value['commentaire'] . '<br>' . date('d/m/Y H:i:s', strtotime($value['date_commentaire'])) .'<br><br>';
 		}
-
 		
 	?>
+
+	<a href=<?=$this->url('user_form_profil_particulier')  ?>>Modifier</a>
+
 </div>
