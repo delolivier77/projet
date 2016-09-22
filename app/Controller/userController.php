@@ -49,11 +49,21 @@ class UserController extends BaseController
 		}
 
 
+
 		if (empty($_FILES['photo']['name']))
 		{
 			$error = 1;
 			$this->getFlashMessenger() -> warning('Une photo doit être inserée', null, true);
-		}	
+		}else{
+			$pos = explode('.', $_FILES['photo']['name']);
+			$size = sizeof($pos);
+			$extention = strtolower($pos[$size-1]);
+			if ($extention != 'jpg' && $extention != 'jpeg' && $extention != 'bmp' && $extention != 'png')
+			{
+				$error = 1;
+				$this->getFlashMessenger() -> warning('Le format de la photo est invalide ', null, true);
+			}
+		}
 
 
 		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']))
@@ -100,9 +110,8 @@ class UserController extends BaseController
 			$id_user = $userTable->insert($newUser);
 			debug($id_user['id_u']);
 
-			$pos = explode('.', $_FILES['photo']['name']);
-			$size = sizeof($pos);
-			$new_name_photo = $id_user['id_u'] . '-etudiant.' . $pos[$size-1];
+			
+			$new_name_photo = $id_user['id_u'] . '-etudiant.' . $extention;
 			$url_photo = 'assets/img/photos/'. $new_name_photo;
 			
 			copy($_FILES['photo']['tmp_name'], $url_photo);
