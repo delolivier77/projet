@@ -193,7 +193,11 @@ class UserController extends BaseController
 		}	
 
 
+<<<<<<< HEAD
 			extract($_POST);
+=======
+		  extract($_POST);
+>>>>>>> dev_o
 		  $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
 		  $civilite_f = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
 		  $nom = (isset($nom)) ? $nom : "";
@@ -208,15 +212,36 @@ class UserController extends BaseController
 		  $prenom_enfant = (isset($prenom_enfant)) ? $prenom_enfant : "";
 		  $date_naissance = (isset($date_naissance)) ? $date_naissance : "";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev_o
 		  $assignedDatas = array();
 
 		  foreach ($_POST as $key => $value) {
 		  	// si $key = 'nom' alors $$key sera $nom
+<<<<<<< HEAD
 		  	$assignedDatas[$key] = ${$key};
 		  }
 
 		  $assignedDatas['scolarite'] = $scolarite;
+=======
+		  	
+		  	if ($key == 'civilite')
+		  	{
+		  		$assignedDatas['civilite_h'] = $civilite_h;
+		  		$assignedDatas['civilite_f'] = $civilite_f;
+		  	}
+		  	else
+		  	{
+		  		$assignedDatas[$key] = ${$key};	
+		  	}
+
+		  	
+		  }
+
+		  
+>>>>>>> dev_o
 
 			
 		if ($error = 0)
@@ -248,7 +273,11 @@ class UserController extends BaseController
 		}
 		else
 		{
+<<<<<<< HEAD
 			$this->show('user/inscription_particulier', $assignedDatas);
+=======
+			$this->show('user/inscription_particulier', ['assignedDatas'=> $assignedDatas, 'scolarite_list' => $scolarite]);
+>>>>>>> dev_o
 		}
 		
 	}
