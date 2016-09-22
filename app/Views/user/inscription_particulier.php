@@ -1,6 +1,11 @@
 
 <?php
  
+  $this->layout('layout');
+   
+
+  $this->start('main_content');
+
   echo $fmsg->display(); 
   
   debug($assignedDatas);
@@ -45,3 +50,7 @@
       <input type="submit" name="enregister" value="Inscription">
 
 </form>
+
+
+
+<?php $this->stop('main_content');  ?>

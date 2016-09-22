@@ -1,6 +1,10 @@
 <?php
 
-	
+    $this->layout('layout');
+	 
+
+	$this->start('main_content');
+
 	$url_photo = 'img/photos/'.$etudiant['photo'];
 	$date_naissance = date('d/m/Y', strtotime($etudiant['date_naissance']));
 	$date_inscription = date('d/m/Y', strtotime($_SESSION['user']['date_inscription']));
@@ -35,4 +39,4 @@
 	?>
 </div>
 
-	
+	<?php $this->stop('main_content');  ?>

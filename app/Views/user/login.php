@@ -1,4 +1,14 @@
- <?= $fmsg->display();   ?> 
+<?php
+
+
+	$this->layout('layout');
+	 
+
+	$this->start('main_content');
+	$fmsg->display(); 
+?>
+
+
 
    		<form class="login-form" method="POST" action="<?= $this->url('user_login')?>"> 
             <label for="login">Login</label> 
@@ -9,3 +19,5 @@
  
             <input type="submit" value="Se connecter">   
         </form>
+
+<?php $this->stop('main_content');  ?>

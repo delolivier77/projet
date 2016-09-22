@@ -1,5 +1,11 @@
 <?php
 	
+	
+	$this->layout('layout');
+	 
+
+	$this->start('main_content');
+
 	$date_naissance = date('d/m/Y', strtotime($enfant[0]['date_naissance']));
 	$date_inscription = date('d/m/Y', strtotime($_SESSION['user']['date_inscription']));
 
@@ -25,3 +31,7 @@
 	<a href=<?=$this->url('user_form_profil_particulier')  ?>>Modifier</a>
 
 </div>
+
+
+<?php $this->stop('main_content');  ?>
+

@@ -1,6 +1,12 @@
 
 <?php
  
+  $this->layout('layout');
+   
+
+  $this->start('main_content');
+  $fmsg->display(); 
+
 
   if (isset($_POST)){
     debug ($_POST);
@@ -149,3 +155,6 @@
   
 
 </form>
+
+
+<?php $this->stop('main_content');  ?>
