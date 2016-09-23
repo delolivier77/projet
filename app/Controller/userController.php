@@ -235,18 +235,21 @@ class UserController extends BaseController
 	}
 
 
-	public function verifparticullier()
+	public function verifparticullier($test)
 	{
 		$error = 0;
 		$userTable = new UsersModel();
 
-		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['mdp']) || empty($_POST['mdp']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']))
+
+		if(empty($_POST['civilite']) || empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['adresse']) || empty($_POST['cp']) || empty($_POST['ville']) || empty($_POST['prenom_enfant']) || empty($_POST['date_naissance']) || empty($_POST['classe']) || ($test == 0 && empty($_POST['mdp'])))
 		{
 			$error = "1";
 			$this->getFlashMessenger() -> warning('Tous les champs sont obligatoires', null, true);
 		}
 
-		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']))
+		
+
+		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']) && $test == 0 )
 		{
 			$error = "1";
 			$this->getFlashMessenger() -> error('L\'email est déjà utilisé ! Veuillez en saisir un nouveau', null, true);
@@ -256,6 +259,13 @@ class UserController extends BaseController
 			$error = "1";
 			$this->getFlashMessenger() -> error('L\'émail est invalide ! Veuillez en saisir un nouveau', null, true);
 		}	
+
+		$auth = new AuthentificationModel();
+		if (!($auth->isValidLoginInfo($_POST['email'], $_POST['ancien_mdp'])) && $test == 1 && !empty($_POST['ancien_mdp']))
+		{
+			$error = "1";
+			$this->getFlashMessenger() -> error('L\'ancien mot de passe est invalide !', null, true);
+		}
 
 
 		if (!empty($_POST['cp']) && !preg_match("#^[0-9]{5}$#", $_POST['cp']))
@@ -294,7 +304,7 @@ class UserController extends BaseController
 		$scolarite = $scolariteModel->findAllScolarite();
 		
 
-		$error = $this->verifparticullier();
+		$error = $this->verifparticullier(0);
 				  
 			
 		if ($error == 0)
@@ -355,26 +365,31 @@ class UserController extends BaseController
 		$userTable = new UsersModel();
 		$particulierTable = new ParticulierModel();
 		$enfantTable = new EnfantModel();
-	
-		
-
-		$email = htmlentities($_POST['email']);
-		
-		$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
 			
-		$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email,  'statut' => $_POST['statut']);
-					
-		$id_user = $userTable->update($newUser, $_SESSION['user']['id_u']);
+		$error = $this->verifparticullier(1);
+		
+		if($error == 0)
+		{
 
-		$newParticulier = array('civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
-		$particulierTable->update($newParticulier, $_SESSION['user']['id_u']);
-
+			$email = htmlentities($_POST['email']);
+			
+			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
 				
-		$newEnfant = array('id_s' => $_POST['classe'], 'prenom' => $_POST['prenom_enfant'], 'date_naissance' => $date_naissance);
-		$enfantTable->update($newEnfant, $_POST['id_en']);
+			$newUser = array('mdp' => $_POST['nouveau_mdp'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email,  'statut' => $_POST['statut']);
+						
+			$id_user = $userTable->update($newUser, $_SESSION['user']['id_u']);
 
-		$this->redirectToRoute('user_profil_particulier');
-	
+			$newParticulier = array('civilite' => $_POST['civilite'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel']);
+			$particulierTable->update($newParticulier, $_SESSION['user']['id_u']);
+				
+			$newEnfant = array('id_s' => $_POST['classe'], 'prenom' => $_POST['prenom_enfant'], 'date_naissance' => $date_naissance);
+			$enfantTable->update($newEnfant, $_POST['id_en']);
+
+			$this->redirectToRoute('user_profil_particulier');
+		}	
+		else{
+			$this->redirectToRoute('user_form_profil_particulier');
+		}
 		//maj le fichier de session
 
 	}
@@ -432,40 +447,30 @@ class UserController extends BaseController
 			$newParticulier = new ParticulierModel();
 			$particulier = $newParticulier->find($_SESSION['user']['id_u']);
 			if (!empty($particulier)){
-					$this->redirectToRoute('user_profil_particulier');
+				$this->redirectToRoute('user_profil_particulier');
 			}
 						
 			// redirection vers le back
-			
-					
-			
-		
-
-
 		}
 		else
 		{
 			$this->getFlashMessenger() -> error('Mot de passe ou email incorrect', null, true);
 			$this->show('user/login');
 		}
-
 	}
 
 	public function profilParticulier()
 	{
-
-
 		$newParticulier = new ParticulierModel();
 		$particulier = $newParticulier->find($_SESSION['user']['id_u']);
-		
 
 		$newCommentaire = new CommentaireModel();
 		$commentaire = $newCommentaire->search(['id_p' => $_SESSION['user']['id_u']]);
 		$newEnfant = new EnfantModel();
-					$enfant = $newEnfant->search(['id_p' => $_SESSION['user']['id_u']]);
+		$enfant = $newEnfant->search(['id_p' => $_SESSION['user']['id_u']]);
 
-					$newScolarite = new ScolariteModel();
-					$scolarite = $newScolarite->find($enfant[0]['id_s']);
+		$newScolarite = new ScolariteModel();
+		$scolarite = $newScolarite->find($enfant[0]['id_s']);
 		$this->show('user/profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite ,'commentaire' => $commentaire]);	
 	}
 

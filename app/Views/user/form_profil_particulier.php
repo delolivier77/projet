@@ -37,6 +37,10 @@
       <input type="radio" name="statut" value="actif" <?= (isset($_SESSION['user']['statut']) || (isset($_SESSION['user']['statut'])) && $statut == "") ? 'checked' : ""?>>actif
       <input type="radio" name="statut" value="inactif" <?=(isset($_SESSION['user']['statut']) && $_SESSION['user']['statut'] == "inactif") ? 'checked' : ""?> >inactif<br>
 
+      <label for="ancien_mdp">Pour changer de mot de passe, inscrire l'ancien avant d'en écrire un nouveau</label><br>
+      <input type="text" name="ancien_mdp" id="ancien_mdp" placeholder = "Ancien mot de passe" >
+      <input type="text" name="ancien_mdp" id="ancien_mdp" placeholder = "Ancien mot de passe" ><br>
+
       <input type="submit" name="enregister" value="modifier">
 
 </form>
