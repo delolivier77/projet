@@ -21,8 +21,23 @@
 		$_SESSION['user']['email'] . '<br>'.
 		$etudiant['tel'] . '<br><br>' .
 		'Inscrit depuis le : ' . $date_inscription . '<br><br>' .
-		'Type de rendez-vous : ' . $etudiant['type_rdv'] . '<br>' .
-		'Niveau : ' . $etudiant['niveau_etude'] . '<br>'.
+		'Type de rendez-vous : ';
+
+		if ($etudiant['type_rdv'] == 'faceface')
+		{
+			echo '<i class="mdi mdi-24px mdi-account-multiple" aria-hidden="true"></i>';
+		}
+		else if ($etudiant['type_rdv'] == 'webcam')
+		{
+			echo '<i class="mdi mdi-24px mdi-webcam" aria-hidden="true"></i>';
+		}
+		else
+		{
+			echo '<i class="mdi mdi-24px mdi-account-multiple" aria-hidden="true"></i><i class="mdi mdi-24px mdi-webcam" aria-hidden="true"></i>';	
+		}
+
+		
+		echo '<br>Niveau : ' . $etudiant['niveau_etude'] . '<br>'.
 
 		$matiere[0]['nom'] . " " . $scolarite_min[0]['nom'] . " " . $scolarite_max[0]['nom']. "<br>".
 

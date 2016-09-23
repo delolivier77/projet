@@ -2,73 +2,13 @@
 <?php
  
   $this->layout('layout');
-   
-
+  
   $this->start('main_content');
   $fmsg->display(); 
 
+  extract($assignedDatas);
 
-  if (isset($_POST)){
-    debug ($_POST);
-  }
-
-  if (isset($_FILES)){
-    debug ($_FILES);
-  }
- 
-    echo $fmsg->display(); 
-
-    extract($_POST);
-
-    $photo = (isset($_FILES['photo']['name'])) ? $_FILES['photo']['name'] : "";
-    $civilite_h = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
-    $civilite_f = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
-    $nom = (isset($nom)) ? $nom : "";
-    $prenom = (isset($prenom)) ? $prenom : "";
-    $email = (isset($email)) ? $email : "";
-    $mdp = (isset($mdp)) ? $mdp : "";
-    $date_naissance = (isset($date_naissance)) ? $date_naissance : "";
-    $tel = (isset($tel)) ? $tel : "";
-    $adresse = (isset($adresse)) ? $adresse : "";
-    $cp = (isset($cp)) ? $cp : "";
-    $ville = (isset($ville)) ? $ville : "";
-
-
-    $b1 = ""; $b2 = "" ; $b3 = "" ; $b4 = "" ; $b5 = "";
-    if (isset($niveau_etude))
-    {
-      switch ($niveau_etude)
-      {
-        case 'Bac +1':
-          $b1 = "selected";
-          break;
-        case 'Bac +2':
-          $b2 = "selected";
-          break;
-        case 'Bac +3':
-          $b3 = "selected";
-          break;
-        case 'Bac +4':
-          $b4 = "selected";
-          break;
-        case 'Bac +5 (ou +)':
-          $b5 = "selected";
-          break;
-      }
-    }
-
-    $num_etudiant = (isset($num_etudiant)) ? $num_etudiant : "";
-
-    $rdv_ff = (!isset($type_rdv) || (isset($type_rdv)) && $type_rdv == "faceface") ? 'checked' : "";  
-    $rdv_w = (isset($type_rdv) && $type_rdv == "webcam") ? 'checked' : "";
-    $rdv_2 = (isset($type_rdv) && $type_rdv == "both") ? 'checked' : "";
-
-    $description = (isset($description)) ? $description : "";
-    $detail_dispo = (isset($detail_dispo)) ? $detail_dispo : "";
-    $tarif = (isset($tarif)) ? $tarif : "";
-
-
-
+  
 ?>
 
  

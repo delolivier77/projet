@@ -2,7 +2,7 @@
 
 <?php
    
-
+    $fmsg->display(); 
     $date_naissance = date('d/m/Y', strtotime($enfant[0]['date_naissance']));
 ?>
 
@@ -19,6 +19,7 @@
       <input type="text" name="ville" id="ville" placeholder = "Ville" value="<?= $particulier['ville']?>"><br>
       <input type="text" name="tel" id="tel" placeholder = "N° de téléphone (0000000000)" value="<?= $particulier['tel']?>"><br>
 
+      <input type="hidden" name="id_en" value="<?= $enfant[0]['id_en']?>">
       <input type="text" name="prenom_enfant" id="prenom_enfant" placeholder = "Prénom de l'enfant" value="<?= $enfant[0]['prenom']?>"><br>
   		<input type="text" name="date_naissance" id="date_naissance" placeholder = "Date de Naissance (00/00/0000)" value="<?= $date_naissance?>"><br>
   	     		
