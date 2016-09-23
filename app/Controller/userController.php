@@ -134,7 +134,39 @@ class UserController extends BaseController
 
 
 
+	public function verifPostParticulier()
+	{
+			extract($_POST);
+			$assignedDatas = array();
 
+			$civilite_h= (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
+			$civilite_f = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
+			$nom = (isset($nom)) ? $nom : "";
+			$prenon = (isset($prenom)) ? $prenom : "";
+			$aemail = (isset($email)) ? $email : "";
+			$mdp = (isset($mdp)) ? $mdp : "";
+			$adresse = (isset($adresse)) ? $adresse : "";
+			$cp = (isset($cp)) ? $cp : "";
+			$viille = (isset($ville)) ? $ville : "";
+			$tel = (isset($tel)) ? $tel : "";
+			$prenom_enfant = (isset($prenom_enfant)) ? $prenom_enfant : "";
+			$date_naissance = (isset($date_naissance)) ? $date_naissance : "";
+
+			foreach ($_POST as $key => $value)
+		    {
+		    	if ($key == 'civilite')
+			  	{
+			  		$assignedDatas['civilite_h'] = $civilite_h;
+			  		$assignedDatas['civilite_f'] = $civilite_f;
+			  	}
+			  	else
+			  	{
+			  		$assignedDatas[$key] = ${$key};	
+			  	}
+			}
+		
+		return $assignedDatas;
+	}
 
 
 
@@ -144,7 +176,10 @@ class UserController extends BaseController
 		$matiere = $matiereModel->findAllMatiere();
 		$scolariteModel = new ScolariteModel();
 		$scolarite = $scolariteModel->findAllScolarite();
-		$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite]);
+
+		$assignedDatas = $this->verifPostParticulier();
+
+		$this->show('user/inscription_particulier', ['scolarite_list' => $scolarite, 'assignedDatas' => $assignedDatas]);
 	}
 
 
@@ -175,70 +210,36 @@ class UserController extends BaseController
 		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']))
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> warning('L\'email est déjà utilisé ! Veuillez en saisir un nouveau', null, true);
+			$this->getFlashMessenger() -> error('L\'email est déjà utilisé ! Veuillez en saisir un nouveau', null, true);
 		}
 		else if(!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) )
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> warning('L\'émail est invalide ! Veuillez en saisir un nouveau', null, true);
+			$this->getFlashMessenger() -> error('L\'émail est invalide ! Veuillez en saisir un nouveau', null, true);
 		}	
 
 
 		if (!empty($_POST['cp']) && !preg_match("#^[0-9]{5}$#", $_POST['cp']))
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> warning('Le code postal est incorrect', null, true);
+			$this->getFlashMessenger() -> error('Le code postal est incorrect', null, true);
 		}	
 
 		if (!empty($_POST['tel']) && !preg_match("#^0[1-9][0-9]{8}$#", $_POST['tel']))
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> warning('Le numéro de téléphone est incorrect !', null, true);
+			$this->getFlashMessenger() -> error('Le numéro de téléphone est incorrect !', null, true);
 		}	
 
 		if (!empty($_POST['date_naissance']) && !preg_match("#^(((0[1-9])|(1\d)|(2\d)|(3[0-1]))\/((0[1-9])|(1[0-2]))\/(\d{4}))$#", $_POST['date_naissance']))
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> warning('La date de naissance est incorrect', null, true);
+			$this->getFlashMessenger() -> error('La date de naissance est incorrect', null, true);
 		}	
 
 
 				
-			extract($_POST);
-			$assignedDatas = array();
-
-			$assignedDatas['civilite_h'] = (!isset($civilite) || (isset($civilite)) && $civilite == "M.") ? 'checked' : "";  
-			$assignedDatas['civilite_f'] = (isset($civilite) && $civilite == "Mme") ? 'checked' : "";  
-			$assignedDatas['nom'] = (isset($nom)) ? $nom : "";
-			$assignedDatas['prenom'] = (isset($prenom)) ? $prenom : "";
-			$assignedDatas['email'] = (isset($email)) ? $email : "";
-			$assignedDatas['mdp'] = (isset($mdp)) ? $mdp : "";
-			$assignedDatas['adresse'] = (isset($adresse)) ? $adresse : "";
-			$assignedDatas['cp'] = (isset($cp)) ? $cp : "";
-			$assignedDatas['ville'] = (isset($ville)) ? $ville : "";
-			$assignedDatas['tel'] = (isset($tel)) ? $tel : "";
-
-			$assignedDatas['prenom_enfant'] = (isset($prenom_enfant)) ? $prenom_enfant : "";
-			$assignedDatas['date_naissance'] = (isset($date_naissance)) ? $date_naissance : "";
-
-			
 		
-
-
-		    foreach ($_POST as $key => $value)
-		    {
-		    	if ($key == 'civilite')
-			  	{
-			  		$assignedDatas['civilite_h'] = $civilite_h;
-			  		$assignedDatas['civilite_f'] = $civilite_f;
-			  	}
-			  	else
-			  	{
-			  		$assignedDatas[$key] = ${$key};	
-			  	}
-			}
-		
-
 		  
 			
 		if ($error = 0)
@@ -264,12 +265,13 @@ class UserController extends BaseController
 			debug($newEnfant);
 			$enfantTable->insert($newEnfant);
 
-
-			// $this->redirectToRoute('user_inscription_etudiant');
+			$this->getFlashMessenger() -> success('Votre compte a été créé. Vous pouvez maintenant vous connecter/', null, true);
+			
 			
 		}
 		else
 		{
+			$assignedDatas	= $this->verifPostParticulier();
 			$this->show('user/inscription_particulier', ['assignedDatas'=> $assignedDatas, 'scolarite_list' => $scolarite]);
 		}
 		
@@ -345,6 +347,7 @@ class UserController extends BaseController
 			$newEtudiant = new EtudiantModel();
 			$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
 
+			$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
 	
 			if (!empty($etudiant))
 			{
@@ -389,7 +392,7 @@ class UserController extends BaseController
 
 
 		}else{
-			$this->getFlashMessenger() -> warning('Mot de passe ou email incorrect', null, true);
+			$this->getFlashMessenger() -> error('Mot de passe ou email incorrect', null, true);
 			$this->redirectToRoute('user_login');
 		}
 

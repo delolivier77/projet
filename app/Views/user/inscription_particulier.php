@@ -11,12 +11,7 @@
   debug($assignedDatas);
 
   debug($_POST);
-  extract($_POST);
-  $mdp = (isset($mdp)) ? $mdp : "";
-  debug($mdp);
-  if (isset($_POST) && !empty($_POST)){
-    echo 'test';
-  }
+  
 
 ?>
 
