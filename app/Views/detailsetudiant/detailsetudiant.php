@@ -31,12 +31,27 @@
 	<?= $etudiant['tel'] ?><br>
 	<?= $etudiant['email'] ?><br>
 	<?= $etudiant['niveau_etude'] ?><br>
-	<?= $etudiant['id_s_min'] ?><br>
-	<?= $etudiant['id_s_max'] ?><br>
+	<p>Niveau ciblé :</p>
+	<?= $etudiant['matiere'] ?><br>
+	<?= $etudiant['scolmin'] ?><br>
+	<?= $etudiant['scolmax'] ?><br>
 	<?= $etudiant['description'] ?><br>
 	<?= $etudiant['detail_dispo'] ?><br>
-	</div>
+	<p>Avis :</p>
+	<?php foreach($commentaire as $valeur): ?>
+	<?= $valeur['commentaire'] ?><br>
+	<?= $valeur['date_commentaire'] ?><br><br>
+	<?php endforeach; ?>
+		
+		<p>Donner un avis :</p>
+		<form method="POST" action="<?= $this->url('add_commentaire')?>">
+		<div class="form-group">
+		<textarea class="form-control" rows="3"></textarea>
+			<button type="submit" class="btn btn-primary btn-md">Envoyer</button>	
 
+		</div>
+		</form>
+	</div>
 
 
 <?php $this->stop('main_content') ?>

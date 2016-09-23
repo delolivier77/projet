@@ -1,7 +1,7 @@
 <form method="POST" action="<?=$this->url('recherche_result') ?>">  
-    <input placeholder="Matière" type="text" id="matiere" name="matiere">
-    <input placeholder="Scolarité" type="text" id="niveau" name="scolarite">
-    <input placeholder="Ville" type="text" id="searchTextField" name="ville">
+    <input placeholder="Matière" type="text" id="matiere" name="matiere" value="<?= isset($matiere) ? $matiere : ''; ?>">
+    <input placeholder="Scolarité" type="text" id="niveau" name="scolarite" value="<?= isset($scolarite) ? $scolarite : ''; ?>">
+    <input placeholder="Ville" type="text" id="searchTextField" name="ville" value="<?= isset($ville) ? $ville : ''; ?>">
     <input type="submit" value="Rechercher">
 </form>
 <script>

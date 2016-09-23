@@ -22,3 +22,4 @@ class SearchresultController extends Controller
 		$this->show('searchresult/searchresult', ['matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);	
 
 	}
+	

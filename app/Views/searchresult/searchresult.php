@@ -25,7 +25,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 </style>
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12 search"><?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites)); ?>
+		<div class="col-lg-12 search"><?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites, 'ville'=>$ville, 'scolarite' => $scolarite, 'matiere' => $matiere)); ?>
 		</div>
 	</div>
 	<div class="row">

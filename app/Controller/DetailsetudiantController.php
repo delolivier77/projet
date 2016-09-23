@@ -2,9 +2,11 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \Controller\userController;
 use \Model\RechercheModel;
 use \Model\ScolariteModel;
 use \Model\ConnaissanceModel;
+use \Model\CommentaireModel;
 
 class DetailsetudiantController extends Controller
 {
@@ -12,19 +14,24 @@ class DetailsetudiantController extends Controller
 
 		$detailsetudiantModel = new RechercheModel();
 		$etudiant = $detailsetudiantModel->searchResultById($id);
-	    // var_dump($etudiant);
-		/*$connaissances = new ConnaissanceModel();
-		$connaissance = $connaissances->connaissance($id_u);
+	    /*debug($etudiant);*/
+		/*$newConnaissance = new ConnaissanceModel();
+        $connaissance = $newConnaissance->find($id);                
+		$newScolariteMin = new ScolariteModel();
+		$scolarite_min = $newScolariteMin->search(['id_s' => $connaissance['id_s_min']]);
+		$newScolariteMax = new ScolariteModel();
+		$scolarite_max = $newScolariteMax->search(['id_s' => $connaissance['id_s_max']]);*/
 
-	    $newscolaritemin = new ScolariteModel();
-		$scolarite_min = $newscolaritemin->search(['id_s' => $connaissance['id_s_min']]);
-
-		$newscolaritemax = new ScolariteModel();
-		$scolarite_max = $newscolaritemax->search(['id_s' => $connaissance['id_s_max']]);
-		debug($connaissance);*/
-		$this->show('Detailsetudiant/Detailsetudiant', ['etudiant' => $etudiant[0]/*, 'newscolaritemin' => $newscolaritemin, 'newscolaritemax' => $newscolaritemax*/]);
-
+		$newCommentaire = new CommentaireModel();
+		$commentaire = $newCommentaire->findComs($id);
+		/*debug($commentaire);*/
+		/*$avg = $newCommentaire->avgNoteEtudiant($_SESSION['user']['id_u']);*/
+		$this->show('Detailsetudiant/Detailsetudiant', ['etudiant' => $etudiant[0], 'commentaire' => $commentaire/*, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max*//*, 'avg' => $avg, 'commentaire' =>$commentaite*/]);
 		
 	}
+		public function addCom(){
+			
+		}
+	// ... addComm here 
 
 }

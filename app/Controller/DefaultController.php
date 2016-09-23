@@ -1,5 +1,4 @@
 <?php
-
 namespace Controller;
 
 use \W\Controller\Controller;
@@ -8,7 +7,6 @@ use \Model\StudentModel;
 
 class DefaultController extends Controller
 {
-
 	/**
 	 * Page d'accueil par défaut
 	 */
@@ -20,15 +18,4 @@ class DefaultController extends Controller
 		$lastStudents = $studentModel->getLastStudents();
 		$this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1], 'lastStudentsForView'=>$lastStudents));
 	}
-
-
-
-	/**
-	 * Page hello
-	 */
-	public function hello()
-	{
-		$this->show('default/hello', ['username' => 'Bruce Willis']);
-	}
-
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,18 +20,16 @@
 <body>
 <script type="text/javascript">var mapStack = []; var googleLoaded = false;</script>
 	<!-- header -->
-	
 	<div class="fluid-container">
 		<div class="container">
 			<header class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-12 text-center header">
 
 					<ul class="nav navbar-nav">
 						<li> <a href="<?=$this->url('default_home') ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 						<li> <a href="#">Connexion</a> </li>
 						<li> <a href="#">Inscription</a> </li>
 					</ul>
-
 
 					<ul class="nav navbar-brand">
 						<li>SOUTIEN-ETUDIANT.FR</li>
@@ -47,28 +44,23 @@
 			</header>
 		</div>
 	</div>
-
-
 	<?= $this->section('main_content') ?>			
-
 	<!-- section	 -->
 	<div class="fluid-container">
 	</div>
-
-	
 		<!-- footer -->
 		<div class="fluid-container">
 			<footer class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-12 text-center footer">
 					<p>soutien-etudiant.fr &copy; Copyright 2016<br> <a href="#">FAQ</a> - <a href="#">Contact</a>- Conditions générales</p>
 				</div>
 			</footer>
 		</div>
 <script>
-		function initMap() {
-			googleLoaded = true;
-			for(var i = 0; i<mapStack.length; i++) {
-				mapStack[i]();
+	function initMap() {
+		googleLoaded = true;
+		for(var i = 0; i<mapStack.length; i++) {
+		mapStack[i]();
 			}
 		}
 </script>

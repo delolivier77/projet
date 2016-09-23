@@ -12,6 +12,10 @@ class UsersModel extends Model
 	 * Constructeur
 	 */
 	public function __construct(){
+
+		parent::__construct();
+		$this->setPrimaryKey('id_u');
+		
 		$app = getApp();
 		// Définit la table en fonction de la config
 		$this->setTable($app->getConfig('security_user_table'));
