@@ -15,7 +15,7 @@
 <div id="profil">
 	<img src="<?= $this->assetUrl($url_photo);?>" alt="photo">
 	<h2><?= $etudiant['civilite']. " " . $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'] . "<br>"  ?> </h2>
-	<?php  echo 'Note moyenne: '. $avg[0]['avg'] . ' Nombre d\'avis :' . $avg[0]['count']. '<br><br>'.
+	<?php  echo 'Note moyenne: '. $avg['avg'] . ' Nombre d\'avis :' . $avg['count']. '<br><br>'.
 		'Date de naissance : ' . $date_naissance .'<br>'.
 		$etudiant['adresse'] . " " . $etudiant['cp'] . " " . $etudiant['ville']. "<br><br>".
 		$_SESSION['user']['email'] . '<br>'.
@@ -42,14 +42,15 @@
 		$matiere[0]['nom'] . " " . $scolarite_min[0]['nom'] . " " . $scolarite_max[0]['nom']. "<br>".
 
 		$etudiant['description'] . '<br>'.
-		$etudiant['dispo'] . '<br>'.
 		$etudiant['detail_dispo'] . '<br>'.
 		$etudiant['tarif'] . '€<br><br>';
 		
 		foreach ($commentaire as $value) {
-			echo $value['note'].'<br>' . $value['commentaire'] . '<br>' . date('d/m/Y H:i:s', strtotime($value['date_commentaire'])) .'<br><br>';
+			if (!empty($value['commentaire']))
+			{
+				echo $value['note'].'<br>' . $value['commentaire'] . '<br>' . date('d/m/Y H:i:s', strtotime($value['date_commentaire'])) .'<br><br>';
+			}
 		}
-
 		
 	?>
 </div>

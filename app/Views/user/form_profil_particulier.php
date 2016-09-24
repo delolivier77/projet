@@ -4,6 +4,7 @@
    
     $fmsg->display(); 
     $date_naissance = date('d/m/Y', strtotime($enfant[0]['date_naissance']));
+
 ?>
 
 
@@ -34,12 +35,9 @@
         ?>
       </select><br>
 
-      <input type="radio" name="statut" value="actif" <?= (isset($_SESSION['user']['statut']) || (isset($_SESSION['user']['statut'])) && $statut == "") ? 'checked' : ""?>>actif
-      <input type="radio" name="statut" value="inactif" <?=(isset($_SESSION['user']['statut']) && $_SESSION['user']['statut'] == "inactif") ? 'checked' : ""?> >inactif<br>
-
       <label for="ancien_mdp">Pour changer de mot de passe, inscrire l'ancien avant d'en écrire un nouveau</label><br>
       <input type="text" name="ancien_mdp" id="ancien_mdp" placeholder = "Ancien mot de passe" >
-      <input type="text" name="ancien_mdp" id="ancien_mdp" placeholder = "Ancien mot de passe" ><br>
+      <input type="text" name="nouveau_mdp" id="nouveau_mdp" placeholder = "Nouveau mot de passe" ><br>
 
       <input type="submit" name="enregister" value="modifier">
 
