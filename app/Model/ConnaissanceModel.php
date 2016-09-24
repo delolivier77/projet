@@ -2,22 +2,14 @@
 namespace Model;
 use \W\Model\Model;
 
-class ScolariteModel extends Model 
+class ConnaissanceModel extends Model 
 {
-
 	public function __construct()
 	{
 		parent::__construct();
-	    $this->setPrimaryKey('id_s');
+	    $this->setPrimaryKey('id_cn');
 	}
 	
-
-	public function findAllScolarite()
-	{	
-		$scolarite = Model::findAll($orderBy = 'id_s', $orderDir = 'ASC', $limit = null, $offset = null);
-		return $scolarite;
-	}
-
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 
@@ -54,5 +46,4 @@ class ScolariteModel extends Model
 	}
 
 }
-
 ?>
