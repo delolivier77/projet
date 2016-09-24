@@ -11,6 +11,7 @@
 
 	$date_naissance = date('d/m/Y', strtotime($enfant[0]['date_naissance']));
 	$date_inscription = date('d/m/Y', strtotime($_SESSION['user']['date_inscription']));
+	
 
 ?>
 
@@ -23,15 +24,23 @@
 		'Inscrit depuis le : ' . $date_inscription . '<br><br>' .
 	
 		$enfant[0]['prenom'] . " " . $date_naissance . " " . $scolarite['nom']. "<br><br>";
-
+		?>
+		Les commentaires que vous avez postés<br><br>
+		<?php
+			
+			foreach ($commentaire as $value) {
+				echo 'etudiant: ' . $value['nom']. ' ' . $value['prenom'] . '<br>';
+				echo 'note :' . $value['note'].'<br>' . $value['commentaire'] . '<br>' . date('d/m/Y H:i:s', strtotime($value['date_commentaire'])) .'<br>';
 				
-		foreach ($commentaire as $value) {
-			echo $value['note'].'<br>' . $value['commentaire'] . '<br>' . date('d/m/Y H:i:s', strtotime($value['date_commentaire'])) .'<br><br>';
-		}
+				echo '<a href=' . $this->url('commentaire_form_commentaire', ['id' => $value['id_co']]). '>Modifier le commentaire</a><br>';
+				echo '<a href=' . $this->url('commentaire_delete_commentaire', ['id' => $value['id_co']]). '>Supprimer le commentaire</a><br><br>';
+			}
 		
 	?>
 
-	<a href=<?=$this->url('user_form_profil_particulier')  ?>>Modifier</a>
+
+	<br>
+	<a href=<?=$this->url('user_form_profil_particulier')  ?>>Modifier le profil</a>
 
 </div>
 

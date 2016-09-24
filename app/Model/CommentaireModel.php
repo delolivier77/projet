@@ -27,6 +27,23 @@ class CommentaireModel extends Model
 	}
 
 
+	public function findCommentsByParticulier($id)
+	{
+		$sql = $this->dbh->prepare("SELECT * FROM commentaire AS c, user as u where c.id_et = u.id_u AND c.id_p = :id");
+		$sql->execute(array('id' => $id));
+		$result= $sql-> fetchAll();
+		return ($result);	
+	}
+
+	public function findCommentsById($id)
+	{
+		$sql = $this->dbh->prepare("SELECT * FROM commentaire AS c, user as u where c.id_et = u.id_u AND c.id_co = :id");
+		$sql->execute(array('id' => $id));
+		$result= $sql-> fetchAll();
+		return ($result);	
+	}
+
+
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 

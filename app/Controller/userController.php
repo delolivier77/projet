@@ -155,7 +155,6 @@ class UserController extends BaseController
 	}
 
 
-
 	public function inscriptionEtudiant()
 	{
 		$matiereModel = new MatiereModel();
@@ -524,8 +523,8 @@ class UserController extends BaseController
 		$particulier = $newParticulier->find($_SESSION['user']['id_u']);
 
 		$newCommentaire = new CommentaireModel();
-		$commentaire = $newCommentaire->findWhere(['id_p' => $_SESSION['user']['id_u']]);
-		
+		$commentaire = $newCommentaire->findCommentsByParticulier($_SESSION['user']['id_u']);
+			
 		$newEnfant = new EnfantModel();
 		$enfant = $newEnfant->findWhere(['id_p' => $_SESSION['user']['id_u']]);
 

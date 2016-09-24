@@ -15,7 +15,20 @@
 <div id="profil">
 	<img src="<?= $this->assetUrl($url_photo);?>" alt="photo">
 	<h2><?= $etudiant['civilite']. " " . $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'] . "<br>"  ?> </h2>
-	<?php  echo 'Note moyenne: '. $avg['avg'] . ' Nombre d\'avis :' . $avg['count']. '<br><br>'.
+	<?php 
+
+		for($x=1;$x<=$avg['avg'];$x++) { 
+                echo '<i class="mdi mdi-18px mdi-star" aria-hidden="true"></i>'; 
+        };
+
+       if (strpos($avg['avg'],'.' && '' > 0)) { 
+       if (strpos($avg['avg'],'.') && intval($avg['avg']) != $avg['avg']) { 
+                echo '<i class="mdi mdi-18px mdi-star-half" aria-hidden="true"></i>'; 
+                $x++; 
+       }};
+
+
+	 echo '<br> Nombre d\'avis :' . $avg['count']. '<br><br>'.
 		'Date de naissance : ' . $date_naissance .'<br>'.
 		$etudiant['adresse'] . " " . $etudiant['cp'] . " " . $etudiant['ville']. "<br><br>".
 		$_SESSION['user']['email'] . '<br>'.
