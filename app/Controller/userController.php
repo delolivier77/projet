@@ -10,6 +10,7 @@ use \Model\ParticulierModel;
 use \Model\EnfantModel;
 use \Model\ConnaissanceModel;
 use \Model\CommentaireModel;
+use \Model\AdminModel;
 use \W\Security\AuthentificationModel;
 use \Controller\BaseController;
 
@@ -225,6 +226,61 @@ class UserController extends BaseController
 		}
 	}
 
+
+	public function formProfilEtudiant()
+	{
+		$newEtudiant = new EtudiantModel();
+		$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+
+		$newConnaissance = new ConnaissanceModel();
+		$connaissance = $newConnaissance->findWhere(['id_et' => $_SESSION['user']['id_u']]);
+					
+		$newScolariteMin = new ScolariteModel();
+		$scolarite_min = $newScolariteMin->findWhere(['id_s' => $connaissance[0]['id_s_min']]);
+
+		$newScolariteMax = new ScolariteModel();
+		$scolarite_max = $newScolariteMax->findWhere(['id_s' => $connaissance[0]['id_s_max']]);
+
+		$newMatiere = new MatiereModel();
+		$matiere = $newMatiere->findWhere(['id_m' => $connaissance[0]['id_m']]);
+
+		$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+
+		$this->show('user/form_profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max, 'matiere' => $matiere]);
+	}
+
+
+	public function updateEtudiant()
+	{
+	}
+
+
+
+	public function profilEtudiant()
+	{
+		$newEtudiant = new EtudiantModel();
+		$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+
+		$newConnaissance = new ConnaissanceModel();
+		$connaissance = $newConnaissance->findWhere(['id_et' => $_SESSION['user']['id_u']]);
+		
+		$newCommentaire = new CommentaireModel();
+		$commentaire = $newCommentaire->findWhere(['id_et' => $_SESSION['user']['id_u']]);
+		$avg = $newCommentaire->avgNoteEtudiant($_SESSION['user']['id_u']);
+				
+		$newScolariteMin = new ScolariteModel();
+		$scolarite_min = $newScolariteMin->findWhere(['id_s' => $connaissance[0]['id_s_min']]);
+
+		$newScolariteMax = new ScolariteModel();
+		$scolarite_max = $newScolariteMax->findWhere(['id_s' => $connaissance[0]['id_s_max']]);
+
+		$newMatiere = new MatiereModel();
+		$matiere = $newMatiere->findWhere(['id_m' => $connaissance[0]['id_m']]);
+
+		$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
+
+		$this->show('user/profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max, 'matiere' => $matiere, 'commentaire' => $commentaire, 'avg' => $avg]);
+	}
 
 
 
@@ -445,6 +501,25 @@ class UserController extends BaseController
 
 
 
+
+	public function profilParticulier()
+	{
+		$newParticulier = new ParticulierModel();
+		$particulier = $newParticulier->find($_SESSION['user']['id_u']);
+
+		$newCommentaire = new CommentaireModel();
+		$commentaire = $newCommentaire->findCommentsByParticulier($_SESSION['user']['id_u']);
+			
+		$newEnfant = new EnfantModel();
+		$enfant = $newEnfant->findWhere(['id_p' => $_SESSION['user']['id_u']]);
+
+		$newScolarite = new ScolariteModel();
+		$scolarite = $newScolarite->find($enfant[0]['id_s']);
+		$this->show('user/profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite ,'commentaire' => $commentaire]);	
+	}
+
+
+
 	//--------------------------------------------------------------------------------------
 
 
@@ -466,49 +541,33 @@ class UserController extends BaseController
 					
 			$newEtudiant = new EtudiantModel();
 			$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
-
-			
-	
-			if (!empty($etudiant))
+			if (!empty($etudiant) && $_SESSION['user']['statut'] == 'actif')
 			{
-				$newConnaissance = new ConnaissanceModel();
-				$connaissance = $newConnaissance->findWhere(['id_et' => $_SESSION['user']['id_u']]);
-				
-				$newCommentaire = new CommentaireModel();
-				$commentaire = $newCommentaire->findWhere(['id_et' => $_SESSION['user']['id_u']]);
-				$avg = $newCommentaire->avgNoteEtudiant($_SESSION['user']['id_u']);
-				
-				$newScolariteMin = new ScolariteModel();
-				$scolarite_min = $newScolariteMin->findWhere(['id_s' => $connaissance[0]['id_s_min']]);
-
-				$newScolariteMax = new ScolariteModel();
-				$scolarite_max = $newScolariteMax->findWhere(['id_s' => $connaissance[0]['id_s_max']]);
-
-				$newMatiere = new MatiereModel();
-				$matiere = $newMatiere->findWhere(['id_m' => $connaissance[0]['id_m']]);
-
-
-				$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
-
 				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
-				$this->show('user/profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max, 'matiere' => $matiere, 'commentaire' => $commentaire, 'avg' => $avg]);
+				$this->redirectToRoute('user_profil_etudiant');
 			}
 			
 
 			$newParticulier = new ParticulierModel();
 			$particulier = $newParticulier->find($_SESSION['user']['id_u']);
-			if (!empty($particulier) && $_SESSION['user']['statut'] == 'actif'){
+			if (!empty($particulier) && $_SESSION['user']['statut'] == 'actif')
+			{
 				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
 				$this->redirectToRoute('user_profil_particulier');
 			}
-			else
+			
+
+			$newAdmin = new AdminModel();
+			$admin = $newAdmin->find($_SESSION['user']['id_u']);
+			if (!empty($admin) && $_SESSION['user']['statut'] == 'actif')
 			{
-				$this->getFlashMessenger() -> error('Ce compte n\'existe pas', null, true);
-				$this->show('user/login');
+				// vers back
 			}
 
 
-			// redirection vers le back
+			$this->getFlashMessenger() -> error('Le compte n\'exite pas', null, true);
+			$this->show('user/login');
+		
 		}
 		else
 		{
@@ -517,21 +576,6 @@ class UserController extends BaseController
 		}
 	}
 
-	public function profilParticulier()
-	{
-		$newParticulier = new ParticulierModel();
-		$particulier = $newParticulier->find($_SESSION['user']['id_u']);
-
-		$newCommentaire = new CommentaireModel();
-		$commentaire = $newCommentaire->findCommentsByParticulier($_SESSION['user']['id_u']);
-			
-		$newEnfant = new EnfantModel();
-		$enfant = $newEnfant->findWhere(['id_p' => $_SESSION['user']['id_u']]);
-
-		$newScolarite = new ScolariteModel();
-		$scolarite = $newScolarite->find($enfant[0]['id_s']);
-		$this->show('user/profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite ,'commentaire' => $commentaire]);	
-	}
 
 
 
