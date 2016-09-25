@@ -1,0 +1,258 @@
+*{  
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+body{
+	font-family: 'Open Sans', sans-serif;
+	background: #F7F7F7;
+	padding-top: 71px;
+}
+
+h1,h2,h3{
+	margin: 0;
+}
+
+/****************** HEADER *******************/
+.header{
+	background: #FFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.header a, button{
+	-webkit-transition-duration: 0.5s;
+	-o-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+}
+
+.domaine, .menu{
+	color: #337AB7!important;	
+}
+
+.domaine{
+	font: 1.7em 'levenim_mtbold', sans-serif;
+}
+
+.domaine:hover, .menu:hover{
+	color: #757575!important;
+	cursor: pointer;
+}
+
+.menu{
+	font-size: 1.1em;
+}
+
+.btn-cours{
+	margin-left: 3%;
+	margin-right: 8%;
+}
+
+/****************** ZONE DE RECHERCHE *******************/
+
+.box_search{
+	background-image: url(../img/visuels/fond-home.jpg);
+	height: 250px;
+	padding-top: 5.2%;
+	width: 100%;
+}
+
+.box_search h1{
+	color: white;
+	text-align: center;
+	padding-bottom: 2%;
+	padding-left: 1.5%;
+}
+
+.form_search{
+	margin: 0 auto;
+}
+
+
+/****************** CONCEPT *******************/
+
+.concept h2{
+	color: #464646;
+	text-align: center;
+	font-size: 2rem;
+	margin-top: 0;
+	margin-bottom: 5%;
+}
+
+.concept{
+	background: #F7F7F7;
+	padding-top: 5%;
+	padding-bottom: 6%;
+}
+
+#concept_left{
+	border-right: 1px solid #CCC;
+}
+
+
+/****************** DERNIERS ETUDIANTS INSCRITS *******************/
+
+.last_students h3{
+	color: #464646;
+	text-align: center;
+	margin-top: 0;
+	padding-bottom: 2%;   
+}
+
+.last_students{
+	background: #F0f0f0;
+	padding-top: 3%;
+	padding-bottom: 3.5%;
+ }
+
+.vignette{
+	border-radius: 10px;
+	border: 1px solid rgb(255, 255, 255);
+ }
+
+.vignette img{
+	border-radius: 10px;
+	width: 100%;
+}
+
+.description{
+	text-align: center;
+	padding-top: 5px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.matiere{
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+/****************** FOOTER *******************/
+
+footer{
+	background: #464646;
+}
+
+footer p, footer a{
+	display: inline-block;
+	color: #FFF;
+	padding: 1.5%;
+	margin: 0;
+	font-size: 1.3rem;
+}
+
+footer a:hover{
+	color: #ccc;
+}
+
+
+/****************** POUR LE RESPONSIVE *******************/
+
+
+@media screen and (max-width: 1199px) {
+
+ 	.box_search h1{
+		font-size: 3vw;
+	}
+
+	.box_search{
+		padding-top: 2%;
+	}
+
+	.form_search{
+		width: 60%;
+	}
+
+
+	#concept_left{
+		border-right: 0;
+		padding-bottom: 6%;
+	}
+
+	input{
+		margin-bottom: 1%;
+	}
+}
+
+@media screen and (max-width: 991px) {
+
+	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.box_search{
+		padding-top: 2.3%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+
+	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.box_search{
+		padding-top: 4%;
+	}
+}
+
+@media screen and (max-width: 640px) {
+
+ 	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.form_search{
+		width: 65%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 3.3vw;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+ 	.box_search h1{
+		font-size: 4vw;
+	}
+
+	.box_search{
+		padding-top: 6%;
+	}
+	
+	.form_search{
+		width: 85%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 3.8vw;
+	}
+
+
+@media screen and (max-width: 360px) {
+
+	.domaine{
+		font: 1.4em 'levenim_mtbold', sans-serif;
+	}
+
+ 	.box_search h1{
+		font-size: 6vw;
+	}
+
+	.box_search{
+		padding-top: 7%;
+	}
+
+	.form_search{
+		width: 100%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 5vw;
+	}
+}
