@@ -10,6 +10,7 @@ class CommentaireModel extends Model
 	    $this->setPrimaryKey('id_co');
 	}
 
+	// permet de recuperer la note et le bomvre d'avis pour etudiant donné
 	public function avgNoteEtudiant($id)
 	{
 		$sql = $this->dbh->prepare("SELECT ROUND(AVG(note),1) as 'avg' FROM commentaire where id_et = :id");
@@ -26,7 +27,7 @@ class CommentaireModel extends Model
 		return ($res);
 	}
 
-
+	// cherche un commentaire par le particulier qui la saisie
 	public function findCommentsByParticulier($id)
 	{
 		$sql = $this->dbh->prepare("SELECT * FROM commentaire AS c, user as u where c.id_et = u.id_u AND c.id_p = :id");
@@ -35,6 +36,7 @@ class CommentaireModel extends Model
 		return ($result);	
 	}
 
+	// cherche un commentaire par son ID
 	public function findCommentsById($id)
 	{
 		$sql = $this->dbh->prepare("SELECT * FROM commentaire AS c, user as u where c.id_et = u.id_u AND c.id_co = :id");
@@ -44,6 +46,8 @@ class CommentaireModel extends Model
 	}
 
 
+
+	// fonction de recherche dans la table utilise un '=' plutot qu'un 'like'
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 

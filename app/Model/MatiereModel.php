@@ -11,13 +11,14 @@ class MatiereModel extends Model
 	    $this->setPrimaryKey('id_m');
 	}
 	
-
+	// permet tout le contenu de la table 'matiere'
 	public function findAllMatiere()
 	{	
 		$matiere = Model::findAll($orderBy = 'nom', $orderDir = 'ASC', $limit = null, $offset = null);
 		return $matiere;
 	}
 
+	// fonction de recherche dans la table utilise un '=' plutot qu'un 'like'
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 

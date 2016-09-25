@@ -10,6 +10,7 @@ class ConnaissanceModel extends Model
 	    $this->setPrimaryKey('id_cn');
 	}
 	
+	// fonction de recherche dans la table utilise un '=' plutot qu'un 'like'
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 
