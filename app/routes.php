@@ -22,6 +22,7 @@
 		/* connexion */
 		['GET', '/login', 'User#loginForm', 'user_login_form'],
 		['POST', '/login', 'User#login', 'user_login'],
+		['POST', '/profil', 'User#profil', 'user_profil'],
 		['GET', '/profil_etudiant', 'User#profilEtudiant', 'user_profil_etudiant'],
 		['GET', '/profil_particulier', 'User#profilParticulier', 'user_profil_particulier'],
 		['GET', '/logout', 'User#logout', 'user_logout'],	

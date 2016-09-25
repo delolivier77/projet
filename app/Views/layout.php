@@ -66,25 +66,25 @@
 						<li><a href="<?php echo $this->url('default_home')?>" ><i class="fa fa-home menu" aria-hidden="true"></i></a></li>
 
 
-<!-- menu  -->
-						<?php
+					<?php
 						if (!isset($w_user) && empty($w_user))
 						{
-							echo '<li><a href="#" class="menu">Connexion</a></li>';
+							echo '<li><a href="' . $this->url('user_login'). '" class="menu">Connexion</a></li>';
+							echo '<li><a href="' . $this->url('user_inscription_particulier'). '" class="menu">Inscription</a></li>';
 						}else{
-							echo '<li><a href="#" class="menu">Déconnexion</a></li>';
+							echo '<li><a href="' . $this->url('user_profil'). '" class="menu">Mon compte</a></li>';
+							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
 						}
 						
-						?>
-						<li><a href="#" class="menu">Inscription</a></li>
+					?>
 
-						
 					</ul>
 
+					
 					<ul class="nav navbar-nav navbar-right">
 						<li> 
 							<form class="navbar-form navbar-right">
-							<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>
+							<button type="submit" class="btn btn-primary btn-cours" onclick=window.open("<?=$this->url('user_inscription_etudiant') ?>")>Donner des cours</button>
 							</form>
 						</li>
 					</ul>
