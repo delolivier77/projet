@@ -95,8 +95,8 @@
 					
 					<ul class="nav navbar-nav navbar-right">
 						<li> 
-							<form class="navbar-form navbar-right">
-							<button type="submit" class="btn btn-primary btn-cours" onclick=window.open("<?=$this->url('user_inscription_etudiant') ?>")>Donner des cours</button>
+							<form class="navbar-form navbar-right" action="<?=$this->url('user_inscription_etudiant') ?>">
+							<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>
 							</form>
 						</li>
 					</ul>
