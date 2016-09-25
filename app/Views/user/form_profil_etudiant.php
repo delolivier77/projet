@@ -1,26 +1,23 @@
 <?php
 
-	debug($_SESSION);
-	debug($etudiant);
-	debug($connaissance);
-
+  $fmsg->display(); 
 	$url_photo = 'img/photos/'.$etudiant['photo'];
 	$date_naissance = date('d/m/Y', strtotime($etudiant['date_naissance']));
 
-	debug($connaissance[0]['id_m']);
 ?>
 
 
 
-<form action=# method="post" enctype="multipart/form-data">
+<form action="<?= $this->url('user_update_etudiant')?>" method="post" enctype="multipart/form-data">
 	
 
 
 	<fieldset id="part1">
 
       	<img src="<?= $this->assetUrl($url_photo);?>" alt="photo">
+        <input type="hidden" name="nom_photo" value="<?= $etudiant['photo']?>">
       	<input type="file" name="photo" id="photo"><br>
-		<input type="radio" name="civilite" value="M." <?=(isset($etudiant['civilite'])) && $etudiant['civilite'] == "M.") ? 'checked' : ""?>>M.
+		    <input type="radio" name="civilite" value="M." <?=(isset($etudiant['civilite']) && $etudiant['civilite'] == "M.") ? 'checked' : ""?>>M.
   	  	<input type="radio" name="civilite" value="Mme" <?=(isset($etudiant['civilite']) && $etudiant['civilite'] == "Mme") ? 'checked' : ""?> >Mme<br>
   		<input type="text" name="nom" id="nom" value="<?= $_SESSION['user']['nom']?>"><br>
   		<input type="text" name="prenom" id="prenom" value="<?= $_SESSION['user']['prenom']?>"><br>
@@ -48,6 +45,7 @@
   	</fieldset>
 
   	<fieldset id="part2">
+        <input type="hidden" name="id_cn" value="<?= $connaissance[0]['id_cn']?>">
         <select name="matiere">
           <option selected disabled >Matière</option>
           <?php 
@@ -85,14 +83,17 @@
   		  <textarea name="description" ><?= $etudiant['description']?></textarea><br>
 
 
-  		  	<input type="radio" name="type_rdv" value="faceface" <?= $rdv_ff?> > Face à face
-    		<input type="radio" name="type_rdv" value="webcam" <?= $rdv_w?> > Webcam
-    		<input type="radio" name="type_rdv" value="both" <?= $rdv_2?> > Les deux<br>
+  		  	<input type="radio" name="type_rdv" value="faceface" <?=(isset($etudiant['type_rdv']) && $etudiant['type_rdv'] == "faceface") ? 'checked' : ""?> > Face à face
+    		<input type="radio" name="type_rdv" value="webcam"  <?=(isset($etudiant['type_rdv']) && $etudiant['type_rdv'] == "webcam") ? 'checked' : ""?> > Webcam
+    		<input type="radio" name="type_rdv" value="both"  <?=(isset($etudiant['type_rdv']) && $etudiant['type_rdv'] == "both") ? 'checked' : ""?> > Les deux<br>
     		</fieldset>
 
     	<fieldset id="part3">
-    		<textarea name="detail_dispo" placeholder = "Vos disponibilités (ex: disponible le lundi de 18h à 20h"><?= $detail_dispo?></textarea><br>
-    		<input type="text" name="tarif" id="tarif" placeholder = "Tarif (ex: 15€)" value="<?= $tarif?>"><br>
+    		Actuellement je suis :
+    		<input type="radio" name="dispo" value="0" <?=(isset($etudiant['dispo']) && $etudiant['dispo'] == "0") ? 'checked' : ""?>>Indisponible
+  	  		<input type="radio" name="dispo" value="1" <?=(isset($etudiant['dispo']) && $etudiant['dispo'] == "1") ? 'checked' : ""?> >Disponible<br>
+    		<textarea name="detail_dispo"> <?= $etudiant['detail_dispo']?></textarea><br>
+    		<input type="text" name="tarif" id="tarif" " value="<?= $etudiant['tarif']?>"><br>
     	</fieldset>
 
 

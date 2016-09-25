@@ -8,7 +8,7 @@
 	$url_photo = 'img/photos/'.$etudiant['photo'];
 	$date_naissance = date('d/m/Y', strtotime($etudiant['date_naissance']));
 	$date_inscription = date('d/m/Y', strtotime($_SESSION['user']['date_inscription']));
-	
+	 $fmsg->display(); 
 
  ?>
 
@@ -52,10 +52,17 @@
 		
 		echo '<br>Niveau : ' . $etudiant['niveau_etude'] . '<br>'.
 
-		$matiere[0]['nom'] . " " . $scolarite_min[0]['nom'] . " " . $scolarite_max[0]['nom']. "<br>".
+		$matiere[0]['nom'] . " " . $scolarite_min[0]['nom'] . " " . $scolarite_max[0]['nom']. "<br><br>".
 
-		$etudiant['description'] . '<br>'.
-		$etudiant['detail_dispo'] . '<br>'.
+
+		$etudiant['description'] . '<br><br>'.
+
+		'Je suis actuellement ';
+
+
+		echo (isset($etudiant['dispo']) && $etudiant['dispo'] == "0") ? 'indisponible' : "disponible" ;
+
+		echo '<br>'.$etudiant['detail_dispo'] . '<br>'.
 		$etudiant['tarif'] . '€<br><br>';
 		
 		foreach ($commentaire as $value) {

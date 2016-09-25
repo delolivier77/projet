@@ -10,7 +10,7 @@
 
 <form action="<?= $this->url('user_update_particulier')?>" method="post">
 
-   	  <input type="radio" name="civilite" value="M." <?=(isset($particulier['civilite'])) && $particulier['civilite'] == "M.") ? 'checked' : ""?>>M.
+   	  <input type="radio" name="civilite" value="M." <?=(isset($particulier['civilite']) && $particulier['civilite'] == "M.") ? 'checked' : ""?>>M.
   	  <input type="radio" name="civilite" value="Mme" <?=(isset($particulier['civilite']) && $particulier['civilite'] == "Mme") ? 'checked' : ""?> >Mme<br>
   	  <input type="text" name="nom" id="nom" value= "<?= $_SESSION['user']['nom']?>" ><br>
   	  <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['user']['prenom']?>"><br>

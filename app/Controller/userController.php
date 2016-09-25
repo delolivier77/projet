@@ -95,11 +95,8 @@ class UserController extends BaseController
 		}
 
 
-		if (empty($_FILES['photo']['name']))
+		if (!empty($_FILES['photo']['name']))
 		{
-			$error = 1;
-			$this->getFlashMessenger() -> warning('Une photo doit être inserée', null, true);
-		}else{
 			$pos = explode('.', $_FILES['photo']['name']);
 			$size = sizeof($pos);
 			$extention = strtolower($pos[$size-1]);
@@ -123,7 +120,6 @@ class UserController extends BaseController
 		}	
 
 
-
 		$auth = new AuthentificationModel();
 		if (!empty($_POST['ancien_mdp']))
 		{
@@ -133,6 +129,7 @@ class UserController extends BaseController
 				$this->getFlashMessenger() -> error('L\'ancien mot de passe est invalide !', null, true);
 			}
 		}
+
 
 		if (!empty($_POST['cp']) && !preg_match("#^[0-9]{5}$#", $_POST['cp']))
 		{
@@ -189,8 +186,7 @@ class UserController extends BaseController
 			$email = htmlentities($_POST['email']);
 			$mdp = $auth->hashPassword($_POST['mdp']);
 			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
-			$tarif = str_replace(",", ".", $_POST['tarif']);
-
+			
 			$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email, 'mdp' => $mdp, 'statut' => $actif, 'date_inscription' => date("Y-m-d H:i:s"));
 				
 			debug($newUser);
@@ -249,6 +245,74 @@ class UserController extends BaseController
 
 	public function updateEtudiant()
 	{
+
+		$userTable = new UsersModel();
+		$auth = new AuthentificationModel();
+		$etudiantTable = new EtudiantModel();
+		$connaissanceTable = new ConnaissanceModel();
+
+		$error = $this->verifEtudiant(1);
+
+		if ($error == 0)
+		{
+
+			$email = htmlentities($_POST['email']);
+			$date_naissance = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date_naissance'])));
+			
+			if (empty($_POST['ancien_mdp']))
+			{
+				$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email);
+
+			}
+			else
+			{	
+				$mdp = $auth->hashPassword($_POST['nouveau_mdp']);
+				$newUser = array('mdp' => $mdp, 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email);
+			}
+					
+
+			$id_user = $userTable->update($newUser, $_SESSION['user']['id_u']);
+			
+			if (!empty($_FILES['photo']['name']))
+			{
+				$pos = explode('.', $_FILES['photo']['name']);
+				$size = sizeof($pos);
+				$extention = strtolower($pos[$size-1]);
+				$new_name_photo = $id_user['id_u'] . '-etudiant.' . $extention;
+
+				$url_old_photo = 'assets/img/photos/'.$_POST['nom_photo'];
+				unlink($url_old_photo);
+
+				$url_photo = 'assets/img/photos/'. $new_name_photo;
+				copy($_FILES['photo']['tmp_name'], $url_photo);
+
+			}
+			else
+			{
+				$new_name_photo = $_POST['nom_photo'];
+			}
+	
+
+			$newEtudiant = array('photo' => $new_name_photo, 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $_POST['tarif'], 'type_rdv' => $_POST['type_rdv']);
+			$etudiantTable->update($newEtudiant,$_SESSION['user']['id_u']);
+
+			$newConnaissance = array('id_m' => $_POST['matiere'], 'id_s_min' => $_POST['classe_debut'], 'id_s_max' => $_POST['classe_fin'] );
+			$connaissanceTable->update($newConnaissance, $_POST['id_cn']);
+
+			$_SESSION['user']['nom']= $_POST['nom'];
+			$_SESSION['user']['prenom']=$_POST['prenom'];
+			$_SESSION['user']['email']=$_POST['email'];
+
+			
+			$this->getFlashMessenger() -> success('Votre profil a été mis à jour', null, true);
+			$this->redirectToRoute('user_profil_etudiant');
+
+		}
+		else
+		{
+			$this->redirectToRoute('user_form_profil_etudiant');
+		}
+
 	}
 
 
