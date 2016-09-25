@@ -9,6 +9,7 @@ use \Controller\BaseController;
 class CommentaireController extends BaseController
 {
 
+	// suppression d'un commentaire par le particulier
 	public function deleteCommentaire($id)
 	{
 
@@ -19,7 +20,7 @@ class CommentaireController extends BaseController
 
 	}
 
-
+	// recuperation d'un commentaire par son ID puis envoie de celui dans le formulaire de modification
 	public function formCommentaire($id)
 	{
 		$commentaireTable = new CommentaireModel();
@@ -28,7 +29,7 @@ class CommentaireController extends BaseController
 		$this->show('commentaire/form_commentaire', ['commentaire' => $commentaire]);
 	}
 
-
+	// mise a jour d'un commentaire modifié par le particulier
 	public function updateCommentaire()
 	{
 		$commentaireTable = new CommentaireModel();

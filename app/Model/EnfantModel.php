@@ -10,6 +10,7 @@ class EnfantModel extends Model
 	    $this->setPrimaryKey('id_en');
 	}
 
+	// fonction de recherche dans la table utilise un '=' plutot qu'un 'like'
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 

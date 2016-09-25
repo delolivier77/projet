@@ -11,13 +11,14 @@ class ScolariteModel extends Model
 	    $this->setPrimaryKey('id_s');
 	}
 	
-
+	// permet tout le contenu de la table 'scolarite'
 	public function findAllScolarite()
 	{	
 		$scolarite = Model::findAll($orderBy = 'id_s', $orderDir = 'ASC', $limit = null, $offset = null);
 		return $scolarite;
 	}
 
+	// fonction de recherche dans la table utilise un '=' plutot qu'un 'like'
 	public function findWhere(array $search, $operator = 'OR', $stripTags = true)
 	{
 
