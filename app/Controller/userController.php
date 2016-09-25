@@ -235,18 +235,15 @@ class UserController extends BaseController
 		$newConnaissance = new ConnaissanceModel();
 		$connaissance = $newConnaissance->findWhere(['id_et' => $_SESSION['user']['id_u']]);
 					
-		$newScolariteMin = new ScolariteModel();
-		$scolarite_min = $newScolariteMin->findWhere(['id_s' => $connaissance[0]['id_s_min']]);
-
-		$newScolariteMax = new ScolariteModel();
-		$scolarite_max = $newScolariteMax->findWhere(['id_s' => $connaissance[0]['id_s_max']]);
+		$newScolarite = new ScolariteModel();
+		$scolarite_list = $newScolarite->findAllScolarite();
 
 		$newMatiere = new MatiereModel();
-		$matiere = $newMatiere->findWhere(['id_m' => $connaissance[0]['id_m']]);
+		$matiere_list = $newMatiere->findAllMatiere();
 
 		$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
 
-		$this->show('user/form_profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max, 'matiere' => $matiere]);
+		$this->show('user/form_profil_etudiant', ['etudiant' => $etudiant, 'connaissance' => $connaissance, 'scolarite_list' => $scolarite_list, 'matiere_list' => $matiere_list]);
 	}
 
 
@@ -445,10 +442,9 @@ class UserController extends BaseController
 		$enfant = $newEnfant->search(['id_p' => $_SESSION['user']['id_u']]);
 
 		$newScolarite = new ScolariteModel();
-		$scolarite = $newScolarite->find($enfant[0]['id_s']);
 		$scolarite_list = $newScolarite->findAllScolarite();
 
-		$this->show('user/form_profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant, 'scolarite' => $scolarite , 'scolarite_list' => $scolarite_list]);
+		$this->show('user/form_profil_particulier', ['particulier' => $particulier, 'enfant' => $enfant,  'scolarite_list' => $scolarite_list]);
 	}
 
 

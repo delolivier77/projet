@@ -6,10 +6,6 @@
   $this->start('main_content');
 
   echo $fmsg->display(); 
-  
-  debug($assignedDatas);
-
-  debug($_POST);
 
   extract($assignedDatas);
   
