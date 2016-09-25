@@ -12,10 +12,11 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 .search-result-container{margin-top: 2%;overflow: hidden;}
 .search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
 /* .search-result-picutre img{display: block; width: 97%;} */
-.shadow{position: absolute;width: 100%;height: 100%;-webkit-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);-moz-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);bottom: 10%;z-index: -1;}
+/* .shadow{position: absolute;width: 100%;height: 100%;-webkit-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);-moz-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);bottom: 10%;z-index: -1;} */
 .search-result-picture img{display: block; width: 100%;border-radius: 5px;}
 .search-result-picture p{display: inline; color: #fff;}
 .search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 15%;}
+.bg-star{background-color: rgba(0,0,0,0.7);}
 /* .search-result-content{margin-left: 22px;} */
 .etudiant{
 	cursor: pointer;
@@ -72,14 +73,14 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 				<div class="stars">
 					<?php
     				for($x=1;$x<=$valeur['moyenne'];$x++) {
-        				echo '<i class="mdi mdi-18px mdi-star" aria-hidden="true"></i>';
+        				echo '<i class="mdi mdi-18px mdi-star .bg-star" aria-hidden="true"></i>';
     				}
     				if (strpos($valeur['moyenne'],'.') && intval($valeur['moyenne']) != $valeur['moyenne']) {
-        				echo '<i class="mdi mdi-18px mdi-star-half" aria-hidden="true"></i>';
+        				echo '<i class="mdi mdi-18px mdi-star-half .bg-star" aria-hidden="true"></i>';
         				$x++;
     				}
     				while ($x<=5) {
-        				echo '<i class="mdi mdi-18px mdi-star-outline" aria-hidden="true"></i>';
+        				echo '<i class="mdi mdi-18px mdi-star-outline .bg-star" aria-hidden="true"></i>';
         			$x++;
     				}
 					?>

@@ -25,6 +25,6 @@ class CommentaireModel extends Model
             $result = $recherches->fetchAll();
             return $result;
     }
-    public function insert(!)
+    /*public function insert(!)*/
 }
 ?>

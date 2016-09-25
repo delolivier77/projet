@@ -106,7 +106,7 @@ class RechercheController extends Controller
 		/*debug($finalresult);*/
 		$rechercheResults = $this->generateRechercheResults();
 		/*debug($rechercheResults);*/
-		debug($finalresult);
+		/*debug($finalresult);*/
 		$this->show('searchresult/searchresult', ['ville' => $_POST['ville'], 'matiere' => $_POST['matiere'], 'scolarite' => $_POST['scolarite'], 'finalresultv' => $finalresult, 'matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1]]);
 	}
 }
