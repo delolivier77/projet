@@ -529,13 +529,13 @@ class UserController extends BaseController
 			
 			if (empty($_POST['ancien_mdp']))
 			{
-				$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email,  'statut' => $_POST['statut']);
+				$newUser = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email);
 
 			}
 			else
 			{	
 				$mdp = $auth->hashPassword($_POST['nouveau_mdp']);
-				$newUser = array('mdp' => $mdp, 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email,  'statut' => $_POST['statut']);
+				$newUser = array('mdp' => $mdp, 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $email);
 			}
 					
 			$this->getFlashMessenger() -> info($newUser, null, true);	
