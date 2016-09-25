@@ -72,7 +72,19 @@
 							echo '<li><a href="' . $this->url('user_login'). '" class="menu">Connexion</a></li>';
 							echo '<li><a href="' . $this->url('user_inscription_particulier'). '" class="menu">Inscription</a></li>';
 						}else{
-							echo '<li><a href="' . $this->url('user_profil'). '" class="menu">Mon compte</a></li>';
+							switch ($_SESSION['user']['role']) {
+								case 'etudiant':
+									echo '<li><a href="' . $this->url('user_profil_etudiant'). '" class="menu">Mon compte</a></li>';
+								break;
+								case 'particulier':
+									echo '<li><a href="' . $this->url('user_profil_particulier'). '" class="menu">Mon compte</a></li>';
+								break;
+								case 'admin':
+									echo '<li><a href="#" class="menu">Administration</a></li>';
+								break;
+										
+							}
+
 							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
 						}
 						
@@ -101,8 +113,8 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<p>soutien-etudiant.fr &copy; 2016</p>
-					<a href="<?php echo $this->url('contact')?>">Contact</a>
-					<a href="<?php echo $this->url('cgu')?>">Mentions légales</a>
+					<a href="<?php echo $this->url('default_contact')?>">Contact</a>
+					<a href="<?php echo $this->url('default_cgu')?>">Mentions légales</a>
 				</div>
 			</div>
 		</div>

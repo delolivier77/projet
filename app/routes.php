@@ -3,8 +3,8 @@
 	$w_routes = array(
 		/* page d'acceuil*/
 		['GET', '/', 'Default#home', 'default_home'],
-		['GET', '/contact', 'Default#contact', 'contact'],
-		['GET', '/cgu', 'Default#cgu', 'cgu'],
+		['GET', '/contact', 'Default#contact', 'default_contact'],
+		['GET', '/cgu', 'Default#cgu', 'default_cgu'],
 
 
 		/*  gestion Etudiant */
@@ -22,7 +22,6 @@
 		/* connexion */
 		['GET', '/login', 'User#loginForm', 'user_login_form'],
 		['POST', '/login', 'User#login', 'user_login'],
-		['POST', '/profil', 'User#profil', 'user_profil'],
 		['GET', '/profil_etudiant', 'User#profilEtudiant', 'user_profil_etudiant'],
 		['GET', '/profil_particulier', 'User#profilParticulier', 'user_profil_particulier'],
 		['GET', '/logout', 'User#logout', 'user_logout'],	

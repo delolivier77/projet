@@ -637,81 +637,59 @@ class UserController extends BaseController
 	}
 
 	// Test les valeurs de connexion du login
+
+
 	public function login()
 	{
+		// test si le couple email/mot de passe est valide
 		$auth = new AuthentificationModel();
-			
-		// test si le couple email/mot de passe existe
 		if ($auth->isValidLoginInfo($_POST['email'], $_POST['mdp']))
 		{	
-			//recuperation des informations du 'user'
+			// connexion
 			$user = new UsersModel();
 			$dataUser = $user->getUserByUsernameOrEmail($_POST['email']);
 			$auth->logUserIn($dataUser);
-			
+
+			// test si le user est un etudiant
 			$newEtudiant = new EtudiantModel();
 			$etudiant = $newEtudiant->find($_SESSION['user']['id_u']);
 			if (!empty($etudiant) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'etudiant';
+				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
+				$this->redirectToRoute('user_profil_etudiant');
 			}
 
+			// test si le user est un particulier
 			$newParticulier = new ParticulierModel();
 			$particulier = $newParticulier->find($_SESSION['user']['id_u']);
 			if (!empty($particulier) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'particulier';
+				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
+				$this->redirectToRoute('user_profil_particulier');
 			}
 
+			// test si le user est un admin
 			$newAdmin = new AdminModel();
 			$admin = $newAdmin->find($_SESSION['user']['id_u']);
 			if (!empty($admin) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'admin';
+				$this->getFlashMessenger() -> info('admin', null, true);
+				$this->show('user/login');
+				// vers back
 			}
 
-			$this->redirectToRoute('user_profil');	
+			$this->getFlashMessenger() -> error('Le compte n\'exite pas', null, true);
+			$this->show('user/login');
 		}
 		else
 		{
-			// si une erreur dans la connexion retour sur le login
 			$this->getFlashMessenger() -> error('Mot de passe ou email incorrect', null, true);
 			$this->show('user/login');
 		}
 	}
-
-
-	// permet d'ouvrir la bonne page profil
-	public function profil()
-	{
-
-		debug($_SESSION);
-		// test pour savoir si le user est un etudiant	
-		if ($_SESSION['user']['role'] == 'etudiant')
-		{
-			// si le user est un etudiant alors ouverture du profil etudiant
-			$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
-			$this->show('user_profil_etudiant');
-		}
-			
-		// test pour savoir si le user est un particulier	
-		
-		if ($_SESSION['user']['role'] == 'particulier')
-		{
-			// si le user est un particulier alors ouverture du profil particulier
-			$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
-			$this->show('user_profil_particulier');
-		}
-			
-		// si le user est ni un etudiant ni un particulier, il est un admin 
-			if (!empty($admin) && $_SESSION['user']['role'] == 'admin')
-		{
-			// ouverture de la gestion d'administrateur
-		}
-
-	
-	}
-
 
 	// gestion de la deconnection
 	public function logout(){
