@@ -675,7 +675,6 @@ class UserController extends BaseController
 			if (!empty($admin) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'admin';
-				$this->getFlashMessenger() -> info('admin', null, true);
 				$this->redirectToRoute('admin_find_all_commentaire');
 			}
 

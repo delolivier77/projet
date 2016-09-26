@@ -27,12 +27,21 @@ class AdminController extends BaseController {
 	/**
 	* Fonction de recherche des commentaires
 	*/
-	public function findAllCommentaire() {
+	public function findAllCommentaire()
+	{
+		if ($_SESSION['user']['role'] == 'admin')
+		{
+			// $this->allowTo('admin');
+			$commentaireModel = new CommentaireModel();
+			$commentaires = $commentaireModel -> query("SELECT c.id_co, CONCAT(c.id_p,' - ', up.nom,' ',up.prenom) as Particulier, CONCAT(c.id_et,' - ', ue.nom,' ',ue.prenom) as Etudiant, note, commentaire, DATE_FORMAT(date_commentaire,'%m-%d-%Y %h:%i') FROM commentaire as c, user as up, user as ue WHERE c.id_p = up.id_u AND c.id_et = ue.id_u");
 
-		$commentaireModel = new CommentaireModel();
-		$commentaires = $commentaireModel -> query("SELECT c.id_co, CONCAT(c.id_p,' - ', up.nom,' ',up.prenom) as Particulier, CONCAT(c.id_et,' - ', ue.nom,' ',ue.prenom) as Etudiant, note, commentaire, DATE_FORMAT(date_commentaire,'%m-%d-%Y %h:%i') FROM commentaire as c, user as up, user as ue WHERE c.id_p = up.id_u AND c.id_et = ue.id_u");
+			$this -> show('admin/commentaire', ['commentaires' => $commentaires]);
+		}
+		else
+		{
+			$this->redirectToRoute('default_home');
+		}
 
-		$this -> show('admin/commentaire', ['commentaires' => $commentaires]);
 	}
 
 	/**

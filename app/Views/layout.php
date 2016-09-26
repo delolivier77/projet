@@ -51,7 +51,6 @@
 								case 'admin':
 									echo '<li><a href="' . $this->url('admin_find_all_commentaire'). '" class="menu">Administration</a></li>';
 								break;
-										
 							}
 
 							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
@@ -64,8 +63,14 @@
 					
 					<ul class="nav navbar-nav navbar-right">
 						<li> 
-							<form class="navbar-form navbar-right" action="<?=$this->url('user_inscription_etudiant') ?>">
-							<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>
+
+							<?php
+								if ($w_current_route == 'default_home')
+								{
+									echo '<form class="navbar-form navbar-right" action="'.$this->url("user_inscription_etudiant").'">
+									<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>';
+								}
+								?>
 							</form>
 						</li>
 					</ul>
