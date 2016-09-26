@@ -65,7 +65,7 @@
           ?>
         </select><br>
 
-        <select name="classe_fin">
+        <select name="classe_fin" >
           <option selected disabled >Classe de fin</option>
           <?php 
                foreach ($scolarite_list as $indice)
@@ -98,3 +98,11 @@
 
 
 <?php $this->stop('main_content');  ?>
+
+
+
+
+
+
+
+</script>

@@ -41,4 +41,21 @@ class CommentaireController extends BaseController
 		$this->redirectToRoute('user_profil_particulier');
 	}
 
+	
+	/**
+	* Permet de faire une requête complexe
+	* @param $sql Requête a effectué
+	* */
+	public function query($sql)
+	{
+		$sth = $this->dbh->prepare($sql);
+
+		if(!$sth->execute()){
+		return false;
+		}
+
+		return $sth->fetchAll(); 
+	}
+
+
 }

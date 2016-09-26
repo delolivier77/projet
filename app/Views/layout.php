@@ -16,37 +16,6 @@
 
 <body>
 
-	<!-- HEADER -->
-
-<!-- CODE DE SEBASTIEN -->
-
-<!-- 	<header class="fluid-container">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center header">
-
-					<ul class="nav navbar-nav">
-						<li> <a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-						<li> <a href="#">Connexion</a> </li>
-						<li> <a href="#">Inscription</a> </li>
-					</ul>
-
-					<ul class="nav navbar-brand">
-						<li>SOUTIEN-ETUDIANT.FR</li>
-					</ul>
-
-					<form class="nav navbar-form">
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-md">Donner des cours</button>
-						</div>
-					</form>	
-				</div>
-			</div>
-		</div>
-	</header> -->
-
-<!-- FIN CODE DE SEBASTIEN -->
-
 
 		<nav class="navbar navbar-default navbar-fixed-top header">
 			<div class="container">
@@ -80,9 +49,8 @@
 									echo '<li><a href="' . $this->url('user_profil_particulier'). '" class="menu">Mon compte</a></li>';
 								break;
 								case 'admin':
-									echo '<li><a href="#" class="menu">Administration</a></li>';
+									echo '<li><a href="' . $this->url('admin_find_all_commentaire'). '" class="menu">Administration</a></li>';
 								break;
-										
 							}
 
 							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
@@ -95,8 +63,14 @@
 					
 					<ul class="nav navbar-nav navbar-right">
 						<li> 
-							<form class="navbar-form navbar-right" action="<?=$this->url('user_inscription_etudiant') ?>">
-							<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>
+
+							<?php
+								if ($w_current_route == 'default_home')
+								{
+									echo '<form class="navbar-form navbar-right" action="'.$this->url("user_inscription_etudiant").'">
+									<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>';
+								}
+								?>
 							</form>
 						</li>
 					</ul>
