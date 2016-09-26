@@ -2,6 +2,7 @@
 
 <?php $this->start('main_content') ?>
 
+
 <!-- ZONE DE RECHERCHE -->
 <section class="fluid-container">
 
@@ -12,25 +13,7 @@
 		<div class="row">
 			<div class="container">
 				<div class="row form_search">
-					<form method="POST" action="">
-
-						<div class="col-lg-offset-1 col-lg-3">
-							<input type="text" class="form-control" name="matiere" placeholder="Matière" value="" />
-						</div>
-
-						<div class="col-lg-3">
-							<input type="text" class="form-control" name="scolarite" placeholder="Niveau" value="" />
-						</div>
-
-						<div class="col-lg-3">
-							<input type="text" class="form-control" name="ville" placeholder="Ville" value="" />
-						</div>
-
-						<div class="col-lg-1">	
-							<button type="submit" class="btn btn-primary">Rechercher</button>
-						</div>
-
-					</form>
+<?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites)); ?>
 				</div>
 			</div>	
 		</div>

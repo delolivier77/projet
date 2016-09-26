@@ -59,9 +59,11 @@
 		['POST', '/admin/user/adduser', 'Admin#addUser', 'admin_add_user'],
 
 
-
-
-
+		/* gestion des recherches*/
+		['GET', '/recherche', 'Recherche#recherche', 'recherche_recherche'],
+		['POST', '/searchresult', 'Recherche#result', 'recherche_result'],
+		['GET', '/etudiant/[:id]', 'Detailsetudiant#details', 'detailsetudiant_detailsetudiant'],
+		['POST', '/addcom', 'Commentaire#addCom','add_commentaire']	
 
 
 	);

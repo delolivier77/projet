@@ -54,6 +54,22 @@ class ScolariteModel extends Model
         return $sth->fetchAll();
 	}
 
+	public function findAllNames()
+	{	
+		$recherches = $this->dbh->prepare("SELECT nom from scolarite");
+		$recherches->execute();
+		$result = $recherches->fetchAll();
+		/*$this->setTable('matiere');
+		$recherches = Model::findAll($orderBy = 'id', $orderDir = 'ASC', $limit = null, $offset = null);*/
+		return $result;
+	}
+	public function findByName($name)
+	{
+		$scolarite = Model::search($name);
+		return $scolarite;
+	}
+
+
 }
 
 ?>
