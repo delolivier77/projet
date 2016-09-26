@@ -1,0 +1,142 @@
+*{  
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ box-sizing: border-box;
+}
+
+
+body{
+  margin: 0 auto;
+  font-family: 'Open Sans', sans-serif, Source Sans Pro ;
+  background: #F7F7F7;}
+
+@media (max-width: 767px) {}
+
+/* Small Devices, .visible-sm-* */
+@media (min-width: 768px) and (max-width: 991px) {}
+
+/* Medium Devices, .visible-md-* */
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+/* Large Devices, .visible-lg-* */
+@media (min-width: 1200px) {}
+
+ }
+
+
+/*header*/
+
+.navbar-brand{
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  padding-left: 50px;
+  font-family: 'Kaushan Script', cursive;;
+
+ }
+
+.navbar-nav{
+  font-size: 20px;
+}
+
+.header {
+  height: 110px;
+  padding-top: 20px;
+}
+
+
+/*section*/
+
+
+.visuel{
+  background-image: url(../img/visuels/fond-home.jpg);
+  height: 250px;
+  padding-top: 50px;
+  width: 100%;
+}
+
+h1{
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;    
+}
+
+form{
+padding-left:130px;
+
+}
+
+/*aside 1*/ 
+
+h2{
+  color: black;
+  text-align: center;
+  font-size: 20px;
+}
+
+.aside1{
+  height: 300px;
+}
+
+.line2{ 
+  /*line-height: 250px; */
+  background-color: #F7F7F7;
+}
+
+
+.line{
+  border-right: 1px solid #ccc;
+}
+
+/*aside 2*/
+
+
+h3{
+  color: black;
+  text-align: center;
+  padding-bottom: 20px;    
+}
+
+.test2{
+  background-color: #F0f0f0;
+  padding-bottom: 30px;
+ }
+
+.thumbnail{
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    width: 200px;
+    margin-left: 60px;
+  }
+
+
+.desc{
+  text-align: center;
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+img{
+  border-radius: 5px;
+}
+
+/*footer*/
+
+p{
+  font-size: 15px;
+}
+
+.footer{
+  height: 110px;
+  padding-top: 20px;
+  background-color: #fff;
+}
+
+.pac-icon{
+    display: none;
+    }
+.pac-container:after {
+    background-image: none !important;
+    height: 0px;
+}

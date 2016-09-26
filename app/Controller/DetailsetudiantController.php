@@ -29,9 +29,6 @@ class DetailsetudiantController extends Controller
 		$this->show('Detailsetudiant/Detailsetudiant', ['etudiant' => $etudiant[0], 'commentaire' => $commentaire/*, 'connaissance' => $connaissance, 'scolarite_min' => $scolarite_min, 'scolarite_max' => $scolarite_max*//*, 'avg' => $avg, 'commentaire' =>$commentaite*/]);
 		
 	}
-		public function addCom(){
-			
-		}
-	// ... addComm here 
+
 
 }

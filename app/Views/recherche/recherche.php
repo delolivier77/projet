@@ -1,12 +1,16 @@
-<form method="POST" class="form-inline" action="<?=$this->url('recherche_result') ?>">
-	<div class="form-group">
+<form method="POST" action="<?=$this->url('recherche_result') ?>">
+	<div class="col-lg-offset-1 col-lg-3">
     <input placeholder="Matière" type="text" class="form-control" id="matiere" name="matiere" value="<?= isset($matiere) ? $matiere : ''; ?>">
-    <input placeholder="Scolarité" type="text" class="form-control" id="niveau" name="scolarite" value="<?= isset($scolarite) ? $scolarite : ''; ?>">
+    </div>
+    <div class="col-lg-3">
+    <input placeholder="Classe" type="text" class="form-control" id="niveau" name="scolarite" value="<?= isset($scolarite) ? $scolarite : ''; ?>">
+    </div>
+    <div class="col-lg-3">
     <input placeholder="Ville" type="text" class="form-control" id="searchTextField" name="ville" value="<?= isset($ville) ? $ville : ''; ?>">
     </div>
+    <div class="col-lg-1">	
     <button type="submit" class="btn btn-primary">Rechercher</button>
-    
-
+    </div>
 </form>
 <script>
 var input = document.getElementById('searchTextField');
