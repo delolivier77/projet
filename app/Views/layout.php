@@ -12,11 +12,18 @@
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/font/stylesheet.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>">
+	<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css">
+	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 </head>
 
 <body>
 
+	<script type="text/javascript">var mapStack = []; var googleLoaded = false;</script>
+	<div class="page">  <!--  pour la gestion du footer -->
 
+	<!-- HEADER -->
 		<nav class="navbar navbar-default navbar-fixed-top header">
 			<div class="container">
 				<div class="navbar-header">
@@ -30,11 +37,9 @@
 				</div>
 
 				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav">
 
-						<li><a href="<?php echo $this->url('default_home')?>" ><i class="fa fa-home menu" aria-hidden="true"></i></a></li>
-
-
+				<li><a href="<?php echo $this->url('default_home')?>" class="menu">Accueil</a></li>
 					<?php
 						if (!isset($w_user) && empty($w_user))
 						{
@@ -53,31 +58,28 @@
 								break;
 							}
 
-							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
+							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Déconnexion</a></li>';
 						}
 						
 					?>
 
 					</ul>
 
-					
 					<ul class="nav navbar-nav navbar-right">
 						<li> 
-
 							<?php
 								if ($w_current_route == 'default_home')
 								{
 									echo '<form class="navbar-form navbar-right" action="'.$this->url("user_inscription_etudiant").'">
-									<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button>';
+									<button type="submit" class="btn btn-primary btn-cours">Donner des cours</button></form>';
 								}
 								?>
-							</form>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-
+	
 	<!-- CONTENU PRINCIPAL -->
 	<?= $this->section('main_content') ?>
 
@@ -93,12 +95,21 @@
 			</div>
 		</div>
 	</footer>
+	
+</div><!--  FIN div.page -->
 
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="<?= $this->assetUrl('js/bootstrap.min.js') ?>"><\/script>')</script>
 
 	<script src="<?= $this->assetUrl('js/bootstrap.min.js') ?>"></script>
+
+	<script>
+	function initMap() {
+		googleLoaded = true;
+		for(var i = 0; i<mapStack.length; i++) {
+		mapStack[i]();
+			}
+		}
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPlW4LQDMOdSwwxD63oCeedmLRHb6yIjo&libraries=places&callback=initMap&region=FR" async defer></script>
 
 </body>
 </html>

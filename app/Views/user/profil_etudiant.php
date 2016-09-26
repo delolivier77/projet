@@ -9,7 +9,7 @@
 	$date_naissance = date('d/m/Y', strtotime($etudiant['date_naissance']));
 	$date_inscription = date('d/m/Y', strtotime($_SESSION['user']['date_inscription']));
 	$fmsg->display(); 
-	debug($_SESSION);
+
 
  ?>
 

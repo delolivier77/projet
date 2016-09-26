@@ -58,4 +58,14 @@ class CommentaireController extends BaseController
 	}
 
 
+	public function addCom(){
+			
+		$addcom = new CommentaireModel();
+		
+		$addcommentaire = array('commentaire' => $_POST['commentaire'], )
+		$addcom->insert()
+		$this->show('add_commentaire', []);
+		}
+	// ... addComm here 
+
 }

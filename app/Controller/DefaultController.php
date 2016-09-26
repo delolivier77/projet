@@ -19,8 +19,10 @@ class DefaultController extends Controller
 		
 		// $this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1], 'lastStudentsForView'=>$lastStudents));
 
+		$rechercheController = new RechercheController();
+		$rechercheResults = $rechercheController->generateRechercheResults();
 
-		$this -> show('default/home', array('lastStudentsForView' => $lastStudents));
+		$this->show('default/home',array('matieres' => $rechercheResults[0], 'scolarites' => $rechercheResults[1], 'lastStudentsForView'=>$lastStudents));
 	}
 
 	/**
