@@ -5,50 +5,51 @@
 </style>
 <div class="container-fluid">
 	<div class="row">
-		<div class="search-result-picture col-lg-6">
+		<div class="col-lg-6">
 			<div class="row">
-			<div class="col-lg-6"></div>
-			<div class="col-lg-6">
-			<img src="<?= $this->assetUrl("img/photos/" . $etudiant['photo'] . "") ?>">
-			<div class="stars">
-				<?php
-				for($x=1;$x<=$etudiant['moyenne'];$x++) {
-					echo '<i class="fa fa-star bg-star" aria-hidden="true"></i>';
-				}
-				if (strpos($etudiant['moyenne'],'.') && intval($etudiant['moyenne']) != $etudiant['moyenne']) {
-					echo '<i class="fa fa-star-half-o bg-star" aria-hidden="true"></i>';
-					$x++;
-				}
-				while ($x<=5) {
-					echo '<i class="fa fa-star-o bg-star" aria-hidden="true"></i>';
-					$x++;
-				}
-				?>
-				<p><?= $etudiant['nbrdevote']?> (avis)</p>
+				<div class="col-lg-12">
+					<?= $etudiant['prenom'] ?>
+					<?= $etudiant['nom'] ?><br>
+					Ville : <?= $etudiant['ville'] ?><br>
+					Tel : <?= $etudiant['tel'] ?><br>
+					Email : <?= $etudiant['email'] ?><br>
+					Niveau d'étude :
+					<?= $etudiant['niveau_etude'] ?><br>
+					<p>Matière et niveaux ciblés :</p>
+					<?= $etudiant['matiere'] ?><br>
+					<?= $etudiant['scolmin'] ?> à
+					<?= $etudiant['scolmax'] ?><br>
+					Type de rendez vous : 
+					<?php if($etudiant['type_rdv'] == 'webcam' || $etudiant['type_rdv'] == 'both'): ?>
+						<i class="mdi mdi-24px mdi-webcam" aria-hidden="true"></i>
+					<?php endif;?>
+					<?php if($etudiant['type_rdv'] == 'faceface' || $etudiant['type_rdv'] == 'both'): ?>
+						<i class="mdi mdi-24px mdi-account-multiple" aria-hidden="true"></i>
+					<?php endif;?><br><br>
 				</div>
 			</div>
-			</div>
 		</div>
-		<div class="col-lg-6">
-			<?= $etudiant['prenom'] ?>
-			<?= $etudiant['nom'] ?><br>
-
-			Ville : <?= $etudiant['ville'] ?><br>
-			Tel : <?= $etudiant['tel'] ?><br>
-			Email : <?= $etudiant['email'] ?><br>
-			Niveau d'étude :
-			<?= $etudiant['niveau_etude'] ?><br>
-			<p>Matière et niveaux ciblés :</p>
-			<?= $etudiant['matiere'] ?><br>
-			<?= $etudiant['scolmin'] ?> à
-			<?= $etudiant['scolmax'] ?><br>
-			Type de rendez vous : 
-			<?php if($etudiant['type_rdv'] == 'webcam' || $etudiant['type_rdv'] == 'both'): ?>
-				<i class="mdi mdi-24px mdi-webcam" aria-hidden="true"></i>
-			<?php endif;?>
-			<?php if($etudiant['type_rdv'] == 'faceface' || $etudiant['type_rdv'] == 'both'): ?>
-				<i class="mdi mdi-24px mdi-account-multiple" aria-hidden="true"></i>
-			<?php endif;?><br><br>
+		<div class="search-result-picture col-lg-6">
+			<div class="clearfix">
+				<div class="col-lg-6"></div>
+				<div class="col-lg-6"><img src="<?= $this->assetUrl("img/photos/" . $etudiant['photo'] . "") ?>" class="center-block">
+					<div class="stars-details">
+						<?php
+						for($x=1;$x<=$etudiant['moyenne'];$x++) {
+							echo '<i class="fa fa-star bg-star" aria-hidden="true"></i>';
+						}
+						if (strpos($etudiant['moyenne'],'.') && intval($etudiant['moyenne']) != $etudiant['moyenne']) {
+							echo '<i class="fa fa-star-half-o bg-star" aria-hidden="true"></i>';
+							$x++;
+						}
+						while ($x<=5) {
+							echo '<i class="fa fa-star-o bg-star" aria-hidden="true"></i>';
+							$x++;
+						}
+						?>
+						<p><?= $etudiant['nbrdevote']?> (avis)</p>
+					</div></div>
+			</div>
 		</div>
 	</div>
 	<div class="row">

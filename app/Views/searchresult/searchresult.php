@@ -17,10 +17,10 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 .search-result-picture p{display: inline; color: #fff;}
 .search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 25%;}
 .stars{background-color: rgba(0,0,0,0.7);}
+.stars-details{background-color: rgba(0, 0, 0, 0.7);bottom: 1%;padding-left: 2%;padding-right: 2%;position: absolute;right: 20%;z-index: 1;}
 /* .search-result-content{margin-left: 22px;} */
-.etudiant{
-	cursor: pointer;
-}
+.etudiant{cursor: pointer;}
+.etudiant:hover{color: #3277B3;}
 .test{overflow: hidden;}
 .etudiants{background-color: #fff; border-radius: 0 5px 5px 0;}
 .fix{margin-left: 5px;}
@@ -38,7 +38,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 	</div>
 	<div class="col-lg-9 .col-md-offset-3">
 	<?php foreach($finalresultv as $valeur): ?>
-		<div class="row fix search-result-container" onclick="displayModal('<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>');">
+		<div class="row fix search-result-container etudiant" onclick="displayModal('<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>');">
 			<div class="search-result-picture col-lg-3">
 				<img src="<?= $this->assetUrl("img/photos/" . $valeur['photo'] . "") ?>">
 				<div class="stars">
@@ -98,8 +98,23 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 			    center: {lat: positionVille.lat, lng: positionVille.lng},
 			    disableDefaultUI: true,
 			    zoom: 10
-			  });
-			  map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
+			  	});
+			  	var image = '<?= $this->assetUrl("img/visuels/down-arrow.png") ?>';
+				var marker = new google.maps.Marker({
+    			position: {lat: positionVille.lat, lng: positionVille.lng},
+    			title:"Hello World!",
+    			icon: image
+				});
+				marker.setMap(map);
+				var circle = new google.maps.Circle({
+				map: map,
+				radius: 5000,
+				fillColor: '#286090',
+				strokeWeight: 2,
+				strokeColor : '#286090'
+				});
+				circle.bindTo('center', marker, 'position');
+			  	map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
 			}
 			if(googleLoaded) {
 				localize();
