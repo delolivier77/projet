@@ -16,6 +16,7 @@ class RechercheModel extends Model
 			AND c.id_m = :id_matiere
 			AND id_s_min <= :id_scolarite
 			AND id_s_max >= :id_scolarite
+			AND dispo = 1
 			GROUP BY u.id_u");
 		
 		 	$recherches->execute(array('ville' => $ville, 'id_matiere' => $id_matiere, 'id_scolarite' => $id_scolarite));

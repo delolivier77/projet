@@ -38,7 +38,7 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 	</div>
 	<div class="col-lg-9 .col-md-offset-3">
 	<?php foreach($finalresultv as $valeur): ?>
-		<div class="row fix search-result-container" onclick="location.href='<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>';">
+		<div class="row fix search-result-container" onclick="displayModal('<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>');">
 			<div class="search-result-picture col-lg-3">
 				<img src="<?= $this->assetUrl("img/photos/" . $valeur['photo'] . "") ?>">
 				<div class="stars">
@@ -108,15 +108,34 @@ p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
 			}
 			
 		});
-	
 
+	/*var session = JSON.parse('(<?php echo json_encode($_SESSION)?>)'); 
+	console.log (session);
+	console.log(session.user);
+	console.log(session.user.role);*/
+
+	function displayModal(url) {
+	<?php if(isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'particulier' || $_SESSION['user']['role'] == 'admin')): ?>
+			$.get(url, function(data){
+				var myModal = $('#modalStudent');
+				myModal.find('h4').text('Fiche étudiant');
+				myModal.find('.modal-body').html(data);
+				myModal.modal();
+
+			});
+	<?php else : ?>
+		alert("Vous devez être connecté pour accéder au profil de l'étudiant(e)");
+	<?php endif; ?>
+	}
 </script>
 
+<div class="modal fade" id="modalStudent" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <?php $this->stop('main_content') ?>
-
-
-
-0 => moyenne = étoiles jaune
-moyenne => 5 = étoiles blanches blanche
-
-https://maps.googleapis.com/maps/api/geocode/json?address=paris,france

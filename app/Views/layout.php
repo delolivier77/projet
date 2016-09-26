@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/font/stylesheet.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>">
 	<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css">
-	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 </head>
