@@ -655,7 +655,6 @@ class UserController extends BaseController
 			if (!empty($etudiant) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'etudiant';
-				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
 				$this->redirectToRoute('user_profil_etudiant');
 			}
 
@@ -692,7 +691,7 @@ class UserController extends BaseController
 	public function logout(){
 		$auth = new AuthentificationModel();
 		$auth->logUserOut();
-		$this->getFlashMessenger() -> info('Vous êtres deconnecté', null, true);
+		$this->getFlashMessenger() -> info('Vous êtes déconnecté', null, true);
 		$this->redirectToRoute('user_login');
 	}
 
