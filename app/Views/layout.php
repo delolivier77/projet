@@ -37,9 +37,9 @@
 				</div>
 
 				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav">
 
-						<li><a href="<?php echo $this->url('default_home')?>" ><i class="fa fa-home menu" aria-hidden="true"></i></a></li>
+				<li><a href="<?php echo $this->url('default_home')?>" class="menu">Accueil</a></li>
 					<?php
 						if (!isset($w_user) && empty($w_user))
 						{
@@ -58,7 +58,7 @@
 								break;
 							}
 
-							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Deconnexion</a></li>';
+							echo '<li><a href="' . $this->url('user_logout'). '" class="menu">Déconnexion</a></li>';
 						}
 						
 					?>

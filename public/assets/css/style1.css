@@ -4,11 +4,15 @@
 	box-sizing: border-box;
 }
 
+html, body {
+	height: 100%;
+}
 
 body{
 	font-family: 'Open Sans', sans-serif;
 	background: #F7F7F7;
 	padding-top: 71px;
+	margin: 0;
 }
 
 h1,h2,h3{
@@ -130,18 +134,66 @@ h1,h2,h3{
 }
 
 
+/****************** FORMULAIRES *******************/
+
+.formular{
+	color: #7E7E7E;
+	margin-top: 3%;
+}
+
+.panel-title{
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.panel{
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);	
+}
+
+.fonctioning_title{
+	padding-top: 2%;
+}
+.fonctioning{
+	padding-top: 2.5%;
+	font-size: 1.6rem;
+}
+
+.badge{
+	margin-right: 3%;
+}
+
+textarea{
+	margin-bottom: 1.9%;
+	resize: none;
+}
+
+
 /****************** FOOTER *******************/
+
+.page{ /*pour la gestion du footer*/
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 60px;
+}
 
 footer{
 	background: #464646;
+	height: 60px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
+
 
 footer p, footer a{
 	display: inline-block;
 	color: #FFF;
-	padding: 1.5%;
+	font-size: 1.25rem;
+	line-height: 60px;
 	margin: 0;
-	font-size: 1.3rem;
+	padding-right: 0.5%;
+	padding-left: 0.5%;
 }
 
 footer a:hover{
@@ -150,7 +202,6 @@ footer a:hover{
 
 
 /****************** POUR LE RESPONSIVE *******************/
-
 
 @media screen and (max-width: 1199px) {
 
