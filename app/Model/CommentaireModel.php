@@ -82,6 +82,21 @@ class CommentaireModel extends Model
 		}
         return $sth->fetchAll();
 	}
+
+	/**
+	* Permet de faire une requête complexe
+	* @param $sql Requête a effectué
+	* */
+	public function query($sql)
+	{
+		$sth = $this->dbh->prepare($sql);
+
+		if(!$sth->execute()){
+		return false;
+		}
+
+		return $sth->fetchAll(); 
+	}
 	
 }
 ?>

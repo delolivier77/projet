@@ -1,0 +1,145 @@
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body{
+	font: 'Open Sans', sans-serif;
+}
+
+a, a:hover{
+	text-decoration: none;
+}
+
+li{
+	list-style: none;
+}
+
+h1, h2{
+	text-align: center;
+	font-size: 2.5rem;
+	margin-top: 7rem;
+	margin-bottom: 2rem;
+}
+
+h2{
+	margin-top: 2rem;
+}
+
+/****************** TABLEAU ******************/
+table{ 
+	width: 86%;
+	margin: 0 auto 3%;
+}
+
+th{
+	text-align: center;
+	letter-spacing: 0.2rem;
+	background: #337AB7;
+	color: #FFF;
+	line-height: 3rem;
+}
+
+table a:hover{
+	color: #D33BC4;
+}
+
+.fa-pencil-square-o, .fa-trash-o{
+	display: inline-block;
+	width: 100%;
+}
+
+td i{
+	text-align: center;
+}
+
+/****************** FORMULAIRE ******************/
+form{
+	margin: 0 auto;
+	width: 86%;
+}
+
+input, select{
+	margin-bottom: 5%;
+}
+
+.form-group{
+	margin-bottom: 8%;
+	padding-left: 0;
+	padding-right: 3%;
+}
+
+input[type="submit"]{
+	margin-bottom: 1%;
+}
+
+
+/******************** NAVBAR ********************/
+.navbar-header{
+	width: 100%;
+}
+
+.navbar-brand{
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin: 0;
+	color: #D8D8D8!important;
+	padding-right: 6.6%;
+}
+
+.navbar{
+	border: 0;
+}
+
+.menu{
+	padding-right: 6%;
+}
+.menu a{
+	color: #D8D8D8!important;
+}
+.menu:hover{
+	color: #FFF;
+}
+
+.fa-user, .fa-home{
+	padding-right: 0.8rem;
+}
+
+/****************** SIDEBAR ******************/
+.sidebar{
+	display: block;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+	padding: 0;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, .08);
+	background: #F9F9F9;
+}
+
+.nav .active a, .nav .active > a:hover{
+	color: #FFF;
+	background: #641567;
+	cursor: default;
+}
+
+/****************** FOOTER ******************/
+footer{
+	background: #E8E8E8;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	z-index: 5;
+}
+
+footer p, footer a{
+	color: #868686;
+	display: inline-block;
+	padding: 1%;
+	margin: 0;
+}

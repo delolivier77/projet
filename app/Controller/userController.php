@@ -18,7 +18,7 @@ use \Controller\BaseController;
 class UserController extends BaseController
 {
 
-	// permet garder dans le formulaire d'inscription de l'etudiant les données saisis par l'utlisateur en cas d"erreur
+	// Permet garder dans le formulaire d'inscription de l'étudiant les données saisies par l'utlisateur en cas d"erreur
 	public function verifPostEtudiant()
 	{
 
@@ -79,8 +79,8 @@ class UserController extends BaseController
 	}
 
 
-	// test si les differentes données saisies par l'utilisateur lors de l'inscription ou la modification d'un etudiant
-	// si $test vaut 0 la verification se fait pour l'inscription, si il vaut 1 on test pour la modification d'un etudiant
+	// test si les differentes données saisies par l'utilisateur lors de l'inscription ou la modification d'un étudiant
+	// si $test vaut 0 la vérification se fait pour l'inscription, si il vaut 1 pour la modification d'un étudiant
 	public function verifEtudiant($test)
 	{
 		$error = 0;
@@ -107,13 +107,13 @@ class UserController extends BaseController
 			}
 		}
 
-		// test si l'email saisie existe déja
+		// test si l'email saisie existe déjà
 		if (!empty($_POST['email']) && $userTable->emailExists($_POST['email']) && $test == 0 )
 		{
 			$error = "1";
 			$this->getFlashMessenger() -> error('L\'email est déjà utilisé ! Veuillez en saisir un nouveau', null, true);
 		}
-			// test la valeur saisie est bien au bon format
+		// test la valeur saisie est bien au bon format
 		else if(!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) )
 		{
 			$error = "1";
@@ -122,7 +122,7 @@ class UserController extends BaseController
 
 
 		$auth = new AuthentificationModel();
-		// en cas de modification de mot verification que l'ancien mot de passe est valide
+		// en cas de modification de mot de passe, verification que l'ancien mot de passe est valide
 		if (!empty($_POST['ancien_mdp']))
 		{
 			if (!($auth->isValidLoginInfo($_POST['email'], $_POST['ancien_mdp'])) && $test == 1 && !empty($_POST['ancien_mdp']))
@@ -217,7 +217,6 @@ class UserController extends BaseController
 
 			// insertion dans la table 'connaissance'
 			$newConnaissance = array('id_m' => $_POST['matiere'], 'id_et' => $id_user['id_u'], 'id_s_min' => $_POST['classe_debut'], 'id_s_max' => $_POST['classe_fin'] );
-			debug($newConnaissance);
 			$connaissanceTable->insert($newConnaissance);
 
 			// renvoie sur la page login
@@ -677,8 +676,7 @@ class UserController extends BaseController
 			{
 				$_SESSION['user']['role'] = 'admin';
 				$this->getFlashMessenger() -> info('admin', null, true);
-				$this->show('user/login');
-				// vers back
+				$this->redirectToRoute('admin_find_all_commentaire');
 			}
 
 			$this->getFlashMessenger() -> error('Le compte n\'exite pas', null, true);
