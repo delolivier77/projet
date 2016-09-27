@@ -167,6 +167,28 @@ textarea{
 	resize: none;
 }
 
+hr{
+	border: 1px solid #DEDEDE;
+}
+
+.img-profil{
+	border-radius: 5px;
+	float: right;
+	margin-bottom: 3%;
+}
+
+/****************** CGU *******************/
+
+.cgu-container{
+	margin-top: 2.5%;
+}
+
+.cgu{
+	/*border: 2px solid black;*/
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
 
 /****************** FOOTER *******************/
 
@@ -284,6 +306,13 @@ footer a:hover{
 		font-size: 3.8vw;
 	}
 
+	.img-profil{
+		float: none;
+		width: 100%;
+		margin-bottom: 4%;
+	}
+}	
+
 
 @media screen and (max-width: 360px) {
 
@@ -306,4 +335,37 @@ footer a:hover{
 	.concept h2, .last_students h3{
 		font-size: 5vw;
 	}
+
+	.img-profil{
+		float: none;
+		width: 100%;
+		margin-bottom: 4%;
+	}
 }
+
+
+
+/* RESULTATS */
+.top-content{height: 165px;}
+.search{padding-top: 3%; padding-bottom: 3%;border-radius: 5px;}
+.search-result-map{margin-top: 6%;}
+.search-result-container{margin-top: 2%;overflow: hidden;}
+.search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
+.search-result-picture img{display: block; width: 100%;border-radius: 5px 0 0 5px;}
+.search-result-picture p{display: inline; color: #fff;}
+.search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 25%;}
+.etudiant{cursor: pointer;}
+/* GOOGLE MAP */
+#map{height: 300px;width: 100%;border-radius: 5px;padding: 0;}
+.map{overflow: hidden;}
+.etudiants{background-color: #fff; border-radius: 0 5px 5px 0;}
+.fix{margin-left: 5px;}
+.stars {position: absolute; z-index: 1; bottom: 0%; right: 6%;background-color: rgba(0,0,0, 0.7); padding-left: 1%; padding-right: 10%;}
+.stars p{color:#fff; position: absolute; z-index: 1; bottom: -10px; right: 4%;}
+/* API GOOGLE VILLES */
+.pac-icon{display: none;}
+.pac-container:after{background-image: none !important;height: 0px;}
+/* NOTATION */
+.fa-star, .fa-star-half-o, .fa-star-o{color: #F5CE28;}
+.stars{background-color: rgba(0,0,0,0.7);}
+.stars-details{background-color: rgba(0, 0, 0, 0.7);bottom: 1%;padding-left: 2%;padding-right: 2%;position: absolute;right: 20%;z-index: 1;}

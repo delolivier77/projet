@@ -1,7 +1,31 @@
-<?php $this->layout('layout', ['title' => 'Resultats']); ?>
+<?php $this->layout('layout'); ?>
 
 <?php $this->start('main_content') ?>
-	<div class="container">
+<style scoped>
+ul{list-style: none;}
+p{overflow: hidden;text-overflow: ellipsis;max-height: 100px;}
+.top-content{height: 165px;}
+#map{height: 300px;width: 100%;border-radius: 5px;padding: 0;}
+.fa-star, .fa-star-half-o, .fa-star-o{color: #F5CE28;}
+.search{padding-top: 3%; padding-bottom: 3%;border-radius: 5px;}
+.search-result-map{margin-top: 6%;}
+.search-result-container{margin-top: 2%;overflow: hidden;}
+.search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
+/* .search-result-picutre img{display: block; width: 97%;} */
+/* .shadow{position: absolute;width: 100%;height: 100%;-webkit-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);-moz-box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);box-shadow: inset 0px -25px 5px 0px rgba(0,0,0,0.71);bottom: 10%;z-index: -1;} */
+.search-result-picture img{display: block; width: 100%;border-radius: 5px 0 0 5px;}
+.search-result-picture p{display: inline; color: #fff;}
+.search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 25%;}
+.stars{background-color: rgba(0,0,0,0.7);}
+/* .search-result-content{margin-left: 22px;} */
+.etudiant{
+	cursor: pointer;
+}
+.test{overflow: hidden;}
+.etudiants{background-color: #fff; border-radius: 0 5px 5px 0;}
+.fix{margin-left: 5px;}
+</style>
+<div class="container">
 	<div class="row fix">
 		<div class="col-lg-12 search"><?php $this->insert('recherche/recherche',array('matieres'=>$matieres, 'scolarites'=>$scolarites, 'ville'=>$ville, 'scolarite' => $scolarite, 'matiere' => $matiere)); ?>
 		</div>
@@ -9,15 +33,15 @@
 	<div class="row fix">
 	<div class="col-lg-3">
 		<div class="row fix search-result-map">
-			<div class="col-lg-12 map" id="map"></div>
+			<div class="col-lg-12 test" id="map"></div>
 		</div>
 	</div>
 	<div class="col-lg-9 .col-md-offset-3">
 	<?php foreach($finalresultv as $valeur): ?>
-		<div class="row fix search-result-container etudiant" onclick="displayModal('<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>');">
+		<div class="row fix search-result-container" onclick="displayModal('<?= $this->url('detailsetudiant_detailsetudiant', ['id' => $valeur['id_u']]) ?>');">
 			<div class="search-result-picture col-lg-3">
 				<img src="<?= $this->assetUrl("img/photos/" . $valeur['photo'] . "") ?>">
-				<div class="stars-details">
+				<div class="stars">
 					<?php
     				for($x=1;$x<=$valeur['moyenne'];$x++) {
         				echo '<i class="fa fa-star bg-star" aria-hidden="true"></i>';
@@ -74,22 +98,8 @@
 			    center: {lat: positionVille.lat, lng: positionVille.lng},
 			    disableDefaultUI: true,
 			    zoom: 10
-			  	});
-			  	var image = '<?= $this->assetUrl("img/visuels/down-arrow.png") ?>';
-				var marker = new google.maps.Marker({
-    			position: {lat: positionVille.lat, lng: positionVille.lng},
-    			icon: image
-				});
-				marker.setMap(map);
-				var circle = new google.maps.Circle({
-				map: map,
-				radius: 5000,
-				fillColor: '#286090',
-				strokeWeight: 2,
-				strokeColor : '#286090'
-				});
-				circle.bindTo('center', marker, 'position');
-			  	map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
+			  });
+			  map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
 			}
 			if(googleLoaded) {
 				localize();
@@ -98,18 +108,25 @@
 			}
 			
 		});
-	
+
+	/*var session = JSON.parse('(<?php echo json_encode($_SESSION)?>)'); 
+	console.log (session);
+	console.log(session.user);
+	console.log(session.user.role);*/
+
 	function displayModal(url) {
-		$.get(url, function(data){
-			var myModal = $('#modalStudent');
-			myModal.find('h4').text('Fiche étudiant');
-			myModal.find('.modal-body').html(data);
-			myModal.modal();
+	<?php if(isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'particulier' || $_SESSION['user']['role'] == 'admin')): ?>
+			$.get(url, function(data){
+				var myModal = $('#modalStudent');
+				myModal.find('h4').text('Fiche étudiant');
+				myModal.find('.modal-body').html(data);
+				myModal.modal();
 
-		});
+			});
+	<?php else : ?>
+		alert("Vous devez être connecté pour accéder au profil de l'étudiant(e)");
+	<?php endif; ?>
 	}
-
-
 </script>
 
 <div class="modal fade" id="modalStudent" tabindex="-1" role="dialog">
@@ -117,8 +134,8 @@
     <div class="modal-content">
       <div class="modal-body">
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <?php $this->stop('main_content') ?>
