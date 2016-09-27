@@ -117,7 +117,7 @@ class UserController extends BaseController
 		else if(!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) )
 		{
 			$error = "1";
-			$this->getFlashMessenger() -> error('L\'émail est invalide ! Veuillez en saisir un nouveau', null, true);
+			$this->getFlashMessenger() -> error('L\'email est invalide ! Veuillez en saisir un nouveau', null, true);
 		}	
 
 
@@ -212,7 +212,7 @@ class UserController extends BaseController
 			copy($_FILES['photo']['tmp_name'], $url_photo);
 	
 			// insertion dans la table 'etudiant'
-			$newEtudiant = array('id_et' => $id_user['id_u'],'photo' => $new_name_photo, 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $tarif, 'type_rdv' => $_POST['type_rdv']);
+			$newEtudiant = array('id_et' => $id_user['id_u'],'photo' => $new_name_photo, 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $_POST['tarif'], 'type_rdv' => $_POST['type_rdv']);
 			$etudiantTable->insert($newEtudiant);
 
 			// insertion dans la table 'connaissance'
@@ -311,7 +311,7 @@ class UserController extends BaseController
 			}
 	
 			//MAJ de la table "etudiant"
-			$newEtudiant = array('photo' => $new_name_photo, 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $_POST['tarif'], 'type_rdv' => $_POST['type_rdv']);
+			$newEtudiant = array('photo' => $new_name_photo, 'civilite' => $_POST['civilite'], 'date_naissance' => $date_naissance, 'num_etudiant' => $_POST['num_etudiant'], 'adresse' => $_POST['adresse'], 'cp' => $_POST['cp'], 'ville' => $_POST['ville'], 'tel' => $_POST['tel'], 'detail_dispo' => $_POST['detail_dispo'], 'description' => $_POST['description'], 'dispo' => $_POST['dispo'], 'niveau_etude' => $_POST['niveau_etude'], 'tarif' => $_POST['tarif'], 'type_rdv' => $_POST['type_rdv']);
 			$etudiantTable->update($newEtudiant,$_SESSION['user']['id_u']);
 
 			// MAJ de la table "connaissance"
@@ -421,7 +421,7 @@ class UserController extends BaseController
 		else if(!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) )
 		{
 			$error = 1;
-			$this->getFlashMessenger() -> error('L\'émail est invalide ! Veuillez en saisir un nouveau', null, true);
+			$this->getFlashMessenger() -> error('L\'email est invalide ! Veuillez en saisir un nouveau', null, true);
 		}	
 
 
@@ -456,7 +456,7 @@ class UserController extends BaseController
 		if (!empty($_POST['date_naissance']) && !preg_match("#^(((0[1-9])|(1\d)|(2\d)|(3[0-1]))\/((0[1-9])|(1[0-2]))\/(\d{4}))$#", $_POST['date_naissance']))
 		{
 			$error = 1;
-			$this->getFlashMessenger() -> error('La date de naissance est incorrect', null, true);
+			$this->getFlashMessenger() -> error('Le format de la date de naissance est incorrect', null, true);
 		}	
 
 		return ($error);
@@ -664,7 +664,6 @@ class UserController extends BaseController
 			if (!empty($particulier) && $_SESSION['user']['statut'] == 'actif')
 			{
 				$_SESSION['user']['role'] = 'particulier';
-				$this->getFlashMessenger() -> info('Bonjour '. $_SESSION['user']['prenom'] . " " . $_SESSION['user']['nom'], null, true);
 				$this->redirectToRoute('user_profil_particulier');
 			}
 
@@ -677,7 +676,7 @@ class UserController extends BaseController
 				$this->redirectToRoute('admin_find_all_commentaire');
 			}
 
-			$this->getFlashMessenger() -> error('Le compte n\'exite pas', null, true);
+			$this->getFlashMessenger() -> error('Le compte n\'existe pas', null, true);
 			$this->show('user/login');
 		}
 		else
@@ -687,16 +686,12 @@ class UserController extends BaseController
 		}
 	}
 
-	// gestion de la deconnection
+	// gestion de la déconnexion
 	public function logout(){
 		$auth = new AuthentificationModel();
 		$auth->logUserOut();
-		$this->getFlashMessenger() -> info('Vous êtes déconnecté', null, true);
-		$this->redirectToRoute('user_login');
+		$this->redirectToRoute('default_home');
 	}
-
-
-
 
 }
 

@@ -13,14 +13,6 @@ use \W\Security\AuthentificationModel;
 
 class AdminController extends BaseController {
 
-// !!!!!!!!!!!!!!!!!!!!!! À DÉCOMMENTER LORSQU'ON AURA RASSEMBLÉ LES FICHIERS (LOGIN...) : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-/*	public function __construct(){
-		parent::__construct();
-		// Les fonctions de AdminController ne seront mises en oeuvre que si l'utilisateur est admin
-		$this->allowTo('admin');
-	}*/
-
 
 // COMMENTAIRES-------------------------------
 

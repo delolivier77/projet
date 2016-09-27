@@ -58,14 +58,21 @@ class CommentaireController extends BaseController
 	}
 
 
-	public function addCom(){
+	public function addCom()
+	{
 			
 		$addcom = new CommentaireModel();
 		
-		$addcommentaire = array('commentaire' => $_POST['commentaire'], )
-		$addcom->insert()
-		$this->show('add_commentaire', []);
+		$addcommentaire = array(
+
+			'id_p' => $_SESSION['user']['id_u'], 
+			'commentaire' => $_POST['commentaire'], 
+			'id_et' => $_GET['id_et'],
+			'date_commentaire' => date('Y-m-d h:i:s')
+
+			);
+		$newCommentaire = $addcom->insert($addcommentaire);
+		$this->show('addcom/addcom', ['comm'=>$newCommentaire]);
 		}
-	// ... addComm here 
 
 }
