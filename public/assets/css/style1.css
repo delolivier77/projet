@@ -1,0 +1,371 @@
+*{  
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body{
+	font-family: 'Open Sans', sans-serif;
+	background: #F7F7F7;
+	padding-top: 71px;
+	margin: 0;
+}
+
+h1,h2,h3{
+	margin: 0;
+}
+
+/****************** HEADER *******************/
+.header{
+	background: #FFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.header a, button{
+	-webkit-transition-duration: 0.5s;
+	-o-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+}
+
+.domaine, .menu{
+	color: #337AB7!important;	
+}
+
+.domaine{
+	font: 1.7em 'levenim_mtbold', sans-serif;
+}
+
+.domaine:hover, .menu:hover{
+	color: #757575!important;
+	cursor: pointer;
+}
+
+.menu{
+	font-size: 1.1em;
+}
+
+.btn-cours{
+	margin-left: 3%;
+	margin-right: 8%;
+}
+
+/****************** ZONE DE RECHERCHE *******************/
+
+.box_search{
+	background-image: url(../img/visuels/fond-home.jpg);
+	height: 250px;
+	padding-top: 5.2%;
+	width: 100%;
+}
+
+.box_search h1{
+	color: white;
+	text-align: center;
+	padding-bottom: 2%;
+	padding-left: 1.5%;
+}
+
+.form_search{
+	margin: 0 auto;
+}
+
+
+/****************** CONCEPT *******************/
+
+.concept h2{
+	color: #464646;
+	text-align: center;
+	font-size: 2rem;
+	margin-top: 0;
+	margin-bottom: 5%;
+}
+
+.concept{
+	background: #F7F7F7;
+	padding-top: 5%;
+	padding-bottom: 6%;
+}
+
+#concept_left{
+	border-right: 1px solid #CCC;
+}
+
+
+/****************** DERNIERS ETUDIANTS INSCRITS *******************/
+
+.last_students h3{
+	color: #464646;
+	text-align: center;
+	margin-top: 0;
+	padding-bottom: 2%;   
+}
+
+.last_students{
+	background: #F0f0f0;
+	padding-top: 3%;
+	padding-bottom: 3.5%;
+ }
+
+.vignette{
+	border-radius: 10px;
+	border: 1px solid rgb(255, 255, 255);
+ }
+
+.vignette img{
+	border-radius: 10px;
+	width: 100%;
+}
+
+.description{
+	text-align: center;
+	padding-top: 5px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.matiere{
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+/****************** FORMULAIRES *******************/
+
+.formular{
+	color: #7E7E7E;
+	margin-top: 3%;
+}
+
+.panel-title{
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.panel{
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);	
+}
+
+.fonctioning_title{
+	padding-top: 2%;
+}
+.fonctioning{
+	padding-top: 2.5%;
+	font-size: 1.6rem;
+}
+
+.badge{
+	margin-right: 3%;
+}
+
+textarea{
+	margin-bottom: 1.9%;
+	resize: none;
+}
+
+hr{
+	border: 1px solid #DEDEDE;
+}
+
+.img-profil{
+	border-radius: 5px;
+	float: right;
+	margin-bottom: 3%;
+}
+
+/****************** CGU *******************/
+
+.cgu-container{
+	margin-top: 2.5%;
+}
+
+.cgu{
+	/*border: 2px solid black;*/
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
+
+/****************** FOOTER *******************/
+
+.page{ /*pour la gestion du footer*/
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 60px;
+}
+
+footer{
+	background: #464646;
+	height: 60px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+
+footer p, footer a{
+	display: inline-block;
+	color: #FFF;
+	font-size: 1.25rem;
+	line-height: 60px;
+	margin: 0;
+	padding-right: 0.5%;
+	padding-left: 0.5%;
+}
+
+footer a:hover{
+	color: #ccc;
+}
+
+
+/****************** POUR LE RESPONSIVE *******************/
+
+@media screen and (max-width: 1199px) {
+
+ 	.box_search h1{
+		font-size: 3vw;
+	}
+
+	.box_search{
+		padding-top: 2%;
+	}
+
+	.form_search{
+		width: 60%;
+	}
+
+
+	#concept_left{
+		border-right: 0;
+		padding-bottom: 6%;
+	}
+
+	input{
+		margin-bottom: 1%;
+	}
+}
+
+@media screen and (max-width: 991px) {
+
+	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.box_search{
+		padding-top: 2.3%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+
+	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.box_search{
+		padding-top: 4%;
+	}
+}
+
+@media screen and (max-width: 640px) {
+
+ 	.box_search h1{
+		font-size: 3.5vw;
+	}
+
+	.form_search{
+		width: 65%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 3.3vw;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+ 	.box_search h1{
+		font-size: 4vw;
+	}
+
+	.box_search{
+		padding-top: 6%;
+	}
+	
+	.form_search{
+		width: 85%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 3.8vw;
+	}
+
+	.img-profil{
+		float: none;
+		width: 100%;
+		margin-bottom: 4%;
+	}
+}	
+
+
+@media screen and (max-width: 360px) {
+
+	.domaine{
+		font: 1.4em 'levenim_mtbold', sans-serif;
+	}
+
+ 	.box_search h1{
+		font-size: 6vw;
+	}
+
+	.box_search{
+		padding-top: 7%;
+	}
+
+	.form_search{
+		width: 100%;
+	}
+
+	.concept h2, .last_students h3{
+		font-size: 5vw;
+	}
+
+	.img-profil{
+		float: none;
+		width: 100%;
+		margin-bottom: 4%;
+	}
+}
+
+
+
+/* RESULTATS */
+.top-content{height: 165px;}
+.search{padding-top: 3%; padding-bottom: 3%;border-radius: 5px;}
+.search-result-map{margin-top: 6%;}
+.search-result-container{margin-top: 2%;overflow: hidden;}
+.search-result-picture {position: relative;padding-right: 0;overflow: hidden;}
+.search-result-picture img{display: block; width: 100%;border-radius: 5px 0 0 5px;}
+.search-result-picture p{display: inline; color: #fff;}
+.search-result-picture .stars {position: absolute; z-index: 1; top: 88%; left: 25%;}
+.etudiant{cursor: pointer;}
+/* GOOGLE MAP */
+#map{height: 300px;width: 100%;border-radius: 5px;padding: 0;}
+.map{overflow: hidden;}
+.etudiants{background-color: #fff; border-radius: 0 5px 5px 0;}
+.fix{margin-left: 5px;}
+.stars {position: absolute; z-index: 1; bottom: 0%; right: 6%;background-color: rgba(0,0,0, 0.7); padding-left: 1%; padding-right: 10%;}
+.stars p{color:#fff; position: absolute; z-index: 1; bottom: -10px; right: 4%;}
+/* API GOOGLE VILLES */
+.pac-icon{display: none;}
+.pac-container:after{background-image: none !important;height: 0px;}
+/* NOTATION */
+.fa-star, .fa-star-half-o, .fa-star-o{color: #F5CE28;}
+.stars{background-color: rgba(0,0,0,0.7);}
+.stars-details{background-color: rgba(0, 0, 0, 0.7);bottom: 1%;padding-left: 2%;padding-right: 2%;position: absolute;right: 20%;z-index: 1;}

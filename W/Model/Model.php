@@ -184,7 +184,7 @@ abstract class Model
 		}
 
 		$sth = $this->dbh->prepare($sql);
-
+		
 		foreach($search as $key => $value){
 			$value = ($stripTags) ? strip_tags($value) : $value;
 			$sth->bindValue(':'.$key, '%'.$value.'%');
