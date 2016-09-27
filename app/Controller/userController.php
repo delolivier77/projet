@@ -690,7 +690,6 @@ class UserController extends BaseController
 	public function logout(){
 		$auth = new AuthentificationModel();
 		$auth->logUserOut();
-		$this->getFlashMessenger() -> info('Vous êtes déconnecté', null, true);
 		$this->redirectToRoute('default_home');
 	}
 

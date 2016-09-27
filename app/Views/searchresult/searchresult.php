@@ -99,16 +99,30 @@
 			
 		});
 	
+	// function displayModal(url) {
+	// 	$.get(url, function(data){
+	// 		var myModal = $('#modalStudent');
+	// 		myModal.find('h4').text('Fiche étudiant');
+	// 		myModal.find('.modal-body').html(data);
+	// 		myModal.modal();
+
+	// 	});
+	// }
+
+
 	function displayModal(url) {
-		$.get(url, function(data){
-			var myModal = $('#modalStudent');
-			myModal.find('h4').text('Fiche étudiant');
-			myModal.find('.modal-body').html(data);
-			myModal.modal();
+	<?php if(isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'particulier' || $_SESSION['user']['role'] == 'admin')): ?>
+			$.get(url, function(data){
+				var myModal = $('#modalStudent');
+				myModal.find('h4').text('Fiche étudiant');
+				myModal.find('.modal-body').html(data);
+				myModal.modal();
 
-		});
+			});
+	<?php else : ?>
+		alert("Vous devez être connecté pour accéder au profil de l'étudiant(e)");
+	<?php endif; ?>
 	}
-
 
 </script>
 
